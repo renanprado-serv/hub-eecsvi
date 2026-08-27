@@ -93,7 +93,7 @@
         </div>
         
         <div class="flex items-center gap-2">
-          <!-- Botão de Logs (Exibido dinamicamente via JS apenas para o admin) -->
+          <!-- Botão de Logs exclusivo para o usuário 'cec' -->
           <button id="btnMenuLogs" onclick="abrirModalLogs()" class="hidden px-4 py-2 text-sm font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors items-center gap-1">
             <span class="material-symbols-rounded text-[18px]">history</span> Logs
           </button>
@@ -209,7 +209,7 @@
     </div>
   </div>
 
-  <!-- MODAL DE LOGS DE ACESSO (Exclusivo para o seu perfil) -->
+  <!-- MODAL DE LOGS DE ACESSO -->
   <div id="modalLogs" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity">
     <div class="liquid-glass w-full max-w-3xl p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]">
       <div class="flex justify-between items-center mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0">
@@ -242,7 +242,7 @@
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyeKk-8SHfpGwYtyJN61WTHc0G-yVUIquKwJq1KVlJHWVNbzmIAsEoaaQiNokUDJuJMnw/exec";
     let dbEscolas = [];
-    let usuarioLogadoUser = ""; // Guarda o identificador do usuário ativo
+    let usuarioLogadoUser = "";
 
     document.getElementById("inputPass").addEventListener("keyup", function(event) {
       if (event.key === "Enter") fazerLogin();
@@ -267,11 +267,11 @@
       .then(res => {
         btn.disabled = false; btn.innerHTML = 'Entrar';
         if(res.sucesso) {
-          usuarioLogadoUser = user.toLowerCase(); // Armazena o usuário logado
+          usuarioLogadoUser = user.toLowerCase();
           document.getElementById('nomeUsuarioLayout').innerText = res.nome;
           
-          // RECURSO EXCLUSIVO: Se o usuário logado for 'renan', exibe o botão de Logs no topo
-          if (usuarioLogadoUser === 'renan') {
+          // Libera o botão de logs apenas para o usuário 'cec'
+          if (usuarioLogadoUser === 'cec') {
             document.getElementById('btnMenuLogs').classList.remove('hidden');
             document.getElementById('btnMenuLogs').classList.add('flex');
           } else {
@@ -297,7 +297,6 @@
       document.getElementById('appScreen').classList.add('hidden'); document.getElementById('loginScreen').classList.remove('hidden');
     }
 
-    // Funções para abrir/fechar o modal de Logs (Protegido no front e no back)
     function abrirModalLogs() {
       document.getElementById('modalLogs').classList.remove('hidden');
       carregarLogs();
