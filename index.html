@@ -31,20 +31,17 @@
 
     .liquid-glass { background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow); border-radius: 20px; }
     
-    /* Login & Inputs */
     .liquid-input { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 14px; padding: 12px 16px; width: 100%; font-size: 0.95rem; color: var(--apple-text); transition: all 0.2s ease; outline: none; }
     .liquid-input:focus { background: rgba(255, 255, 255, 0.95); border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.16); }
     .btn-primary-apple { background: #0071e3; color: #fff; border-radius: 14px; padding: 12px 24px; font-weight: 700; width: 100%; transition: all 0.2s ease; border: none; cursor: pointer; }
     .btn-primary-apple:hover { background: #0077ed; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
     .btn-primary-apple:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
 
-    /* Menu */
     .liquid-segmented { background: rgba(118, 118, 128, 0.12); backdrop-filter: blur(20px); padding: 5px; border-radius: 980px; display: inline-flex; gap: 4px; border: 1px solid rgba(255, 255, 255, 0.4); flex-wrap: wrap; justify-content: center; }
     .liquid-segmented button { border: none; background: transparent; color: var(--apple-text-secondary); padding: 8px 24px; border-radius: 980px; font-size: 0.95rem; font-weight: 600; transition: all 0.25s ease; display: flex; align-items: center; gap: 8px; cursor: pointer; }
     .liquid-segmented button:hover:not(.nav-active) { color: #555; }
     .liquid-segmented button.nav-active { background: #ffffff; color: var(--apple-text); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
 
-    /* Badges */
     .apple-badge { display: inline-flex; align-items: center; justify-content: center; padding: 4px 12px; border-radius: 980px; font-weight: 700; border: 1px solid transparent; }
     .apple-badge-blue { background: rgba(0, 113, 227, 0.12); color: #0071e3; border-color: rgba(0, 113, 227, 0.25); }
     .apple-badge-gray { background: rgba(120, 120, 128, 0.12); color: #555558; border-color: rgba(120, 120, 128, 0.2); }
@@ -85,7 +82,6 @@
   <div id="appScreen" class="hidden min-h-screen p-4 md:p-8">
     <div class="max-w-7xl mx-auto">
       
-      <!-- Cabeçalho -->
       <header class="liquid-glass p-5 mb-6 flex justify-between items-center">
         <div class="flex items-center gap-4">
           <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-sm">
@@ -93,7 +89,7 @@
           </div>
           <div>
             <h1 class="text-xl font-extrabold tracking-tight text-gray-900 leading-tight">HUB EEC</h1>
-            <p class="text-xs font-semibold text-gray-500">Olá, <span id="nomeUsuarioLayout" class="text-blue-600"></span></p>
+            <p class="text-xs font-semibold text-gray-500">Olá, <span id="nomeUsuarioLayout" class="text-blue-600 uppercase"></span></p>
           </div>
         </div>
         <button onclick="sair()" class="px-4 py-2 text-sm font-bold text-gray-500 hover:text-red-500 transition-colors flex items-center gap-1">
@@ -101,7 +97,6 @@
         </button>
       </header>
 
-      <!-- Banner de Avisos -->
       <div id="bannerAvisos" class="hidden mb-6 liquid-glass p-4 flex items-center gap-4">
         <div class="w-10 h-10 rounded-full bg-blue-100/50 flex items-center justify-center text-blue-600 flex-shrink-0">
           <span class="material-symbols-rounded">campaign</span>
@@ -109,7 +104,6 @@
         <div id="textoAvisos" class="font-semibold text-gray-800 text-sm flex-1 leading-relaxed"></div>
       </div>
 
-      <!-- Menu Principal -->
       <div class="text-center mb-8 overflow-x-auto pb-2">
         <div class="liquid-segmented whitespace-nowrap">
           <button id="btnAbaInicio" class="nav-active" onclick="mudarAba('inicio')"><span class="material-symbols-rounded fs-6">grid_view</span> Início</button>
@@ -124,7 +118,6 @@
 
       <!-- Aba 1: Início -->
       <div id="viewInicio" class="view-section row grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Agenda NATIVA -->
         <div class="lg:col-span-2 liquid-glass p-6 flex flex-col h-[550px]">
           <div class="flex justify-between items-center mb-6 border-b border-gray-200/50 pb-4 flex-shrink-0">
             <h2 class="text-lg font-bold flex items-center gap-2 text-gray-800">
@@ -139,7 +132,6 @@
           </div>
         </div>
 
-        <!-- Documentos e Boletins -->
         <div class="flex flex-col gap-6">
           <div class="liquid-glass p-6 flex flex-col h-[263px]">
             <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0">
@@ -165,15 +157,13 @@
         </div>
       </div>
 
-      <!-- Aba 2: Escolas (MÓDULO NOVO) -->
+      <!-- Aba 2: Escolas -->
       <div id="viewEscolas" class="view-section hidden flex flex-col min-h-[600px]">
-        
         <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <div>
             <h2 class="text-2xl font-extrabold tracking-tight text-gray-900">Catálogo de Escolas</h2>
-            <p class="text-sm font-semibold text-gray-500">Consulte a equipe gestora e PEC responsável.</p>
+            <p class="text-sm font-semibold text-gray-500">Consulte a equipe gestora e dados da unidade.</p>
           </div>
-          <!-- Barra de Pesquisa -->
           <div class="relative w-full md:w-96">
             <span class="material-symbols-rounded absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">search</span>
             <input type="text" id="buscaEscola" onkeyup="filtrarEscolas()" placeholder="Buscar por escola, cidade ou PEC..." class="liquid-input pl-10 w-full shadow-sm bg-white/60">
@@ -181,12 +171,10 @@
         </div>
 
         <div id="gridEscolas" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-           <!-- Cards serão gerados aqui -->
            <div class="col-span-full text-center text-gray-400 py-20 text-sm font-semibold animate-pulse">Buscando banco de dados de escolas...</div>
         </div>
       </div>
 
-      <!-- Outras Abas -->
       <div id="viewQa" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo QA - Em construção</div>
       <div id="viewDc" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo DC - Em construção</div>
       <div id="viewConviva" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo CONVIVA - Em construção</div>
@@ -196,29 +184,33 @@
     </div>
   </div>
 
-  <!-- MODAL DE DETALHES DA ESCOLA (Oculto por padrão) -->
+  <!-- MODAL DE DETALHES DA ESCOLA -->
   <div id="modalEscola" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity">
-    <div class="liquid-glass w-full max-w-md p-6 flex flex-col transform scale-100 transition-transform bg-white/95">
-      <div class="flex justify-between items-start mb-4 border-b border-gray-200/60 pb-4">
-        <div>
+    <div class="liquid-glass w-full max-w-lg p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]">
+      
+      <!-- Cabeçalho do Modal -->
+      <div class="flex justify-between items-start mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0">
+        <div class="pr-4">
           <h2 id="modalEscolaNome" class="text-xl font-extrabold text-gray-900 leading-tight">Nome da Escola</h2>
-          <p id="modalEscolaPec" class="text-sm font-bold text-blue-600 mt-1">PEC</p>
+          <p id="modalEscolaPec" class="text-sm font-bold text-blue-600 mt-1">PEC Responsável</p>
         </div>
-        <button onclick="fecharModalEscola()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors">
+        <button onclick="fecharModalEscola()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0">
           <span class="material-symbols-rounded text-lg">close</span>
         </button>
       </div>
       
-      <div id="modalEscolaContatos" class="flex flex-col gap-1">
-        <!-- Contatos injetados via JS -->
+      <!-- Corpo Rolável do Modal -->
+      <div class="overflow-y-auto scroll-container pr-2 flex-1">
+        <div id="modalEscolaBody" class="flex flex-col gap-1 pb-4">
+          <!-- Conteúdo Injetado via JS -->
+        </div>
       </div>
+      
     </div>
   </div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyeKk-8SHfpGwYtyJN61WTHc0G-yVUIquKwJq1KVlJHWVNbzmIAsEoaaQiNokUDJuJMnw/exec";
-    
-    // Variável global para armazenar a lista de escolas e permitir o filtro rápido
     let dbEscolas = [];
 
     document.getElementById("inputPass").addEventListener("keyup", function(event) {
@@ -232,60 +224,42 @@
       const msg = document.getElementById('msgLogin');
 
       if(!user || !pass) {
-        msg.innerText = "Preencha usuário e senha.";
-        msg.classList.remove('hidden');
-        return;
+        msg.innerText = "Preencha usuário e senha."; msg.classList.remove('hidden'); return;
       }
 
       msg.classList.add('hidden');
       btn.disabled = true;
       btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1" style="font-size: 18px;">sync</span> Autenticando...';
 
-      fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action: 'login', usuario: user, senha: pass })
-      })
+      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'login', usuario: user, senha: pass }) })
       .then(res => res.json())
       .then(res => {
-        btn.disabled = false;
-        btn.innerHTML = 'Entrar';
-        
+        btn.disabled = false; btn.innerHTML = 'Entrar';
         if(res.sucesso) {
           document.getElementById('nomeUsuarioLayout').innerText = res.nome;
           document.getElementById('loginScreen').classList.add('hidden');
           document.getElementById('appScreen').classList.remove('hidden');
           iniciarApp();
         } else {
-          msg.innerText = res.mensagem;
-          msg.classList.remove('hidden');
+          msg.innerText = res.mensagem; msg.classList.remove('hidden');
         }
-      })
-      .catch(err => {
-        btn.disabled = false;
-        btn.innerHTML = 'Entrar';
-        msg.innerText = "Erro de conexão. O servidor não respondeu.";
-        msg.classList.remove('hidden');
+      }).catch(err => {
+        btn.disabled = false; btn.innerHTML = 'Entrar';
+        msg.innerText = "Erro de conexão. O servidor não respondeu."; msg.classList.remove('hidden');
       });
     }
 
     function sair() {
-      document.getElementById('inputUser').value = '';
-      document.getElementById('inputPass').value = '';
-      document.getElementById('appScreen').classList.add('hidden');
-      document.getElementById('loginScreen').classList.remove('hidden');
+      document.getElementById('inputUser').value = ''; document.getElementById('inputPass').value = '';
+      document.getElementById('appScreen').classList.add('hidden'); document.getElementById('loginScreen').classList.remove('hidden');
     }
 
     function iniciarApp() {
-      // Limpa os loaders para buscar
       document.getElementById('listaDocs').innerHTML = '<div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>';
       document.getElementById('listaBoletins').innerHTML = '<div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>';
       document.getElementById('gridEscolas').innerHTML = '<div class="col-span-full text-center text-gray-400 py-20 text-sm font-semibold animate-pulse">Buscando banco de dados de escolas...</div>';
       
-      carregarAvisos();
-      carregarAgenda();
-      carregarDocumentos();
-      carregarEscolas();
+      carregarAvisos(); carregarAgenda(); carregarDocumentos(); carregarEscolas();
     }
 
     function mudarAba(abaDestino) {
@@ -299,34 +273,23 @@
       document.getElementById(`view${abaCapitalizada}`).classList.remove('hidden');
     }
 
-    // --- FUNÇÕES DA NOVA ABA ESCOLAS ---
-
+    // --- FUNÇÕES DA ABA ESCOLAS ---
     function carregarEscolas() {
-      fetch(`${API_URL}?action=getEscolas`)
-        .then(res => res.json())
-        .then(res => {
-          if (!res.sucesso) {
-            document.getElementById('gridEscolas').innerHTML = `<div class="col-span-full text-center text-red-500 py-10 font-bold">${res.mensagem}</div>`;
-            return;
-          }
-          dbEscolas = res.dados; // Salva globalmente para a busca
-          renderizarEscolas(dbEscolas);
-        });
+      fetch(`${API_URL}?action=getEscolas`).then(res => res.json()).then(res => {
+        if (!res.sucesso) {
+          document.getElementById('gridEscolas').innerHTML = `<div class="col-span-full text-center text-red-500 py-10 font-bold">${res.mensagem}</div>`;
+          return;
+        }
+        dbEscolas = res.dados; renderizarEscolas(dbEscolas);
+      });
     }
 
     function renderizarEscolas(lista) {
-      const grid = document.getElementById('gridEscolas');
-      grid.innerHTML = '';
-
-      if(lista.length === 0) {
-        grid.innerHTML = '<div class="col-span-full text-center text-gray-400 py-10 font-semibold">Nenhuma escola encontrada.</div>';
-        return;
-      }
+      const grid = document.getElementById('gridEscolas'); grid.innerHTML = '';
+      if(lista.length === 0) { grid.innerHTML = '<div class="col-span-full text-center text-gray-400 py-10 font-semibold">Nenhuma escola encontrada.</div>'; return; }
 
       lista.forEach((escola, index) => {
-        // Encontra o index original no DB para o clique do Modal funcionar com a busca ativada
         const originalIndex = dbEscolas.findIndex(e => e.nome === escola.nome);
-        
         grid.innerHTML += `
           <div onclick="abrirModalEscola(${originalIndex})" class="liquid-glass p-4 bg-white/70 hover:bg-white/95 transition-all cursor-pointer flex flex-col gap-3 transform hover:-translate-y-1 shadow-sm border border-white">
             <h3 class="font-extrabold text-gray-800 text-[14px] leading-snug">${escola.nome}</h3>
@@ -334,7 +297,7 @@
               <span class="apple-badge apple-badge-blue text-[10px] truncate max-w-[120px]" title="PEC Responsável">
                 <span class="material-symbols-rounded text-[13px] mr-1 align-middle">person</span>${escola.pec}
               </span>
-              ${escola.cidade ? `<span class="apple-badge apple-badge-gray text-[10px] px-2 truncate">${escola.cidade}</span>` : ''}
+              ${escola.cidade && escola.cidade !== '-' ? `<span class="apple-badge apple-badge-gray text-[10px] px-2 truncate">${escola.cidade}</span>` : ''}
             </div>
           </div>
         `;
@@ -343,70 +306,84 @@
 
     function filtrarEscolas() {
       const termo = document.getElementById('buscaEscola').value.toLowerCase();
-      const filtrados = dbEscolas.filter(e => 
-        e.nome.toLowerCase().includes(termo) || 
-        e.pec.toLowerCase().includes(termo) ||
-        e.cidade.toLowerCase().includes(termo)
-      );
+      const filtrados = dbEscolas.filter(e => e.nome.toLowerCase().includes(termo) || e.pec.toLowerCase().includes(termo) || e.cidade.toLowerCase().includes(termo));
       renderizarEscolas(filtrados);
     }
 
-    // Modal Escolas e WhatsApp
     function gerarLinkWpp(numero) {
-      if(!numero) return '';
-      // Limpa tudo que não for número
+      if(!numero || numero === '-') return '';
       let limpo = numero.toString().replace(/\D/g, ''); 
-      // Se for um número válido de celular no Brasil (com ou sem DDD)
       if(limpo.length >= 10) {
-        // Adiciona 55 (Brasil) se não tiver
         if(!limpo.startsWith('55')) limpo = '55' + limpo;
         return `https://wa.me/${limpo}`;
       }
       return '';
     }
 
-    function renderLinhaContato(cargo, nome, telefone) {
-      if (!nome || nome.trim() === '') return '';
+    // Estrutura Interna do Modal da Escola
+    function abrirModalEscola(index) {
+      const escola = dbEscolas[index];
+      document.getElementById('modalEscolaNome').innerText = escola.nome;
+      document.getElementById('modalEscolaPec').innerText = `PEC Responsável: ${escola.pec}`;
       
-      let btnWpp = '';
-      let link = gerarLinkWpp(telefone);
+      const modalBody = document.getElementById('modalEscolaBody');
       
-      if (link) {
-        btnWpp = `
-          <a href="${link}" target="_blank" class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center hover:bg-green-200 transition-colors shadow-sm flex-shrink-0" title="Chamar no WhatsApp">
-            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+      // 1. BLOCO DE CONTATOS NO TOPO
+      let htmlBody = '<h4 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mt-2 mb-3">Equipe Gestora & Contatos</h4>';
+      let temContato = false;
+
+      const addContato = (cargo, nome, fone) => {
+        if (!nome || nome === '-') return '';
+        temContato = true;
+        let btn = '';
+        let link = gerarLinkWpp(fone);
+        if (link) {
+          btn = `<a href="${link}" target="_blank" class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center hover:bg-green-200 transition-colors shadow-sm flex-shrink-0" title="Chamar no WhatsApp"><span class="material-symbols-rounded text-lg">chat</span></a>`;
+        }
+        return `
+          <div class="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
+            <div>
+              <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">${cargo}</p>
+              <p class="text-[14px] font-bold text-gray-700 leading-tight">${nome}</p>
+            </div>
+            ${btn}
+          </div>
+        `;
+      };
+
+      htmlBody += addContato('Diretor(a)', escola.diretor, escola.contatoDiretor);
+      htmlBody += addContato('Vice-Diretor(a)', escola.vice, escola.contatoVice);
+      htmlBody += addContato('Coordenador(a) / CGP', escola.coordenador, escola.contatoCoordenador);
+      
+      if(!temContato) htmlBody += '<p class="text-sm text-gray-500 py-2">Nenhum membro da gestão cadastrado.</p>';
+
+      // 2. BLOCO DE INFORMAÇÕES GERAIS
+      htmlBody += '<h4 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mt-6 mb-3">Informações da Unidade</h4>';
+      htmlBody += `<div class="grid grid-cols-2 gap-3 bg-gray-50/50 p-4 rounded-xl border border-gray-100">`;
+
+      const addInfo = (label, valor) => {
+        if(!valor || valor === '-') return '';
+        return `<div><span class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">${label}</span><span class="text-sm font-semibold text-gray-700">${valor}</span></div>`;
+      };
+
+      htmlBody += addInfo('Tipo', escola.tipo);
+      htmlBody += addInfo('Matrículas', escola.matriculas);
+      htmlBody += addInfo('Anos Finais (EFAF)', escola.efaf);
+      htmlBody += addInfo('Ensino Médio (EM)', escola.em);
+      htmlBody += addInfo('Bairro', escola.bairro);
+      htmlBody += addInfo('Cidade', escola.cidade);
+      htmlBody += `</div>`;
+
+      // 3. BOTÃO DO GOOGLE MAPS
+      if(escola.maps && escola.maps !== '-') {
+        htmlBody += `
+          <a href="${escola.maps}" target="_blank" class="mt-5 flex items-center justify-center gap-2 w-full py-3 bg-blue-50 text-blue-600 rounded-xl font-bold text-sm hover:bg-blue-100 transition-colors shadow-sm">
+            <span class="material-symbols-rounded text-lg">location_on</span> Ver no Google Maps
           </a>
         `;
       }
 
-      return `
-        <div class="flex justify-between items-center py-3 border-b border-gray-100 last:border-0">
-          <div>
-            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">${cargo}</p>
-            <p class="text-[14px] font-bold text-gray-700 leading-tight">${nome}</p>
-          </div>
-          ${btnWpp}
-        </div>
-      `;
-    }
-
-    function abrirModalEscola(index) {
-      const escola = dbEscolas[index];
-      document.getElementById('modalEscolaNome').innerText = escola.nome;
-      document.getElementById('modalEscolaPec').innerText = `PEC: ${escola.pec}`;
-      
-      const contatosDiv = document.getElementById('modalEscolaContatos');
-      let htmlContatos = '';
-      
-      htmlContatos += renderLinhaContato('Diretor(a)', escola.diretor, escola.contatoDiretor);
-      htmlContatos += renderLinhaContato('Vice-Diretor(a)', escola.vice, escola.contatoVice);
-      htmlContatos += renderLinhaContato('Coordenador(a) / CGP', escola.coordenador, escola.contatoCoordenador);
-      
-      if(htmlContatos === '') {
-        htmlContatos = '<p class="text-sm text-gray-500 py-4 text-center">Nenhum membro da gestão cadastrado.</p>';
-      }
-      
-      contatosDiv.innerHTML = htmlContatos;
+      modalBody.innerHTML = htmlBody;
       document.getElementById('modalEscola').classList.remove('hidden');
     }
 
@@ -414,13 +391,11 @@
       document.getElementById('modalEscola').classList.add('hidden');
     }
 
-    // Fechar modal ao clicar no fundo escuro
     document.getElementById('modalEscola').addEventListener('click', function(e) {
       if(e.target === this) fecharModalEscola();
     });
 
     // --- FUNÇÕES JÁ EXISTENTES ---
-
     function carregarAvisos() {
       fetch(`${API_URL}?action=getAvisos`).then(res => res.json()).then(res => {
         if (res.sucesso && res.dados.length > 0) {
@@ -435,8 +410,7 @@
         const container = document.getElementById('containerAgenda');
         if (!res.sucesso) {
           document.getElementById('dataAgenda').innerText = "Hoje";
-          container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10 font-bold">${res.mensagem}</div>`;
-          return;
+          container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10 font-bold">${res.mensagem}</div>`; return;
         }
         document.getElementById('dataAgenda').innerText = res.dataAgendada;
         container.innerHTML = '';
@@ -460,20 +434,16 @@
               </div>
             </div>`;
         });
-      }).catch(err => {
-        document.getElementById('containerAgenda').innerHTML = '<div class="col-span-full text-center text-red-500 py-10 font-bold">Erro de conexão.</div>';
-      });
+      }).catch(err => { document.getElementById('containerAgenda').innerHTML = '<div class="col-span-full text-center text-red-500 py-10 font-bold">Erro de conexão.</div>'; });
     }
 
     function carregarDocumentos() {
-      const contDocs = document.getElementById('listaDocs');
-      const contBoletins = document.getElementById('listaBoletins');
+      const contDocs = document.getElementById('listaDocs'); const contBoletins = document.getElementById('listaBoletins');
       fetch(`${API_URL}?action=getDocumentos`).then(res => res.json()).then(res => {
         contDocs.innerHTML = ''; contBoletins.innerHTML = '';
         if (!res.sucesso || res.dados.length === 0) {
             contDocs.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum documento.</div>';
-            contBoletins.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum boletim.</div>';
-            return;
+            contBoletins.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum boletim.</div>'; return;
         }
         res.dados.sort((a, b) => b.nome.localeCompare(a.nome, undefined, { numeric: true, sensitivity: 'base' }));
         res.dados.forEach(doc => {
@@ -486,8 +456,7 @@
               </div>
               <a href="${doc.url}" target="_blank" class="flex-shrink-0 bg-blue-50 text-blue-600 p-2 rounded-lg hover:bg-blue-100 transition-colors"><span class="material-symbols-rounded text-lg block">open_in_new</span></a>
             </div>`;
-          if (doc.nome.toLowerCase().includes('boletim')) contBoletins.innerHTML += card;
-          else contDocs.innerHTML += card;
+          if (doc.nome.toLowerCase().includes('boletim')) contBoletins.innerHTML += card; else contDocs.innerHTML += card;
         });
         if(contBoletins.innerHTML === '') contBoletins.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum boletim.</div>';
         if(contDocs.innerHTML === '') contDocs.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum documento.</div>';
