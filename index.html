@@ -69,6 +69,7 @@
     <div class="text-center mb-8 overflow-x-auto pb-2">
       <div class="liquid-segmented whitespace-nowrap">
         <button id="btnAbaInicio" class="nav-active" onclick="mudarAba('inicio')"><span class="material-symbols-rounded fs-6">grid_view</span> Início</button>
+        <button id="btnAbaEscolas" onclick="mudarAba('escolas')"><span class="material-symbols-rounded fs-6">domain</span> Escolas</button>
         <button id="btnAbaQa" onclick="mudarAba('qa')"><span class="material-symbols-rounded fs-6">fact_check</span> QA</button>
         <button id="btnAbaDc" onclick="mudarAba('dc')"><span class="material-symbols-rounded fs-6">menu_book</span> DC</button>
         <button id="btnAbaConviva" onclick="mudarAba('conviva')"><span class="material-symbols-rounded fs-6">diversity_3</span> CONVIVA</button>
@@ -127,6 +128,7 @@
     </div>
 
     <!-- Abas Secundárias -->
+    <div id="viewEscolas" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Escolas - Em construção</div>
     <div id="viewQa" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo QA - Em construção</div>
     <div id="viewDc" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo DC - Em construção</div>
     <div id="viewConviva" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo CONVIVA - Em construção</div>
@@ -145,11 +147,14 @@
     });
 
     function mudarAba(abaDestino) {
-      const abas = ['Inicio', 'Qa', 'Dc', 'Conviva', 'EdEspecial', 'Multiplica'];
+      // Array atualizado com a nova aba 'Escolas'
+      const abas = ['Inicio', 'Escolas', 'Qa', 'Dc', 'Conviva', 'EdEspecial', 'Multiplica'];
+      
       abas.forEach(aba => {
         document.getElementById(`btnAba${aba}`).classList.remove('nav-active');
         document.getElementById(`view${aba}`).classList.add('hidden');
       });
+      
       const abaCapitalizada = abaDestino.charAt(0).toUpperCase() + abaDestino.slice(1);
       document.getElementById(`btnAba${abaCapitalizada}`).classList.add('nav-active');
       document.getElementById(`view${abaCapitalizada}`).classList.remove('hidden');
@@ -222,11 +227,9 @@
               return;
           }
 
-          // ORDENAÇÃO: Leitura alfanumérica decrescente pelo NOME do arquivo
           res.dados.sort((a, b) => b.nome.localeCompare(a.nome, undefined, { numeric: true, sensitivity: 'base' }));
 
           res.dados.forEach(doc => {
-            // Remove a extensão .pdf, .docx, etc. para o design ficar mais limpo
             const nomeSemExtensao = doc.nome.replace(/\.[^/.]+$/, "");
 
             const card = `
