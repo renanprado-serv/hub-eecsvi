@@ -30,6 +30,13 @@
     }
 
     .liquid-glass { background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow); border-radius: 20px; }
+    
+    /* Estilos do Login */
+    .liquid-input { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 14px; padding: 12px 16px; width: 100%; font-size: 0.95rem; color: var(--apple-text); transition: all 0.2s ease; outline: none; }
+    .liquid-input:focus { background: rgba(255, 255, 255, 0.95); border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.16); }
+    .btn-primary-apple { background: #0071e3; color: #fff; border-radius: 14px; padding: 12px 24px; font-weight: 700; width: 100%; transition: all 0.2s ease; border: none; cursor: pointer; }
+    .btn-primary-apple:hover { background: #0077ed; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
+    .btn-primary-apple:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
 
     .liquid-segmented { background: rgba(118, 118, 128, 0.12); backdrop-filter: blur(20px); padding: 5px; border-radius: 980px; display: inline-flex; gap: 4px; border: 1px solid rgba(255, 255, 255, 0.4); flex-wrap: wrap; justify-content: center; }
     .liquid-segmented button { border: none; background: transparent; color: var(--apple-text-secondary); padding: 8px 24px; border-radius: 980px; font-size: 0.95rem; font-weight: 600; transition: all 0.25s ease; display: flex; align-items: center; gap: 8px; cursor: pointer; }
@@ -41,120 +48,215 @@
     .scroll-container::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 10px; }
   </style>
 </head>
-<body class="min-h-screen p-4 md:p-8">
+<body>
 
-  <div class="max-w-7xl mx-auto">
-    
-    <header class="liquid-glass p-5 mb-6 flex justify-between items-center">
-      <div class="flex items-center gap-4">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-sm">
-          <span class="material-symbols-rounded text-2xl">hub</span>
-        </div>
-        <div>
-          <h1 class="text-xl font-extrabold tracking-tight text-gray-900 leading-tight">HUB EEC</h1>
-          <p class="text-xs font-semibold text-gray-500">Equipe Curricular</p>
-        </div>
+  <!-- TELA DE LOGIN -->
+  <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
+    <div class="liquid-glass p-8 w-full max-w-sm text-center">
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-md mb-4">
+        <span class="material-symbols-rounded text-4xl">hub</span>
       </div>
-    </header>
-
-    <!-- Banner de Avisos -->
-    <div id="bannerAvisos" class="hidden mb-6 liquid-glass p-4 flex items-center gap-4">
-      <div class="w-10 h-10 rounded-full bg-blue-100/50 flex items-center justify-center text-blue-600 flex-shrink-0">
-        <span class="material-symbols-rounded">campaign</span>
-      </div>
-      <div id="textoAvisos" class="font-semibold text-gray-800 text-sm flex-1 leading-relaxed"></div>
-    </div>
-
-    <!-- Menu Principal -->
-    <div class="text-center mb-8 overflow-x-auto pb-2">
-      <div class="liquid-segmented whitespace-nowrap">
-        <button id="btnAbaInicio" class="nav-active" onclick="mudarAba('inicio')"><span class="material-symbols-rounded fs-6">grid_view</span> Início</button>
-        <button id="btnAbaEscolas" onclick="mudarAba('escolas')"><span class="material-symbols-rounded fs-6">domain</span> Escolas</button>
-        <button id="btnAbaQa" onclick="mudarAba('qa')"><span class="material-symbols-rounded fs-6">fact_check</span> QA</button>
-        <button id="btnAbaDc" onclick="mudarAba('dc')"><span class="material-symbols-rounded fs-6">menu_book</span> DC</button>
-        <button id="btnAbaConviva" onclick="mudarAba('conviva')"><span class="material-symbols-rounded fs-6">diversity_3</span> CONVIVA</button>
-        <button id="btnAbaEdEspecial" onclick="mudarAba('edEspecial')"><span class="material-symbols-rounded fs-6">accessibility_new</span> Educação Especial</button>
-        <button id="btnAbaMultiplica" onclick="mudarAba('multiplica')"><span class="material-symbols-rounded fs-6">school</span> Multiplica</button>
-      </div>
-    </div>
-
-    <!-- Aba Início -->
-    <div id="viewInicio" class="view-section row grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 mb-1">Acesso Restrito</h2>
+      <p class="text-sm font-semibold text-gray-500 mb-6">Autentique-se para entrar no HUB EEC</p>
       
-      <!-- Agenda NATIVA -->
-      <div class="lg:col-span-2 liquid-glass p-6 flex flex-col h-[550px]">
-        <div class="flex justify-between items-center mb-6 border-b border-gray-200/50 pb-4 flex-shrink-0">
-          <h2 class="text-lg font-bold flex items-center gap-2 text-gray-800">
-            <span class="material-symbols-rounded text-blue-500">calendar_month</span> Agenda Diária 
-          </h2>
-          <span id="dataAgenda" class="text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Carregando...</span>
-        </div>
-        
-        <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
-          <div id="containerAgenda" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="col-span-full text-center text-gray-400 py-10 text-sm font-semibold animate-pulse">Sincronizando com a planilha de agendamentos...</div>
-          </div>
-        </div>
+      <div id="msgLogin" class="hidden mb-4 p-3 rounded-xl bg-red-100 text-red-700 text-sm font-bold border border-red-200"></div>
+
+      <div class="text-left mb-4">
+        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Usuário</label>
+        <input type="text" id="inputUser" class="liquid-input" placeholder="Seu nome de usuário">
+      </div>
+      
+      <div class="text-left mb-6">
+        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Senha</label>
+        <input type="password" id="inputPass" class="liquid-input" placeholder="Sua senha">
       </div>
 
-      <!-- Documentos e Boletins -->
-      <div class="flex flex-col gap-6">
-        
-        <!-- Orientadores -->
-        <div class="liquid-glass p-6 flex flex-col h-[263px]">
-          <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0">
-            <span class="material-symbols-rounded text-indigo-500">folder</span> Orientadores
-          </h2>
-          <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
-            <div id="listaDocs" class="flex flex-col gap-2">
-              <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Boletins -->
-        <div class="liquid-glass p-6 flex flex-col h-[263px]">
-          <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0">
-            <span class="material-symbols-rounded text-teal-500">article</span> Boletins
-          </h2>
-          <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
-            <div id="listaBoletins" class="flex flex-col gap-2">
-              <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <button id="btnLogin" class="btn-primary-apple" onclick="fazerLogin()">Entrar</button>
     </div>
+  </div>
 
-    <!-- Abas Secundárias -->
-    <div id="viewEscolas" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Escolas - Em construção</div>
-    <div id="viewQa" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo QA - Em construção</div>
-    <div id="viewDc" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo DC - Em construção</div>
-    <div id="viewConviva" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo CONVIVA - Em construção</div>
-    <div id="viewEdEspecial" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Educação Especial - Em construção</div>
-    <div id="viewMultiplica" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Multiplica - Em construção</div>
+  <!-- TELA DO APLICATIVO (Oculta por padrão) -->
+  <div id="appScreen" class="hidden min-h-screen p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Cabeçalho -->
+      <header class="liquid-glass p-5 mb-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-sm">
+            <span class="material-symbols-rounded text-2xl">hub</span>
+          </div>
+          <div>
+            <h1 class="text-xl font-extrabold tracking-tight text-gray-900 leading-tight">HUB EEC</h1>
+            <p class="text-xs font-semibold text-gray-500">Olá, <span id="nomeUsuarioLayout" class="text-blue-600"></span></p>
+          </div>
+        </div>
+        <button onclick="sair()" class="px-4 py-2 text-sm font-bold text-gray-500 hover:text-red-500 transition-colors flex items-center gap-1">
+          Sair <span class="material-symbols-rounded text-[18px]">logout</span>
+        </button>
+      </header>
 
+      <!-- Banner de Avisos -->
+      <div id="bannerAvisos" class="hidden mb-6 liquid-glass p-4 flex items-center gap-4">
+        <div class="w-10 h-10 rounded-full bg-blue-100/50 flex items-center justify-center text-blue-600 flex-shrink-0">
+          <span class="material-symbols-rounded">campaign</span>
+        </div>
+        <div id="textoAvisos" class="font-semibold text-gray-800 text-sm flex-1 leading-relaxed"></div>
+      </div>
+
+      <!-- Menu Principal -->
+      <div class="text-center mb-8 overflow-x-auto pb-2">
+        <div class="liquid-segmented whitespace-nowrap">
+          <button id="btnAbaInicio" class="nav-active" onclick="mudarAba('inicio')"><span class="material-symbols-rounded fs-6">grid_view</span> Início</button>
+          <button id="btnAbaEscolas" onclick="mudarAba('escolas')"><span class="material-symbols-rounded fs-6">domain</span> Escolas</button>
+          <button id="btnAbaQa" onclick="mudarAba('qa')"><span class="material-symbols-rounded fs-6">fact_check</span> QA</button>
+          <button id="btnAbaDc" onclick="mudarAba('dc')"><span class="material-symbols-rounded fs-6">menu_book</span> DC</button>
+          <button id="btnAbaConviva" onclick="mudarAba('conviva')"><span class="material-symbols-rounded fs-6">diversity_3</span> CONVIVA</button>
+          <button id="btnAbaEdEspecial" onclick="mudarAba('edEspecial')"><span class="material-symbols-rounded fs-6">accessibility_new</span> Educação Especial</button>
+          <button id="btnAbaMultiplica" onclick="mudarAba('multiplica')"><span class="material-symbols-rounded fs-6">school</span> Multiplica</button>
+        </div>
+      </div>
+
+      <!-- Aba Início -->
+      <div id="viewInicio" class="view-section row grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Agenda NATIVA -->
+        <div class="lg:col-span-2 liquid-glass p-6 flex flex-col h-[550px]">
+          <div class="flex justify-between items-center mb-6 border-b border-gray-200/50 pb-4 flex-shrink-0">
+            <h2 class="text-lg font-bold flex items-center gap-2 text-gray-800">
+              <span class="material-symbols-rounded text-blue-500">calendar_month</span> Agenda Diária 
+            </h2>
+            <span id="dataAgenda" class="text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Carregando...</span>
+          </div>
+          
+          <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
+            <div id="containerAgenda" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="col-span-full text-center text-gray-400 py-10 text-sm font-semibold animate-pulse">Sincronizando com a planilha de agendamentos...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Documentos e Boletins -->
+        <div class="flex flex-col gap-6">
+          <div class="liquid-glass p-6 flex flex-col h-[263px]">
+            <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0">
+              <span class="material-symbols-rounded text-indigo-500">folder</span> Orientadores
+            </h2>
+            <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
+              <div id="listaDocs" class="flex flex-col gap-2">
+                <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Aguardando login...</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="liquid-glass p-6 flex flex-col h-[263px]">
+            <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0">
+              <span class="material-symbols-rounded text-teal-500">article</span> Boletins
+            </h2>
+            <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
+              <div id="listaBoletins" class="flex flex-col gap-2">
+                <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Aguardando login...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Abas Secundárias -->
+      <div id="viewEscolas" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Escolas - Em construção</div>
+      <div id="viewQa" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo QA - Em construção</div>
+      <div id="viewDc" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo DC - Em construção</div>
+      <div id="viewConviva" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo CONVIVA - Em construção</div>
+      <div id="viewEdEspecial" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Educação Especial - Em construção</div>
+      <div id="viewMultiplica" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Multiplica - Em construção</div>
+
+    </div>
   </div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyeKk-8SHfpGwYtyJN61WTHc0G-yVUIquKwJq1KVlJHWVNbzmIAsEoaaQiNokUDJuJMnw/exec";
 
-    document.addEventListener('DOMContentLoaded', () => {
+    // Habilita envio do form ao apertar Enter
+    document.getElementById("inputPass").addEventListener("keyup", function(event) {
+      if (event.key === "Enter") fazerLogin();
+    });
+
+    function fazerLogin() {
+      const user = document.getElementById('inputUser').value.trim();
+      const pass = document.getElementById('inputPass').value.trim();
+      const btn = document.getElementById('btnLogin');
+      const msg = document.getElementById('msgLogin');
+
+      if(!user || !pass) {
+        msg.innerText = "Preencha usuário e senha.";
+        msg.classList.remove('hidden');
+        return;
+      }
+
+      msg.classList.add('hidden');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1" style="font-size: 18px;">sync</span> Autenticando...';
+
+      // Dispara o POST em text/plain para contornar o CORS
+      fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'login', usuario: user, senha: pass })
+      })
+      .then(res => res.json())
+      .then(res => {
+        btn.disabled = false;
+        btn.innerHTML = 'Entrar';
+        
+        if(res.sucesso) {
+          document.getElementById('nomeUsuarioLayout').innerText = res.nome;
+          document.getElementById('loginScreen').classList.add('hidden');
+          document.getElementById('appScreen').classList.remove('hidden');
+          
+          // Inicia o carregamento de dados apenas após o login com sucesso
+          iniciarApp();
+        } else {
+          msg.innerText = res.mensagem;
+          msg.classList.remove('hidden');
+        }
+      })
+      .catch(err => {
+        btn.disabled = false;
+        btn.innerHTML = 'Entrar';
+        msg.innerText = "Erro de conexão. O servidor não respondeu.";
+        msg.classList.remove('hidden');
+      });
+    }
+
+    function sair() {
+      // Limpa os campos e volta para a tela de login
+      document.getElementById('inputUser').value = '';
+      document.getElementById('inputPass').value = '';
+      document.getElementById('appScreen').classList.add('hidden');
+      document.getElementById('loginScreen').classList.remove('hidden');
+      
+      // Reseta os containers (Opcional, mas bom para segurança)
+      document.getElementById('containerAgenda').innerHTML = '<div class="col-span-full text-center text-gray-400 py-10 text-sm font-semibold">Sincronizando...</div>';
+      document.getElementById('listaDocs').innerHTML = '';
+      document.getElementById('listaBoletins').innerHTML = '';
+      document.getElementById('bannerAvisos').classList.add('hidden');
+    }
+
+    function iniciarApp() {
+      // Força a UI a mostrar "Buscando..." ao entrar
+      document.getElementById('listaDocs').innerHTML = '<div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>';
+      document.getElementById('listaBoletins').innerHTML = '<div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>';
+      
       carregarAvisos();
       carregarAgenda();
       carregarDocumentos();
-    });
+    }
 
     function mudarAba(abaDestino) {
-      // Array atualizado com a nova aba 'Escolas'
       const abas = ['Inicio', 'Escolas', 'Qa', 'Dc', 'Conviva', 'EdEspecial', 'Multiplica'];
-      
       abas.forEach(aba => {
         document.getElementById(`btnAba${aba}`).classList.remove('nav-active');
         document.getElementById(`view${aba}`).classList.add('hidden');
       });
-      
       const abaCapitalizada = abaDestino.charAt(0).toUpperCase() + abaDestino.slice(1);
       document.getElementById(`btnAba${abaCapitalizada}`).classList.add('nav-active');
       document.getElementById(`view${abaCapitalizada}`).classList.remove('hidden');
