@@ -89,7 +89,7 @@
           <span id="dataAgenda" class="text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Carregando...</span>
         </div>
         
-        <div class="scroll-container overflow-y-auto flex-1 pr-2">
+        <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
           <div id="containerAgenda" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="col-span-full text-center text-gray-400 py-10 text-sm font-semibold animate-pulse">Sincronizando com a planilha de agendamentos...</div>
           </div>
@@ -98,23 +98,31 @@
 
       <!-- Documentos e Boletins -->
       <div class="flex flex-col gap-6">
-        <div class="liquid-glass p-6 flex-1 flex flex-col h-[263px]">
+        
+        <!-- Orientadores -->
+        <div class="liquid-glass p-6 flex flex-col h-[263px]">
           <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0">
             <span class="material-symbols-rounded text-indigo-500">folder</span> Orientadores
           </h2>
-          <div id="listaDocs" class="scroll-container overflow-y-auto flex-1 pr-1 flex flex-col gap-2">
-            <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>
+          <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
+            <div id="listaDocs" class="flex flex-col gap-2">
+              <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>
+            </div>
           </div>
         </div>
 
-        <div class="liquid-glass p-6 flex-1 flex flex-col h-[263px]">
+        <!-- Boletins -->
+        <div class="liquid-glass p-6 flex flex-col h-[263px]">
           <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0">
             <span class="material-symbols-rounded text-teal-500">article</span> Boletins
           </h2>
-          <div id="listaBoletins" class="scroll-container overflow-y-auto flex-1 pr-1 flex flex-col gap-2">
-            <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>
+          <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
+            <div id="listaBoletins" class="flex flex-col gap-2">
+              <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
 
