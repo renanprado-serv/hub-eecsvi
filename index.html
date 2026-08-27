@@ -200,7 +200,7 @@
         });
     }
 
-    function carregarDocumentos() {
+   function carregarDocumentos() {
       const contDocs = document.getElementById('listaDocs');
       const contBoletins = document.getElementById('listaBoletins');
 
@@ -213,6 +213,36 @@
               contBoletins.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum boletim recente.</div>';
               return;
           }
+
+          res.dados.forEach(doc => {
+            // Remove a extensão do arquivo (tudo a partir do último ponto)
+            const nomeSemExtensao = doc.nome.replace(/\.[^/.]+$/, "");
+
+            const card = `
+              <div class="bg-white/60 p-3 rounded-xl flex items-center justify-between hover:bg-white/90 transition-colors shadow-sm border border-white">
+                <div class="truncate pr-2">
+                  <h3 class="font-bold text-gray-800 text-[13px] truncate" title="${nomeSemExtensao}">${nomeSemExtensao}</h3>
+                  <p class="text-[10px] font-bold text-gray-400 uppercase mt-0.5">${doc.data}</p>
+                </div>
+                <a href="${doc.url}" target="_blank" class="flex-shrink-0 bg-blue-50 text-blue-600 p-2 rounded-lg hover:bg-blue-100 transition-colors">
+                  <span class="material-symbols-rounded text-lg block">open_in_new</span>
+                </a>
+              </div>
+            `;
+            
+            // Verifica o nome original (doc.nome) para saber se é boletim, 
+            // mas exibe na tela o nome limpo (nomeSemExtensao)
+            if (doc.nome.toLowerCase().includes('boletim')) {
+              contBoletins.innerHTML += card;
+            } else {
+              contDocs.innerHTML += card;
+            }
+          });
+
+          if(contBoletins.innerHTML === '') contBoletins.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum boletim recente.</div>';
+          if(contDocs.innerHTML === '') contDocs.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum documento recente.</div>';
+        });
+    }
 
           res.dados.forEach(doc => {
             const card = `
