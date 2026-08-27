@@ -31,7 +31,6 @@
 
     .liquid-glass { background: var(--glass-bg); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow); border-radius: 20px; }
 
-    /* Estilo exato do Menu da Imagem de Referência */
     .liquid-segmented { background: rgba(118, 118, 128, 0.12); backdrop-filter: blur(20px); padding: 5px; border-radius: 980px; display: inline-flex; gap: 4px; border: 1px solid rgba(255, 255, 255, 0.4); flex-wrap: wrap; justify-content: center; }
     .liquid-segmented button { border: none; background: transparent; color: var(--apple-text-secondary); padding: 8px 24px; border-radius: 980px; font-size: 0.95rem; font-weight: 600; transition: all 0.25s ease; display: flex; align-items: center; gap: 8px; cursor: pointer; }
     .liquid-segmented button:hover:not(.nav-active) { color: #555; }
@@ -46,7 +45,6 @@
 
   <div class="max-w-7xl mx-auto">
     
-    <!-- Cabeçalho -->
     <header class="liquid-glass p-5 mb-6 flex justify-between items-center">
       <div class="flex items-center gap-4">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-sm">
@@ -59,13 +57,11 @@
       </div>
     </header>
 
-    <!-- Banner de Avisos (Invisível até carregar dados da planilha) -->
     <div id="bannerAvisos" class="hidden mb-6 liquid-glass p-4 border-l-4 border-blue-500 bg-white/80 flex items-center gap-3 shadow-sm">
       <span class="material-symbols-rounded text-blue-500">campaign</span>
       <div id="textoAvisos" class="font-semibold text-gray-800 text-sm flex-1"></div>
     </div>
 
-    <!-- Menu Principal (Liquid Segmented Control) -->
     <div class="text-center mb-8 overflow-x-auto pb-2">
       <div class="liquid-segmented whitespace-nowrap">
         <button id="btnAbaInicio" class="nav-active" onclick="mudarAba('inicio')"><span class="material-symbols-rounded fs-6">grid_view</span> Início</button>
@@ -77,49 +73,47 @@
       </div>
     </div>
 
-    <!-- ÁREAS DE CONTEÚDO -->
-
     <!-- Aba Início -->
     <div id="viewInicio" class="view-section row grid grid-cols-1 lg:grid-cols-3 gap-6">
       
-      <!-- Coluna Esquerda: Agenda (2/3) -->
+      <!-- Agenda NATIVA (2/3 da tela) -->
       <div class="lg:col-span-2 liquid-glass p-6 flex flex-col min-h-[500px]">
-        <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800">
-          <span class="material-symbols-rounded text-blue-500">calendar_month</span> Agenda de Acompanhamento Diária
-        </h2>
-        <!-- Insira aqui o iframe da sua agenda pronta -->
-        <div class="flex-1 rounded-xl overflow-hidden border border-gray-200/50 bg-white/50">
-           <iframe src="COLE_O_LINK_DA_SUA_AGENDA_AQUI" width="100%" height="100%" frameborder="0" style="min-height: 400px;"></iframe>
+        <div class="flex justify-between items-center mb-6 border-b border-gray-200/50 pb-4">
+          <h2 class="text-lg font-bold flex items-center gap-2 text-gray-800">
+            <span class="material-symbols-rounded text-blue-500">calendar_month</span> Agenda Diária 
+          </h2>
+          <span id="dataAgenda" class="text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Carregando...</span>
+        </div>
+        
+        <!-- Container dos Cards da Agenda -->
+        <div id="containerAgenda" class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
+          <div class="col-span-full text-center text-gray-400 py-10 text-sm font-semibold animate-pulse">Sincronizando com a planilha de agendamentos...</div>
         </div>
       </div>
 
-      <!-- Coluna Direita: Documentos e Boletins (1/3) -->
+      <!-- Documentos e Boletins (1/3 da tela) -->
       <div class="flex flex-col gap-6">
-        
-        <!-- Documentos Orientadores -->
         <div class="liquid-glass p-6 flex-1 flex flex-col h-[300px]">
-          <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800">
+          <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2">
             <span class="material-symbols-rounded text-indigo-500">folder</span> Orientadores
           </h2>
           <div id="listaDocs" class="scroll-container overflow-y-auto flex-1 pr-1 flex flex-col gap-2">
-            <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando no Drive...</div>
+            <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>
           </div>
         </div>
 
-        <!-- Boletins -->
         <div class="liquid-glass p-6 flex-1 flex flex-col h-[300px]">
-          <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800">
+          <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2">
             <span class="material-symbols-rounded text-teal-500">article</span> Boletins
           </h2>
           <div id="listaBoletins" class="scroll-container overflow-y-auto flex-1 pr-1 flex flex-col gap-2">
-            <div class="text-center text-gray-400 py-6 text-sm font-semibold">Os arquivos aparecerão aqui.</div>
+            <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>
           </div>
         </div>
-
       </div>
     </div>
 
-    <!-- Abas Secundárias (Esboços para as próximas fases) -->
+    <!-- Abas Secundárias -->
     <div id="viewQa" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo QA - Em construção</div>
     <div id="viewDc" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo DC - Em construção</div>
     <div id="viewConviva" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo CONVIVA - Em construção</div>
@@ -133,38 +127,74 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       carregarAvisos();
+      carregarAgenda();
       carregarDocumentos();
     });
 
-    // Controle de Abas
     function mudarAba(abaDestino) {
       const abas = ['Inicio', 'Qa', 'Dc', 'Conviva', 'EdEspecial', 'Multiplica'];
       abas.forEach(aba => {
         document.getElementById(`btnAba${aba}`).classList.remove('nav-active');
         document.getElementById(`view${aba}`).classList.add('hidden');
       });
-      
       const abaCapitalizada = abaDestino.charAt(0).toUpperCase() + abaDestino.slice(1);
       document.getElementById(`btnAba${abaCapitalizada}`).classList.add('nav-active');
       document.getElementById(`view${abaCapitalizada}`).classList.remove('hidden');
     }
 
-    // Busca Avisos da Planilha
     function carregarAvisos() {
       fetch(`${API_URL}?action=getAvisos`)
         .then(res => res.json())
         .then(res => {
           if (res.sucesso && res.dados.length > 0) {
-            const banner = document.getElementById('bannerAvisos');
-            const texto = document.getElementById('textoAvisos');
-            // Junta os avisos caso haja mais de um
-            texto.innerHTML = res.dados.join(' &nbsp;&bull;&nbsp; '); 
-            banner.classList.remove('hidden');
+            document.getElementById('textoAvisos').innerHTML = res.dados.join(' &nbsp;&bull;&nbsp; '); 
+            document.getElementById('bannerAvisos').classList.remove('hidden');
           }
         });
     }
 
-    // Busca Arquivos do Drive
+    function carregarAgenda() {
+      fetch(`${API_URL}?action=getAgenda`)
+        .then(res => res.json())
+        .then(res => {
+          const container = document.getElementById('containerAgenda');
+          
+          if (!res.sucesso) {
+            document.getElementById('dataAgenda').innerText = "Hoje";
+            container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10 font-bold">${res.mensagem}</div>`;
+            return;
+          }
+
+          document.getElementById('dataAgenda').innerText = res.dataAgendada;
+          container.innerHTML = '';
+          
+          res.dados.forEach(pec => {
+            container.innerHTML += `
+              <div class="bg-white/60 p-4 rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.03)] border border-white hover:bg-white/90 transition-colors flex flex-col gap-3">
+                <h3 class="font-bold text-gray-800 text-base border-b border-gray-200/60 pb-2 flex items-center gap-2">
+                  <span class="material-symbols-rounded text-blue-500 text-xl">person</span> ${pec.pec}
+                </h3>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Manhã</span>
+                    <p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.manha.atividade}</p>
+                    <p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.manha.local}">${pec.manha.local}</p>
+                  </div>
+                  <div>
+                    <span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Tarde</span>
+                    <p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.tarde.atividade}</p>
+                    <p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.tarde.local}">${pec.tarde.local}</p>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+        })
+        .catch(err => {
+          document.getElementById('containerAgenda').innerHTML = '<div class="col-span-full text-center text-red-500 py-10 font-bold">Erro de conexão ao buscar agenda.</div>';
+        });
+    }
+
     function carregarDocumentos() {
       const contDocs = document.getElementById('listaDocs');
       const contBoletins = document.getElementById('listaBoletins');
@@ -173,34 +203,26 @@
         .then(res => res.json())
         .then(res => {
           contDocs.innerHTML = ''; contBoletins.innerHTML = '';
-          if (!res.sucesso || res.dados.length === 0) {
-            contDocs.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum documento.</div>';
-            return;
-          }
+          if (!res.sucesso || res.dados.length === 0) return;
 
           res.dados.forEach(doc => {
             const card = `
               <div class="bg-white/60 p-3 rounded-xl flex items-center justify-between hover:bg-white/90 transition-colors shadow-sm border border-white">
                 <div class="truncate pr-2">
-                  <h3 class="font-bold text-gray-800 text-sm truncate" title="${doc.nome}">${doc.nome}</h3>
-                  <p class="text-[10px] font-bold text-gray-500 uppercase mt-0.5">${doc.data}</p>
+                  <h3 class="font-bold text-gray-800 text-[13px] truncate" title="${doc.nome}">${doc.nome}</h3>
+                  <p class="text-[10px] font-bold text-gray-400 uppercase mt-0.5">${doc.data}</p>
                 </div>
                 <a href="${doc.url}" target="_blank" class="flex-shrink-0 bg-blue-50 text-blue-600 p-2 rounded-lg hover:bg-blue-100 transition-colors">
                   <span class="material-symbols-rounded text-lg block">open_in_new</span>
                 </a>
               </div>
             `;
-            
-            // Lógica simples para separar: se o nome contiver "boletim", vai para a lista inferior.
             if (doc.nome.toLowerCase().includes('boletim')) {
               contBoletins.innerHTML += card;
             } else {
               contDocs.innerHTML += card;
             }
           });
-          
-          if(contBoletins.innerHTML === '') contBoletins.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum boletim recente.</div>';
-          if(contDocs.innerHTML === '') contDocs.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum documento recente.</div>';
         });
     }
   </script>
