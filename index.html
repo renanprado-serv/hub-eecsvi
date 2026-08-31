@@ -84,6 +84,7 @@
   <div id="appScreen" class="hidden min-h-screen p-4 md:p-8">
     <div class="max-w-7xl mx-auto">
       
+      <!-- CABEÇALHO -->
       <header class="liquid-glass p-5 mb-6 flex justify-between items-center">
         <div class="flex items-center gap-4">
           <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-sm">
@@ -96,6 +97,7 @@
         </div>
         
         <div class="flex items-center gap-2">
+          <!-- Botão de Logs exclusivo para o administrador -->
           <button id="btnMenuLogs" onclick="abrirModalLogs()" class="hidden px-4 py-2 text-sm font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors items-center gap-1">
             <span class="material-symbols-rounded text-[18px]">history</span> Logs
           </button>
@@ -106,6 +108,7 @@
         </div>
       </header>
 
+      <!-- AVISOS -->
       <div id="bannerAvisos" class="hidden mb-6 liquid-glass p-4 flex items-center gap-4">
         <div class="w-10 h-10 rounded-full bg-blue-100/50 flex items-center justify-center text-blue-600 flex-shrink-0">
           <span class="material-symbols-rounded">campaign</span>
@@ -113,11 +116,13 @@
         <div id="textoAvisos" class="font-semibold text-gray-800 text-sm flex-1 leading-relaxed"></div>
       </div>
 
+      <!-- MENU PRINCIPAL -->
       <div class="text-center mb-8 overflow-x-auto pb-2">
         <div class="liquid-segmented whitespace-nowrap">
           <button id="btnAbaInicio" class="nav-active" onclick="mudarAba('inicio')"><span class="material-symbols-rounded fs-6">grid_view</span> Início</button>
           <button id="btnAbaEscolas" onclick="mudarAba('escolas')"><span class="material-symbols-rounded fs-6">domain</span> Escolas</button>
           <button id="btnAbaRelatorios" onclick="mudarAba('relatorios')"><span class="material-symbols-rounded fs-6">edit_document</span> Relatórios SEI</button>
+          <button id="btnAbaQa" onclick="mudarAba('qa')"><span class="material-symbols-rounded fs-6">fact_check</span> QA</button>
           <button id="btnAbaDc" onclick="mudarAba('dc')"><span class="material-symbols-rounded fs-6">menu_book</span> DC</button>
           <button id="btnAbaConviva" onclick="mudarAba('conviva')"><span class="material-symbols-rounded fs-6">diversity_3</span> CONVIVA</button>
           <button id="btnAbaEdEspecial" onclick="mudarAba('edEspecial')"><span class="material-symbols-rounded fs-6">accessibility_new</span> Educação Especial</button>
@@ -125,7 +130,7 @@
         </div>
       </div>
 
-      <!-- Aba 1: Início -->
+      <!-- ABA 1: INÍCIO -->
       <div id="viewInicio" class="view-section row grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 liquid-glass p-6 flex flex-col h-[550px]">
           <div class="flex justify-between items-center mb-6 border-b border-gray-200/50 pb-4 flex-shrink-0">
@@ -166,7 +171,7 @@
         </div>
       </div>
 
-      <!-- Aba 2: Escolas -->
+      <!-- ABA 2: ESCOLAS -->
       <div id="viewEscolas" class="view-section hidden flex flex-col min-h-[600px]">
         <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <div>
@@ -184,7 +189,7 @@
         </div>
       </div>
 
-      <!-- Aba 3: Relatórios SEI -->
+      <!-- ABA 3: RELATÓRIOS SEI -->
       <div id="viewRelatorios" class="view-section hidden row grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         <!-- Formulário de Registro -->
@@ -202,7 +207,6 @@
 
             <div>
               <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Escola</label>
-              <!-- Select será preenchido pelo JS após carregar as escolas -->
               <select id="formSeiEscola" class="liquid-input text-sm py-2">
                 <option value="">Carregando escolas...</option>
               </select>
@@ -258,6 +262,8 @@
         </div>
       </div>
 
+      <!-- DEMAIS ABAS -->
+      <div id="viewQa" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo QA - Em construção</div>
       <div id="viewDc" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo DC - Em construção</div>
       <div id="viewConviva" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo CONVIVA - Em construção</div>
       <div id="viewEdEspecial" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Educação Especial - Em construção</div>
@@ -316,14 +322,18 @@
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyeKk-8SHfpGwYtyJN61WTHc0G-yVUIquKwJq1KVlJHWVNbzmIAsEoaaQiNokUDJuJMnw/exec";
+    
+    // Variáveis Globais
     let dbEscolas = [];
     let usuarioLogadoUser = "";
-    let nomeUsuarioExibicao = ""; // Armazena o Nome Completo para jogar no Relatório
+    let nomeUsuarioExibicao = ""; 
 
+    // Dispara login com Enter
     document.getElementById("inputPass").addEventListener("keyup", function(event) {
       if (event.key === "Enter") fazerLogin();
     });
 
+    // --- FUNÇÕES DE LOGIN E CORE ---
     function fazerLogin() {
       const user = document.getElementById('inputUser').value.trim();
       const pass = document.getElementById('inputPass').value.trim();
@@ -371,6 +381,35 @@
       document.getElementById('appScreen').classList.add('hidden'); document.getElementById('loginScreen').classList.remove('hidden');
     }
 
+    function iniciarApp() {
+      document.getElementById('listaDocs').innerHTML = '<div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>';
+      document.getElementById('listaBoletins').innerHTML = '<div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>';
+      document.getElementById('gridEscolas').innerHTML = '<div class="col-span-full text-center text-gray-400 py-20 text-sm font-semibold animate-pulse">Buscando banco de dados...</div>';
+      document.getElementById('formSeiData').valueAsDate = new Date(); 
+      
+      carregarAvisos(); 
+      carregarAgenda(); 
+      carregarDocumentos(); 
+      carregarEscolas();
+      carregarRelatorios();
+    }
+
+    function mudarAba(abaDestino) {
+      const abas = ['Inicio', 'Escolas', 'Relatorios', 'Qa', 'Dc', 'Conviva', 'EdEspecial', 'Multiplica'];
+      abas.forEach(aba => {
+        document.getElementById(`btnAba${abaCapitalizada(aba)}`).classList.remove('nav-active');
+        document.getElementById(`view${abaCapitalizada(aba)}`).classList.add('hidden');
+      });
+      const destinoCap = abaCapitalizada(abaDestino);
+      document.getElementById(`btnAba${destinoCap}`).classList.add('nav-active');
+      document.getElementById(`view${destinoCap}`).classList.remove('hidden');
+    }
+
+    function abaCapitalizada(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // --- FUNÇÕES DE LOGS ---
     function abrirModalLogs() { document.getElementById('modalLogs').classList.remove('hidden'); carregarLogs(); }
     function fecharModalLogs() { document.getElementById('modalLogs').classList.add('hidden'); }
 
@@ -386,28 +425,7 @@
         }).catch(err => { tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-red-500 font-bold">Erro ao carregar os logs.</td></tr>'; });
     }
 
-    function iniciarApp() {
-      document.getElementById('listaDocs').innerHTML = '<div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>';
-      document.getElementById('listaBoletins').innerHTML = '<div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>';
-      document.getElementById('gridEscolas').innerHTML = '<div class="col-span-full text-center text-gray-400 py-20 text-sm font-semibold animate-pulse">Buscando banco de dados...</div>';
-      document.getElementById('formSeiData').valueAsDate = new Date(); // Seta a data de hoje no form
-      
-      carregarAvisos(); carregarAgenda(); carregarDocumentos(); carregarEscolas();
-      carregarRelatorios();
-    }
-
-    function mudarAba(abaDestino) {
-      const abas = ['Inicio', 'Escolas', 'Relatorios', 'Qa', 'Dc', 'Conviva', 'EdEspecial', 'Multiplica'];
-      abas.forEach(aba => {
-        document.getElementById(`btnAba${aba}`).classList.remove('nav-active');
-        document.getElementById(`view${aba}`).classList.add('hidden');
-      });
-      const abaCapitalizada = abaDestino.charAt(0).toUpperCase() + abaDestino.slice(1);
-      document.getElementById(`btnAba${abaCapitalizada}`).classList.add('nav-active');
-      document.getElementById(`view${abaCapitalizada}`).classList.remove('hidden');
-    }
-
-    // --- FUNÇÕES DA ABA RELATÓRIOS ---
+    // --- FUNÇÕES DE RELATÓRIOS SEI ---
     function salvarRelatorioSei() {
       const btn = document.getElementById('btnSalvarRelatorio');
       const msg = document.getElementById('msgFormSei');
@@ -430,7 +448,16 @@
       btn.disabled = true;
       btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1" style="font-size: 18px;">sync</span> Salvando...';
 
-      const payload = { action: 'salvarRelatorio', pec: nomeUsuarioExibicao, dataVisita: dataVisita.split('-').reverse().join('/'), escola: escola, periodo: periodo, processo: processo, link: link, status: status };
+      const payload = { 
+        action: 'salvarRelatorio', 
+        pec: nomeUsuarioExibicao, 
+        dataVisita: dataVisita.split('-').reverse().join('/'), 
+        escola: escola, 
+        periodo: periodo, 
+        processo: processo, 
+        link: link, 
+        status: status 
+      };
 
       fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
       .then(res => res.json())
@@ -443,7 +470,7 @@
           document.getElementById('formSeiProcesso').value = '';
           document.getElementById('formSeiLink').value = '';
           setTimeout(() => { msg.classList.add('hidden'); }, 4000);
-          carregarRelatorios(); // Atualiza a lista lateral
+          carregarRelatorios(); 
         } else {
           msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200";
           msg.innerText = res.mensagem; msg.classList.remove('hidden');
@@ -489,22 +516,20 @@
       }).catch(err => { container.innerHTML = '<div class="text-center text-red-500 py-10 font-bold">Erro ao carregar relatórios.</div>'; });
     }
 
-    // --- DEMAIS FUNÇÕES ---
+    // --- FUNÇÕES DE ESCOLAS ---
     function carregarEscolas() {
       fetch(`${API_URL}?action=getEscolas`).then(res => res.json()).then(res => {
         if (!res.sucesso) { document.getElementById('gridEscolas').innerHTML = `<div class="col-span-full text-center text-red-500 py-10 font-bold">${res.mensagem}</div>`; return; }
         dbEscolas = res.dados; 
         renderizarEscolas(dbEscolas);
-        preencherSelectEscolasFormulario(dbEscolas); // Preenche o Dropdown do novo Form
+        preencherSelectEscolasFormulario(dbEscolas); 
       });
     }
 
     function preencherSelectEscolasFormulario(lista) {
       const select = document.getElementById('formSeiEscola');
       select.innerHTML = '<option value="" disabled selected>Selecione a unidade escolar...</option>';
-      lista.forEach(escola => {
-        select.innerHTML += `<option value="${escola.nome}">${escola.nome}</option>`;
-      });
+      lista.forEach(escola => { select.innerHTML += `<option value="${escola.nome}">${escola.nome}</option>`; });
     }
 
     function renderizarEscolas(lista) {
@@ -557,6 +582,7 @@
     function fecharModalEscola() { document.getElementById('modalEscola').classList.add('hidden'); }
     document.getElementById('modalEscola').addEventListener('click', function(e) { if(e.target === this) fecharModalEscola(); });
 
+    // --- FUNÇÕES COMPARTILHADAS (INÍCIO) ---
     function carregarAvisos() { fetch(`${API_URL}?action=getAvisos`).then(res => res.json()).then(res => { if (res.sucesso && res.dados.length > 0) { document.getElementById('textoAvisos').innerHTML = res.dados.join(' &nbsp;&bull;&nbsp; '); document.getElementById('bannerAvisos').classList.remove('hidden'); } }); }
     function carregarAgenda() { fetch(`${API_URL}?action=getAgenda`).then(res => res.json()).then(res => { const container = document.getElementById('containerAgenda'); if (!res.sucesso) { document.getElementById('dataAgenda').innerText = "Hoje"; container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10 font-bold">${res.mensagem}</div>`; return; } document.getElementById('dataAgenda').innerText = res.dataAgendada; container.innerHTML = ''; res.dados.forEach(pec => { container.innerHTML += `<div class="bg-white/60 p-4 rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.03)] border border-white hover:bg-white/90 transition-colors flex flex-col gap-3"><h3 class="font-bold text-gray-800 text-[15px] border-b border-gray-200/60 pb-2 flex items-center gap-2"><span class="material-symbols-rounded text-blue-500 text-lg">person</span> ${pec.pec}</h3><div class="grid grid-cols-2 gap-4 flex-1"><div><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Manhã</span><p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.manha.atividade}</p><p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.manha.local}">${pec.manha.local}</p></div><div><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Tarde</span><p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.tarde.atividade}</p><p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.tarde.local}">${pec.tarde.local}</p></div></div></div>`; }); }).catch(err => { document.getElementById('containerAgenda').innerHTML = '<div class="col-span-full text-center text-red-500 py-10 font-bold">Erro de conexão.</div>'; }); }
     function carregarDocumentos() { const contDocs = document.getElementById('listaDocs'); const contBoletins = document.getElementById('listaBoletins'); fetch(`${API_URL}?action=getDocumentos`).then(res => res.json()).then(res => { contDocs.innerHTML = ''; contBoletins.innerHTML = ''; if (!res.sucesso || res.dados.length === 0) { contDocs.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum documento.</div>'; contBoletins.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum boletim.</div>'; return; } res.dados.sort((a, b) => b.nome.localeCompare(a.nome, undefined, { numeric: true, sensitivity: 'base' })); res.dados.forEach(doc => { const nomeSemExtensao = doc.nome.replace(/\.[^/.]+$/, ""); const card = `<div class="bg-white/60 p-3 rounded-xl flex items-center justify-between hover:bg-white/90 transition-colors shadow-sm border border-white"><div class="truncate pr-2"><h3 class="font-bold text-gray-800 text-[13px] truncate" title="${nomeSemExtensao}">${nomeSemExtensao}</h3><p class="text-[10px] font-bold text-gray-400 uppercase mt-0.5">${doc.data}</p></div><a href="${doc.url}" target="_blank" class="flex-shrink-0 bg-blue-50 text-blue-600 p-2 rounded-lg hover:bg-blue-100 transition-colors"><span class="material-symbols-rounded text-lg block">open_in_new</span></a></div>`; if (doc.nome.toLowerCase().includes('boletim')) contBoletins.innerHTML += card; else contDocs.innerHTML += card; }); if(contBoletins.innerHTML === '') contBoletins.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum boletim.</div>'; if(contDocs.innerHTML === '') contDocs.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum documento.</div>'; }); }
