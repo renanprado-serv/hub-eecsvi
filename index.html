@@ -33,6 +33,7 @@
     
     .liquid-input { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 14px; padding: 12px 16px; width: 100%; font-size: 0.95rem; color: var(--apple-text); transition: all 0.2s ease; outline: none; }
     .liquid-input:focus { background: rgba(255, 255, 255, 0.95); border-color: #0071e3; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.16); }
+    
     .btn-primary-apple { background: #0071e3; color: #fff; border-radius: 14px; padding: 12px 24px; font-weight: 700; width: 100%; transition: all 0.2s ease; border: none; cursor: pointer; }
     .btn-primary-apple:hover { background: #0077ed; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
     .btn-primary-apple:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
@@ -74,6 +75,7 @@
   <div id="appScreen" class="hidden min-h-screen p-4 md:p-8">
     <div class="max-w-7xl mx-auto">
       
+      <!-- CABEÇALHO -->
       <header class="liquid-glass p-5 mb-6 flex justify-between items-center">
         <div class="flex items-center gap-4">
           <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-sm">
@@ -94,13 +96,13 @@
         </div>
       </header>
 
+      <!-- AVISOS -->
       <div id="bannerAvisos" class="hidden mb-6 liquid-glass p-4 flex items-center gap-4">
-        <div class="w-10 h-10 rounded-full bg-blue-100/50 flex items-center justify-center text-blue-600 flex-shrink-0">
-          <span class="material-symbols-rounded">campaign</span>
-        </div>
+        <div class="w-10 h-10 rounded-full bg-blue-100/50 flex items-center justify-center text-blue-600 flex-shrink-0"><span class="material-symbols-rounded">campaign</span></div>
         <div id="textoAvisos" class="font-semibold text-gray-800 text-sm flex-1 leading-relaxed"></div>
       </div>
 
+      <!-- MENU PRINCIPAL -->
       <div class="text-center mb-8 overflow-x-auto pb-2">
         <div class="liquid-segmented whitespace-nowrap">
           <button id="btnAbaInicio" class="nav-active" onclick="mudarAba('inicio')"><span class="material-symbols-rounded fs-6">grid_view</span> Início</button>
@@ -115,7 +117,7 @@
         </div>
       </div>
 
-      <!-- Aba 1: Início -->
+      <!-- ABA 1: INÍCIO -->
       <div id="viewInicio" class="view-section row grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 liquid-glass p-6 flex flex-col h-[550px]">
           <div class="flex justify-between items-center mb-6 border-b border-gray-200/50 pb-4 flex-shrink-0">
@@ -140,56 +142,38 @@
         </div>
       </div>
 
-      <!-- Aba Nova: Minha Agenda (Preenchimento Quinzenal) -->
+      <!-- ABA 2: MINHA AGENDA (NOVO VISUAL) -->
       <div id="viewAgenda" class="view-section hidden flex flex-col">
         <div class="liquid-glass p-6 flex flex-col min-h-[500px]">
+          
           <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 border-b border-gray-200/50 pb-4">
             <div>
               <h2 class="text-xl font-extrabold tracking-tight text-gray-900">Preenchimento Quinzenal</h2>
-              <p class="text-sm font-semibold text-gray-500">Atualize sua agenda preenchendo os dados abaixo.</p>
+              <p class="text-sm font-semibold text-gray-500">Atualize sua agenda visualmente.</p>
             </div>
-            <div class="flex gap-2 items-end">
-              <div>
-                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Data Inicial (Segunda-feira)</label>
-                <input type="date" id="dataInicioAgenda" class="liquid-input py-2 text-sm w-44">
-              </div>
-              <button onclick="gerarTabelaAgenda()" class="btn-primary-apple py-2 px-4 whitespace-nowrap">Gerar Quinzena</button>
+            
+            <!-- Controle Automático de Quinzena -->
+            <div class="flex items-center gap-3 bg-white/60 p-1.5 rounded-full border border-gray-200 shadow-sm">
+              <button onclick="alterarQuinzena(-1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-600 transition-colors"><span class="material-symbols-rounded">chevron_left</span></button>
+              <span id="tituloQuinzena" class="text-sm font-bold text-gray-800 min-w-[200px] text-center">Carregando...</span>
+              <button onclick="alterarQuinzena(1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-600 transition-colors"><span class="material-symbols-rounded">chevron_right</span></button>
             </div>
           </div>
 
           <div id="msgAgenda" class="hidden mb-4 p-3 rounded-xl text-sm font-bold border"></div>
 
-          <!-- Tabela de Preenchimento -->
-          <div id="containerTabelaAgenda" class="hidden flex-col flex-1">
-            <div class="overflow-x-auto scroll-container pb-4">
-              <table class="w-full text-left border-collapse min-w-[800px]">
-                <thead>
-                  <tr class="text-[10px] font-bold text-gray-400 uppercase tracking-wider border-b border-gray-200">
-                    <th class="py-2 px-2 w-32">Dia</th>
-                    <th class="py-2 px-1">Atividade (Manhã)</th>
-                    <th class="py-2 px-1">Local (Manhã)</th>
-                    <th class="py-2 px-1">Atividade (Tarde)</th>
-                    <th class="py-2 px-1">Local (Tarde)</th>
-                  </tr>
-                </thead>
-                <tbody id="tbodyMinhaAgenda" class="text-gray-700 text-sm">
-                  <!-- Linhas geradas pelo JS -->
-                </tbody>
-              </table>
-            </div>
-            <div class="mt-4 flex justify-end">
-              <button id="btnSalvarMinhaAgenda" onclick="enviarMinhaAgenda()" class="btn-primary-apple w-auto px-8">Salvar Agenda na Planilha</button>
-            </div>
+          <!-- Grade Visual dos Dias (Substituindo a Tabela) -->
+          <div id="gridMinhaAgenda" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+             <div class="col-span-full text-center text-gray-400 py-10 text-sm font-semibold animate-pulse">Carregando calendário...</div>
           </div>
 
-          <div id="placeholderAgenda" class="flex-1 flex flex-col items-center justify-center text-gray-400">
-            <span class="material-symbols-rounded text-5xl mb-2 opacity-50">date_range</span>
-            <p class="font-semibold text-sm">Selecione uma data inicial e clique em "Gerar Quinzena".</p>
+          <div class="flex justify-center border-t border-gray-200/50 pt-6">
+            <button id="btnSalvarMinhaAgenda" onclick="enviarMinhaAgenda()" class="btn-primary-apple w-auto px-12 text-lg shadow-lg">Salvar Agenda na Planilha</button>
           </div>
         </div>
       </div>
 
-      <!-- Aba Escolas -->
+      <!-- ABA 3: ESCOLAS -->
       <div id="viewEscolas" class="view-section hidden flex flex-col min-h-[600px]">
         <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <div><h2 class="text-2xl font-extrabold tracking-tight text-gray-900">Catálogo de Escolas</h2><p class="text-sm font-semibold text-gray-500">Consulte a equipe gestora e dados da unidade.</p></div>
@@ -198,7 +182,7 @@
         <div id="gridEscolas" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
       </div>
 
-      <!-- Aba Relatórios SEI -->
+      <!-- ABA 4: RELATÓRIOS SEI -->
       <div id="viewRelatorios" class="view-section hidden row grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="liquid-glass p-6 flex flex-col h-fit">
           <h2 class="text-xl font-extrabold tracking-tight text-gray-900 mb-2">Novo Acompanhamento</h2>
@@ -232,11 +216,10 @@
     </div>
   </div>
 
-  <!-- MODAL DE DETALHES DA ESCOLA -->
+  <!-- MODAIS (Escola e Logs) -->
   <div id="modalEscola" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity"><div class="liquid-glass w-full max-w-lg p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]"><div class="flex justify-between items-start mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0"><div class="pr-4"><h2 id="modalEscolaNome" class="text-xl font-extrabold text-gray-900 leading-tight">Nome</h2><p id="modalEscolaPec" class="text-sm font-bold text-blue-600 mt-1">PEC</p></div><button onclick="fecharModalEscola()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0"><span class="material-symbols-rounded text-lg">close</span></button></div><div class="overflow-y-auto scroll-container pr-2 flex-1"><div id="modalEscolaBody" class="flex flex-col gap-1 pb-4"></div></div></div></div>
 
-  <!-- MODAL DE LOGS -->
-  <div id="modalLogs" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity"><div class="liquid-glass w-full max-w-3xl p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]"><div class="flex justify-between items-center mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0"><div class="flex items-center gap-2"><span class="material-symbols-rounded text-blue-600">history</span><h2 class="text-xl font-extrabold text-gray-900">Histórico (Logs)</h2></div><button onclick="fecharModalLogs()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0"><span class="material-symbols-rounded text-lg">close</span></button></div><div class="overflow-y-auto scroll-container pr-2 flex-1"><table class="w-full text-left border-collapse"><thead><tr class="border-b border-gray-200 text-xs font-bold text-gray-400 uppercase"><th class="py-2 px-3">Data / Hora</th><th class="py-2 px-3">Usuário</th><th class="py-2 px-3">Ação</th><th class="py-2 px-3">Detalhes</th></tr></thead><tbody id="tabelaLogsBody" class="text-sm text-gray-700"></tbody></table></div></div></div>
+  <div id="modalLogs" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity"><div class="liquid-glass w-full max-w-3xl p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]"><div class="flex justify-between items-center mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0"><div class="flex items-center gap-2"><span class="material-symbols-rounded text-blue-600">history</span><h2 class="text-xl font-extrabold text-gray-900">Histórico de Auditoria (Logs)</h2></div><button onclick="fecharModalLogs()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0"><span class="material-symbols-rounded text-lg">close</span></button></div><div class="overflow-y-auto scroll-container pr-2 flex-1"><table class="w-full text-left border-collapse"><thead><tr class="border-b border-gray-200 text-xs font-bold text-gray-400 uppercase"><th class="py-2 px-3">Data / Hora</th><th class="py-2 px-3">Usuário</th><th class="py-2 px-3">Ação</th><th class="py-2 px-3">Detalhes</th></tr></thead><tbody id="tabelaLogsBody" class="text-sm text-gray-700"></tbody></table></div></div></div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyeKk-8SHfpGwYtyJN61WTHc0G-yVUIquKwJq1KVlJHWVNbzmIAsEoaaQiNokUDJuJMnw/exec";
@@ -246,14 +229,20 @@
     let usuarioLogadoUser = "";
     let nomeUsuarioExibicao = ""; 
 
+    // Controle de Datas da Agenda
+    let dataReferenciaAgenda = new Date();
+    const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
     document.getElementById("inputPass").addEventListener("keyup", function(event) { if (event.key === "Enter") fazerLogin(); });
 
+    // --- LOGIN ---
     function fazerLogin() {
       const user = document.getElementById('inputUser').value.trim();
       const pass = document.getElementById('inputPass').value.trim();
       const btn = document.getElementById('btnLogin');
       const msg = document.getElementById('msgLogin');
       if(!user || !pass) { msg.innerText = "Preencha usuário e senha."; msg.classList.remove('hidden'); return; }
+
       msg.classList.add('hidden'); btn.disabled = true;
       btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1" style="font-size: 18px;">sync</span> Autenticando...';
       fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'login', usuario: user, senha: pass }) })
@@ -278,10 +267,13 @@
 
     function iniciarApp() {
       carregarAvisos(); carregarAgenda(); carregarDocumentos(); carregarEscolas(); carregarRelatorios();
-      // Define a próxima segunda-feira como padrão no input da agenda quinzenal
-      let d = new Date(); d.setDate(d.getDate() + (1 + 7 - d.getDay()) % 7);
-      document.getElementById('dataInicioAgenda').valueAsDate = d;
       document.getElementById('formSeiData').valueAsDate = new Date(); 
+      
+      // Ajusta referência da agenda (Se dia >= 25, já puxa a quinzena do próximo mês)
+      if (dataReferenciaAgenda.getDate() >= 25) {
+        dataReferenciaAgenda.setMonth(dataReferenciaAgenda.getMonth() + 1);
+        dataReferenciaAgenda.setDate(1);
+      }
     }
 
     function mudarAba(abaDestino) {
@@ -297,89 +289,100 @@
     function abaCapitalizada(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
 
     // ==========================================
-    // NOVA ABA: MINHA AGENDA QUINZENAL
+    // MINHA AGENDA (CARDS DIÁRIOS INTELIGENTES)
     // ==========================================
-    function gerarTabelaAgenda() {
-      const inputData = document.getElementById('dataInicioAgenda').value;
-      if (!inputData) { alert("Selecione uma data inicial."); return; }
-      
-      const tbody = document.getElementById('tbodyMinhaAgenda');
-      tbody.innerHTML = '';
-      
-      // Cria as listas de opções baseadas no padrão da URE SVI
-      const ativOptions = `<option value="-">- Selecione -</option>` +
-        ['Acompanhamento QA', 'Acompanhamento DC', 'Acompanhamento Ed. Especial', 'Acompanhamento Multiplica', 'Formação Presencial', 'Reunião', 'Convocação', 'Escola de Gestão', 'Expediente Interno', 'Feriado']
-        .map(a => `<option value="${a}">${a}</option>`).join('');
-      
-      const locaisOptions = `<option value="-">- Selecione -</option>` +
-        `<optgroup label="Fixos">` + ['URE SVI', 'SEDUC', 'Polo', 'Home Office', 'Feriado'].map(l => `<option value="${l}">${l}</option>`).join('') + `</optgroup>` +
-        `<optgroup label="Escolas">` + dbEscolas.map(e => `<option value="${e.nome}">${e.nome}</option>`).join('') + `</optgroup>`;
-
-      const dateParts = inputData.split('-');
-      let dataCorrente = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-      let diasGerados = 0;
-      let limitadorSeguranca = 0;
-
-      // Gera 10 dias úteis
-      while(diasGerados < 10 && limitadorSeguranca < 20) {
-        let diaDaSemana = dataCorrente.getDay();
-        if (diaDaSemana !== 0 && diaDaSemana !== 6) { // Ignora sábados e domingos no form
-          let strDia = ("0" + dataCorrente.getDate()).slice(-2) + "/" + ("0" + (dataCorrente.getMonth() + 1)).slice(-2);
-          let nomeSemana = ['Dom', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sáb'][diaDaSemana];
-          let dataISO = `${dataCorrente.getFullYear()}-${("0" + (dataCorrente.getMonth() + 1)).slice(-2)}-${("0" + dataCorrente.getDate()).slice(-2)}`;
-
-          tbody.innerHTML += `
-            <tr data-date="${dataISO}" class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-              <td class="py-2 px-2 text-xs font-extrabold text-gray-500 whitespace-nowrap">${nomeSemana}, ${strDia}</td>
-              <td class="py-1 px-1"><select class="mA liquid-input text-[11px] py-1.5 px-2 h-8 w-full min-w-[150px] shadow-sm">${ativOptions}</select></td>
-              <td class="py-1 px-1"><select class="mL liquid-input text-[11px] py-1.5 px-2 h-8 w-full min-w-[150px] shadow-sm">${locaisOptions}</select></td>
-              <td class="py-1 px-1"><select class="tA liquid-input text-[11px] py-1.5 px-2 h-8 w-full min-w-[150px] shadow-sm">${ativOptions}</select></td>
-              <td class="py-1 px-1"><select class="tL liquid-input text-[11px] py-1.5 px-2 h-8 w-full min-w-[150px] shadow-sm">${locaisOptions}</select></td>
-            </tr>
-          `;
-          diasGerados++;
-        }
-        dataCorrente.setDate(dataCorrente.getDate() + 1);
-        limitadorSeguranca++;
+    function alterarQuinzena(direcao) {
+      let diaAtual = dataReferenciaAgenda.getDate();
+      if (direcao === 1) { // Próxima
+        if (diaAtual <= 15) { dataReferenciaAgenda.setDate(16); } 
+        else { dataReferenciaAgenda.setMonth(dataReferenciaAgenda.getMonth() + 1); dataReferenciaAgenda.setDate(1); }
+      } else { // Anterior
+        if (diaAtual > 15) { dataReferenciaAgenda.setDate(1); } 
+        else { dataReferenciaAgenda.setMonth(dataReferenciaAgenda.getMonth() - 1); dataReferenciaAgenda.setDate(16); }
       }
+      renderizarCardsAgenda();
+    }
 
-      document.getElementById('placeholderAgenda').classList.add('hidden');
-      document.getElementById('containerTabelaAgenda').classList.remove('hidden');
-      document.getElementById('containerTabelaAgenda').classList.add('flex');
+    function renderizarCardsAgenda() {
+      const container = document.getElementById('gridMinhaAgenda');
+      container.innerHTML = '';
+      
+      const ano = dataReferenciaAgenda.getFullYear();
+      const mes = dataReferenciaAgenda.getMonth();
+      const diaAtual = dataReferenciaAgenda.getDate();
+      
+      let diaInicio = 1;
+      let diaFim = 15;
+      
+      if (diaAtual > 15) {
+        diaInicio = 16;
+        diaFim = new Date(ano, mes + 1, 0).getDate(); // Último dia do mês
+      }
+      
+      document.getElementById('tituloQuinzena').innerText = `${("0"+diaInicio).slice(-2)} a ${("0"+diaFim).slice(-2)} de ${mesesNomes[mes]}`;
+      
+      const ativOptions = `<option value="-">- Selecione -</option>` + ['Acompanhamento QA', 'Acompanhamento DC', 'Acompanhamento Ed. Especial', 'Acompanhamento Multiplica', 'Formação Presencial', 'Reunião', 'Convocação', 'Escola de Gestão', 'Expediente Interno', 'Feriado'].map(a => `<option value="${a}">${a}</option>`).join('');
+      const locaisOptions = `<option value="-">- Selecione -</option><optgroup label="Fixos">` + ['URE SVI', 'SEDUC', 'Polo', 'Home Office', 'Feriado'].map(l => `<option value="${l}">${l}</option>`).join('') + `</optgroup><optgroup label="Escolas">` + dbEscolas.map(e => `<option value="${e.nome}">${e.nome}</option>`).join('') + `</optgroup>`;
+
+      for (let d = diaInicio; d <= diaFim; d++) {
+        let dataLoop = new Date(ano, mes, d);
+        let diaSemana = dataLoop.getDay();
+        
+        if (diaSemana !== 0 && diaSemana !== 6) { // Pula sábado e domingo
+           let dataISO = `${ano}-${("0"+(mes+1)).slice(-2)}-${("0"+d).slice(-2)}`;
+           let strDia = ("0"+d).slice(-2) + "/" + ("0"+(mes+1)).slice(-2);
+           let nomeSemana = ['Dom', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sáb'][diaSemana];
+           
+           container.innerHTML += `
+             <div class="dia-card bg-white/70 p-3 rounded-2xl shadow-sm border border-white flex flex-col gap-2 transition-all hover:bg-white/95" data-date="${dataISO}">
+               <div class="text-center pb-2 border-b border-gray-200/50">
+                 <p class="text-[10px] font-extrabold text-blue-500 uppercase tracking-widest">${nomeSemana}</p>
+                 <p class="text-[16px] font-bold text-gray-800 leading-tight">${strDia}</p>
+               </div>
+               
+               <div class="bg-gray-50/50 p-2 rounded-xl border border-gray-100">
+                 <span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">🌤️ Manhã</span>
+                 <select class="mA liquid-input text-[11px] py-1.5 px-2 w-full mb-1 border-gray-200/50 bg-white">${ativOptions}</select>
+                 <select class="mL liquid-input text-[11px] py-1.5 px-2 w-full border-gray-200/50 bg-white">${locaisOptions}</select>
+               </div>
+               
+               <div class="bg-gray-50/50 p-2 rounded-xl border border-gray-100">
+                 <span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">🌇 Tarde</span>
+                 <select class="tA liquid-input text-[11px] py-1.5 px-2 w-full mb-1 border-gray-200/50 bg-white">${ativOptions}</select>
+                 <select class="tL liquid-input text-[11px] py-1.5 px-2 w-full border-gray-200/50 bg-white">${locaisOptions}</select>
+               </div>
+             </div>
+           `;
+        }
+      }
     }
 
     function enviarMinhaAgenda() {
       const btn = document.getElementById('btnSalvarMinhaAgenda');
       const msg = document.getElementById('msgAgenda');
-      const linhas = document.querySelectorAll('#tbodyMinhaAgenda tr');
+      const cards = document.querySelectorAll('.dia-card');
       
       let payloadDias = [];
-      linhas.forEach(tr => {
+      cards.forEach(card => {
         payloadDias.push({
-          data: tr.getAttribute('data-date'),
-          mA: tr.querySelector('.mA').value,
-          mL: tr.querySelector('.mL').value,
-          tA: tr.querySelector('.tA').value,
-          tL: tr.querySelector('.tL').value
+          data: card.getAttribute('data-date'),
+          mA: card.querySelector('.mA').value,
+          mL: card.querySelector('.mL').value,
+          tA: card.querySelector('.tA').value,
+          tL: card.querySelector('.tL').value
         });
       });
 
-      msg.classList.add('hidden');
-      btn.disabled = true;
-      btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1" style="font-size: 18px;">sync</span> Salvando...';
+      msg.classList.add('hidden'); btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1">sync</span> Salvando na Planilha...';
 
-      fetch(API_URL, { 
-        method: 'POST', 
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
-        body: JSON.stringify({ action: 'salvarMinhaAgenda', pec: nomeUsuarioExibicao, dias: payloadDias }) 
-      })
-      .then(res => res.json())
-      .then(res => {
+      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'salvarMinhaAgenda', pec: nomeUsuarioExibicao, dias: payloadDias }) })
+      .then(res => res.json()).then(res => {
         btn.disabled = false; btn.innerHTML = 'Salvar Agenda na Planilha';
         if(res.sucesso) {
           msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-green-100 text-green-700 border-green-200";
           msg.innerText = res.mensagem; msg.classList.remove('hidden');
-          carregarAgenda(); // Atualiza o grid da página inicial
+          carregarAgenda(); 
           setTimeout(() => { msg.classList.add('hidden'); }, 6000);
         } else {
           msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200";
@@ -442,6 +445,7 @@
         if (!res.sucesso) return; dbEscolas = res.dados; renderizarEscolas(dbEscolas);
         const sel = document.getElementById('formSeiEscola'); sel.innerHTML = '<option value="" disabled selected>Selecione a unidade escolar...</option>';
         dbEscolas.forEach(e => { sel.innerHTML += `<option value="${e.nome}">${e.nome}</option>`; });
+        renderizarCardsAgenda(); // Gera os cards da agenda assim que a escola carrega
       });
     }
 
