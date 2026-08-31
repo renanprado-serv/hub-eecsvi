@@ -106,14 +106,12 @@
       <div class="text-center mb-8 overflow-x-auto pb-2">
         <div class="liquid-segmented whitespace-nowrap">
           <button id="btnAbaInicio" class="nav-active" onclick="mudarAba('inicio')"><span class="material-symbols-rounded fs-6">grid_view</span> Início</button>
+          <button id="btnAbaCronograma" onclick="mudarAba('cronograma')"><span class="material-symbols-rounded fs-6">view_week</span> Cronograma</button>
           <button id="btnAbaAgenda" onclick="mudarAba('agenda')"><span class="material-symbols-rounded fs-6">edit_calendar</span> Minha Agenda</button>
           <button id="btnAbaEscolas" onclick="mudarAba('escolas')"><span class="material-symbols-rounded fs-6">domain</span> Escolas</button>
           <button id="btnAbaRelatorios" onclick="mudarAba('relatorios')"><span class="material-symbols-rounded fs-6">edit_document</span> Relatórios SEI</button>
           <button id="btnAbaQa" onclick="mudarAba('qa')"><span class="material-symbols-rounded fs-6">fact_check</span> QA</button>
           <button id="btnAbaDc" onclick="mudarAba('dc')"><span class="material-symbols-rounded fs-6">menu_book</span> DC</button>
-          <button id="btnAbaConviva" onclick="mudarAba('conviva')"><span class="material-symbols-rounded fs-6">diversity_3</span> CONVIVA</button>
-          <button id="btnAbaEdEspecial" onclick="mudarAba('edEspecial')"><span class="material-symbols-rounded fs-6">accessibility_new</span> Educação Especial</button>
-          <button id="btnAbaMultiplica" onclick="mudarAba('multiplica')"><span class="material-symbols-rounded fs-6">school</span> Multiplica</button>
         </div>
       </div>
 
@@ -142,38 +140,47 @@
         </div>
       </div>
 
-      <!-- ABA 2: MINHA AGENDA (NOVO VISUAL) -->
+      <!-- ABA 2: CRONOGRAMA SEMANAL (AUDITORIA SEI) -->
+      <div id="viewCronograma" class="view-section hidden flex flex-col min-h-[600px]">
+        <div class="flex justify-between items-center mb-6 gap-4 border-b border-gray-200/50 pb-4">
+          <div>
+            <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 flex items-center gap-2">
+              <span class="material-symbols-rounded text-blue-500 text-3xl">policy</span> Auditoria SEI
+            </h2>
+            <p class="text-sm font-semibold text-gray-500 mt-1">Acompanhamento das visitas semanais e preenchimento de relatórios.</p>
+          </div>
+          <div class="bg-white/60 p-2 px-4 rounded-xl border border-gray-200 shadow-sm">
+            <span id="tituloSemanaCronograma" class="text-sm font-extrabold text-blue-600">Semana: Carregando...</span>
+          </div>
+        </div>
+        <div id="gridCronograma" class="flex flex-col gap-4">
+           <div class="text-center text-gray-400 py-20 text-sm font-semibold animate-pulse">Cruzando dados da Agenda e Relatórios SEI...</div>
+        </div>
+      </div>
+
+      <!-- ABA 3: MINHA AGENDA (PREENCHIMENTO) -->
       <div id="viewAgenda" class="view-section hidden flex flex-col">
         <div class="liquid-glass p-6 flex flex-col min-h-[500px]">
-          
           <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 border-b border-gray-200/50 pb-4">
             <div>
               <h2 class="text-xl font-extrabold tracking-tight text-gray-900">Preenchimento Quinzenal</h2>
               <p class="text-sm font-semibold text-gray-500">Atualize sua agenda visualmente.</p>
             </div>
-            
-            <!-- Controle Automático de Quinzena -->
             <div class="flex items-center gap-3 bg-white/60 p-1.5 rounded-full border border-gray-200 shadow-sm">
               <button onclick="alterarQuinzena(-1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-600 transition-colors"><span class="material-symbols-rounded">chevron_left</span></button>
               <span id="tituloQuinzena" class="text-sm font-bold text-gray-800 min-w-[200px] text-center">Carregando...</span>
               <button onclick="alterarQuinzena(1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-600 transition-colors"><span class="material-symbols-rounded">chevron_right</span></button>
             </div>
           </div>
-
           <div id="msgAgenda" class="hidden mb-4 p-3 rounded-xl text-sm font-bold border"></div>
-
-          <!-- Grade Visual dos Dias (Substituindo a Tabela) -->
-          <div id="gridMinhaAgenda" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-             <div class="col-span-full text-center text-gray-400 py-10 text-sm font-semibold animate-pulse">Carregando calendário...</div>
-          </div>
-
+          <div id="gridMinhaAgenda" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8"></div>
           <div class="flex justify-center border-t border-gray-200/50 pt-6">
             <button id="btnSalvarMinhaAgenda" onclick="enviarMinhaAgenda()" class="btn-primary-apple w-auto px-12 text-lg shadow-lg">Salvar Agenda na Planilha</button>
           </div>
         </div>
       </div>
 
-      <!-- ABA 3: ESCOLAS -->
+      <!-- ABA 4: ESCOLAS -->
       <div id="viewEscolas" class="view-section hidden flex flex-col min-h-[600px]">
         <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
           <div><h2 class="text-2xl font-extrabold tracking-tight text-gray-900">Catálogo de Escolas</h2><p class="text-sm font-semibold text-gray-500">Consulte a equipe gestora e dados da unidade.</p></div>
@@ -182,7 +189,7 @@
         <div id="gridEscolas" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
       </div>
 
-      <!-- ABA 4: RELATÓRIOS SEI -->
+      <!-- ABA 5: RELATÓRIOS SEI -->
       <div id="viewRelatorios" class="view-section hidden row grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="liquid-glass p-6 flex flex-col h-fit">
           <h2 class="text-xl font-extrabold tracking-tight text-gray-900 mb-2">Novo Acompanhamento</h2>
@@ -208,196 +215,129 @@
         </div>
       </div>
 
+      <!-- OUTRAS ABAS -->
       <div id="viewQa" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo QA - Em construção</div>
       <div id="viewDc" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo DC - Em construção</div>
-      <div id="viewConviva" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo CONVIVA - Em construção</div>
-      <div id="viewEdEspecial" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Educação Especial - Em construção</div>
-      <div id="viewMultiplica" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Multiplica - Em construção</div>
     </div>
   </div>
 
-  <!-- MODAIS (Escola e Logs) -->
+  <!-- MODAIS -->
   <div id="modalEscola" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity"><div class="liquid-glass w-full max-w-lg p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]"><div class="flex justify-between items-start mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0"><div class="pr-4"><h2 id="modalEscolaNome" class="text-xl font-extrabold text-gray-900 leading-tight">Nome</h2><p id="modalEscolaPec" class="text-sm font-bold text-blue-600 mt-1">PEC</p></div><button onclick="fecharModalEscola()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0"><span class="material-symbols-rounded text-lg">close</span></button></div><div class="overflow-y-auto scroll-container pr-2 flex-1"><div id="modalEscolaBody" class="flex flex-col gap-1 pb-4"></div></div></div></div>
 
   <div id="modalLogs" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity"><div class="liquid-glass w-full max-w-3xl p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]"><div class="flex justify-between items-center mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0"><div class="flex items-center gap-2"><span class="material-symbols-rounded text-blue-600">history</span><h2 class="text-xl font-extrabold text-gray-900">Histórico de Auditoria (Logs)</h2></div><button onclick="fecharModalLogs()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0"><span class="material-symbols-rounded text-lg">close</span></button></div><div class="overflow-y-auto scroll-container pr-2 flex-1"><table class="w-full text-left border-collapse"><thead><tr class="border-b border-gray-200 text-xs font-bold text-gray-400 uppercase"><th class="py-2 px-3">Data / Hora</th><th class="py-2 px-3">Usuário</th><th class="py-2 px-3">Ação</th><th class="py-2 px-3">Detalhes</th></tr></thead><tbody id="tabelaLogsBody" class="text-sm text-gray-700"></tbody></table></div></div></div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyeKk-8SHfpGwYtyJN61WTHc0G-yVUIquKwJq1KVlJHWVNbzmIAsEoaaQiNokUDJuJMnw/exec";
-    
-    let dbEscolas = [];
-    let dbRelatorios = []; 
-    let usuarioLogadoUser = "";
-    let nomeUsuarioExibicao = ""; 
-
-    // Controle de Datas da Agenda
-    let dataReferenciaAgenda = new Date();
-    const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    let dbEscolas = []; let dbRelatorios = []; let usuarioLogadoUser = ""; let nomeUsuarioExibicao = ""; 
+    let dataReferenciaAgenda = new Date(); const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
     document.getElementById("inputPass").addEventListener("keyup", function(event) { if (event.key === "Enter") fazerLogin(); });
 
-    // --- LOGIN ---
+    // --- CORE & NAVEGAÇÃO ---
     function fazerLogin() {
-      const user = document.getElementById('inputUser').value.trim();
-      const pass = document.getElementById('inputPass').value.trim();
-      const btn = document.getElementById('btnLogin');
-      const msg = document.getElementById('msgLogin');
+      const user = document.getElementById('inputUser').value.trim(); const pass = document.getElementById('inputPass').value.trim();
+      const btn = document.getElementById('btnLogin'); const msg = document.getElementById('msgLogin');
       if(!user || !pass) { msg.innerText = "Preencha usuário e senha."; msg.classList.remove('hidden'); return; }
-
-      msg.classList.add('hidden'); btn.disabled = true;
-      btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1" style="font-size: 18px;">sync</span> Autenticando...';
-      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'login', usuario: user, senha: pass }) })
-      .then(res => res.json()).then(res => {
+      msg.classList.add('hidden'); btn.disabled = true; btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1">sync</span> Autenticando...';
+      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'login', usuario: user, senha: pass }) }).then(res => res.json()).then(res => {
         btn.disabled = false; btn.innerHTML = 'Entrar';
         if(res.sucesso) {
-          usuarioLogadoUser = user.toLowerCase(); nomeUsuarioExibicao = res.nome;
-          document.getElementById('nomeUsuarioLayout').innerText = res.nome;
+          usuarioLogadoUser = user.toLowerCase(); nomeUsuarioExibicao = res.nome; document.getElementById('nomeUsuarioLayout').innerText = res.nome;
           if (usuarioLogadoUser === 'cec') { document.getElementById('btnMenuLogs').classList.remove('hidden'); document.getElementById('btnMenuLogs').classList.add('flex'); } 
           else { document.getElementById('btnMenuLogs').classList.add('hidden'); document.getElementById('btnMenuLogs').classList.remove('flex'); }
-          document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('appScreen').classList.remove('hidden');
-          iniciarApp();
+          document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('appScreen').classList.remove('hidden'); iniciarApp();
         } else { msg.innerText = res.mensagem; msg.classList.remove('hidden'); }
-      }).catch(err => { btn.disabled = false; btn.innerHTML = 'Entrar'; msg.innerText = "Erro de conexão. O servidor não respondeu."; msg.classList.remove('hidden'); });
+      }).catch(err => { btn.disabled = false; btn.innerHTML = 'Entrar'; msg.innerText = "Erro de conexão."; msg.classList.remove('hidden'); });
     }
 
-    function sair() {
-      document.getElementById('inputUser').value = ''; document.getElementById('inputPass').value = '';
-      usuarioLogadoUser = ""; nomeUsuarioExibicao = "";
-      document.getElementById('appScreen').classList.add('hidden'); document.getElementById('loginScreen').classList.remove('hidden');
-    }
+    function sair() { document.getElementById('inputUser').value = ''; document.getElementById('inputPass').value = ''; usuarioLogadoUser = ""; nomeUsuarioExibicao = ""; document.getElementById('appScreen').classList.add('hidden'); document.getElementById('loginScreen').classList.remove('hidden'); }
 
     function iniciarApp() {
-      carregarAvisos(); carregarAgenda(); carregarDocumentos(); carregarEscolas(); carregarRelatorios();
       document.getElementById('formSeiData').valueAsDate = new Date(); 
-      
-      // Ajusta referência da agenda (Se dia >= 25, já puxa a quinzena do próximo mês)
-      if (dataReferenciaAgenda.getDate() >= 25) {
-        dataReferenciaAgenda.setMonth(dataReferenciaAgenda.getMonth() + 1);
-        dataReferenciaAgenda.setDate(1);
-      }
+      if (dataReferenciaAgenda.getDate() >= 25) { dataReferenciaAgenda.setMonth(dataReferenciaAgenda.getMonth() + 1); dataReferenciaAgenda.setDate(1); }
+      carregarAvisos(); carregarAgenda(); carregarDocumentos(); carregarEscolas(); carregarRelatorios(); carregarCronogramaSemanal();
     }
 
     function mudarAba(abaDestino) {
-      const abas = ['Inicio', 'Agenda', 'Escolas', 'Relatorios', 'Qa', 'Dc', 'Conviva', 'EdEspecial', 'Multiplica'];
-      abas.forEach(aba => {
-        document.getElementById(`btnAba${abaCapitalizada(aba)}`).classList.remove('nav-active');
-        document.getElementById(`view${abaCapitalizada(aba)}`).classList.add('hidden');
-      });
+      const abas = ['Inicio', 'Cronograma', 'Agenda', 'Escolas', 'Relatorios', 'Qa', 'Dc'];
+      abas.forEach(aba => { document.getElementById(`btnAba${abaCapitalizada(aba)}`).classList.remove('nav-active'); document.getElementById(`view${abaCapitalizada(aba)}`).classList.add('hidden'); });
       const destinoCap = abaCapitalizada(abaDestino);
-      document.getElementById(`btnAba${destinoCap}`).classList.add('nav-active');
-      document.getElementById(`view${destinoCap}`).classList.remove('hidden');
+      document.getElementById(`btnAba${destinoCap}`).classList.add('nav-active'); document.getElementById(`view${destinoCap}`).classList.remove('hidden');
+      if(abaDestino === 'cronograma') carregarCronogramaSemanal();
     }
     function abaCapitalizada(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
 
-    // ==========================================
-    // MINHA AGENDA (CARDS DIÁRIOS INTELIGENTES)
-    // ==========================================
+    // --- CRONOGRAMA SEMANAL (AUDITORIA SEI) ---
+    function carregarCronogramaSemanal() {
+      const container = document.getElementById('gridCronograma');
+      container.innerHTML = '<div class="col-span-full text-center text-gray-400 py-10 font-semibold animate-pulse">Cruzando dados da Agenda e Relatórios SEI...</div>';
+      
+      fetch(`${API_URL}?action=getAgendaSemanal`).then(res => res.json()).then(res => {
+        if(!res.sucesso) { container.innerHTML = `<div class="col-span-full text-center text-red-500 py-10 font-bold">${res.mensagem}</div>`; return; }
+        document.getElementById('tituloSemanaCronograma').innerText = `Semana: ${res.semana}`;
+        container.innerHTML = '';
+        
+        res.dados.forEach(pecData => {
+          let diasHtml = '';
+          pecData.dias.forEach(dia => {
+            if(!dia.manha) { diasHtml += `<div class="bg-white/50 p-2 rounded-xl text-center border border-gray-100 opacity-50"><p class="text-[10px] font-bold text-gray-500 mb-1">${dia.diaNome}, ${dia.diaStr}</p><p class="text-[10px] text-gray-400">Sem dados</p></div>`; return; }
+            
+            const renderBloco = (periodo, info) => {
+              if(info.atividade === '-') return `<div class="mb-1.5 p-1.5 rounded-lg bg-gray-50 text-gray-300 text-[10px] font-bold uppercase border border-gray-100">${periodo}: Livre</div>`;
+              let bgClass = "bg-white border-gray-200"; let alertHtml = "";
+              if (info.atrasado) { bgClass = "bg-red-50 border-red-300 ring-1 ring-red-200 shadow-sm"; alertHtml = `<div class="mt-1.5 p-1 rounded bg-red-100 text-[9px] text-red-600 font-bold flex items-center justify-center gap-0.5"><span class="material-symbols-rounded text-[11px]">warning</span> Faltando Relatório</div>`; } 
+              else if (info.exigeRelatorio && info.temRelatorio) { alertHtml = `<div class="mt-1.5 p-1 rounded bg-green-50 text-[9px] text-green-600 font-bold flex items-center justify-center gap-0.5"><span class="material-symbols-rounded text-[11px]">check_circle</span> SEI Assinado</div>`; } 
+              else if (info.exigeRelatorio && !info.temRelatorio && !info.atrasado) { alertHtml = `<div class="mt-1.5 p-1 rounded bg-yellow-50 text-[9px] text-yellow-600 font-bold flex items-center justify-center gap-0.5"><span class="material-symbols-rounded text-[11px]">schedule</span> Visita Hoje/Futura</div>`; }
+              
+              return `<div class="mb-1.5 p-1.5 rounded-lg border ${bgClass} transition-colors"><p class="text-[9px] uppercase font-extrabold text-gray-400 mb-0.5">${periodo}</p><p class="text-[10px] font-bold text-gray-800 leading-tight mb-0.5">${info.atividade}</p><p class="text-[9px] text-gray-500 leading-tight truncate" title="${info.local}">${info.local}</p>${alertHtml}</div>`;
+            };
+
+            diasHtml += `<div class="bg-gray-50/50 p-2 rounded-xl text-center border border-gray-100 flex flex-col min-w-[140px]"><p class="text-[11px] font-extrabold text-blue-600 uppercase tracking-widest mb-1">${dia.diaNome}</p><p class="text-[10px] font-bold text-gray-500 mb-2">${dia.diaStr}</p>${renderBloco('Manhã', dia.manha)}${renderBloco('Tarde', dia.tarde)}</div>`;
+          });
+          
+          container.innerHTML += `<div class="liquid-glass p-4 mb-4 bg-white/40 flex flex-col"><h3 class="font-extrabold text-gray-900 text-[15px] mb-3 border-b border-gray-200/60 pb-2 flex items-center gap-2"><span class="material-symbols-rounded text-blue-500 text-lg">person</span> ${pecData.pec}</h3><div class="flex overflow-x-auto gap-2 pb-2 scroll-container">${diasHtml}</div></div>`;
+        });
+      }).catch(e => { container.innerHTML = '<div class="col-span-full text-center text-red-500 py-10 font-bold">Erro ao buscar cronograma.</div>'; });
+    }
+
+    // --- MINHA AGENDA (PREENCHIMENTO) ---
     function alterarQuinzena(direcao) {
       let diaAtual = dataReferenciaAgenda.getDate();
-      if (direcao === 1) { // Próxima
-        if (diaAtual <= 15) { dataReferenciaAgenda.setDate(16); } 
-        else { dataReferenciaAgenda.setMonth(dataReferenciaAgenda.getMonth() + 1); dataReferenciaAgenda.setDate(1); }
-      } else { // Anterior
-        if (diaAtual > 15) { dataReferenciaAgenda.setDate(1); } 
-        else { dataReferenciaAgenda.setMonth(dataReferenciaAgenda.getMonth() - 1); dataReferenciaAgenda.setDate(16); }
-      }
+      if (direcao === 1) { if (diaAtual <= 15) { dataReferenciaAgenda.setDate(16); } else { dataReferenciaAgenda.setMonth(dataReferenciaAgenda.getMonth() + 1); dataReferenciaAgenda.setDate(1); } } 
+      else { if (diaAtual > 15) { dataReferenciaAgenda.setDate(1); } else { dataReferenciaAgenda.setMonth(dataReferenciaAgenda.getMonth() - 1); dataReferenciaAgenda.setDate(16); } }
       renderizarCardsAgenda();
     }
 
     function renderizarCardsAgenda() {
-      const container = document.getElementById('gridMinhaAgenda');
-      container.innerHTML = '';
-      
-      const ano = dataReferenciaAgenda.getFullYear();
-      const mes = dataReferenciaAgenda.getMonth();
-      const diaAtual = dataReferenciaAgenda.getDate();
-      
-      let diaInicio = 1;
-      let diaFim = 15;
-      
-      if (diaAtual > 15) {
-        diaInicio = 16;
-        diaFim = new Date(ano, mes + 1, 0).getDate(); // Último dia do mês
-      }
-      
+      const container = document.getElementById('gridMinhaAgenda'); container.innerHTML = '';
+      const ano = dataReferenciaAgenda.getFullYear(); const mes = dataReferenciaAgenda.getMonth(); const diaAtual = dataReferenciaAgenda.getDate();
+      let diaInicio = 1; let diaFim = 15;
+      if (diaAtual > 15) { diaInicio = 16; diaFim = new Date(ano, mes + 1, 0).getDate(); }
       document.getElementById('tituloQuinzena').innerText = `${("0"+diaInicio).slice(-2)} a ${("0"+diaFim).slice(-2)} de ${mesesNomes[mes]}`;
-      
       const ativOptions = `<option value="-">- Selecione -</option>` + ['Acompanhamento QA', 'Acompanhamento DC', 'Acompanhamento Ed. Especial', 'Acompanhamento Multiplica', 'Formação Presencial', 'Reunião', 'Convocação', 'Escola de Gestão', 'Expediente Interno', 'Feriado'].map(a => `<option value="${a}">${a}</option>`).join('');
       const locaisOptions = `<option value="-">- Selecione -</option><optgroup label="Fixos">` + ['URE SVI', 'SEDUC', 'Polo', 'Home Office', 'Feriado'].map(l => `<option value="${l}">${l}</option>`).join('') + `</optgroup><optgroup label="Escolas">` + dbEscolas.map(e => `<option value="${e.nome}">${e.nome}</option>`).join('') + `</optgroup>`;
 
       for (let d = diaInicio; d <= diaFim; d++) {
-        let dataLoop = new Date(ano, mes, d);
-        let diaSemana = dataLoop.getDay();
-        
-        if (diaSemana !== 0 && diaSemana !== 6) { // Pula sábado e domingo
-           let dataISO = `${ano}-${("0"+(mes+1)).slice(-2)}-${("0"+d).slice(-2)}`;
-           let strDia = ("0"+d).slice(-2) + "/" + ("0"+(mes+1)).slice(-2);
-           let nomeSemana = ['Dom', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sáb'][diaSemana];
-           
-           container.innerHTML += `
-             <div class="dia-card bg-white/70 p-3 rounded-2xl shadow-sm border border-white flex flex-col gap-2 transition-all hover:bg-white/95" data-date="${dataISO}">
-               <div class="text-center pb-2 border-b border-gray-200/50">
-                 <p class="text-[10px] font-extrabold text-blue-500 uppercase tracking-widest">${nomeSemana}</p>
-                 <p class="text-[16px] font-bold text-gray-800 leading-tight">${strDia}</p>
-               </div>
-               
-               <div class="bg-gray-50/50 p-2 rounded-xl border border-gray-100">
-                 <span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">🌤️ Manhã</span>
-                 <select class="mA liquid-input text-[11px] py-1.5 px-2 w-full mb-1 border-gray-200/50 bg-white">${ativOptions}</select>
-                 <select class="mL liquid-input text-[11px] py-1.5 px-2 w-full border-gray-200/50 bg-white">${locaisOptions}</select>
-               </div>
-               
-               <div class="bg-gray-50/50 p-2 rounded-xl border border-gray-100">
-                 <span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">🌇 Tarde</span>
-                 <select class="tA liquid-input text-[11px] py-1.5 px-2 w-full mb-1 border-gray-200/50 bg-white">${ativOptions}</select>
-                 <select class="tL liquid-input text-[11px] py-1.5 px-2 w-full border-gray-200/50 bg-white">${locaisOptions}</select>
-               </div>
-             </div>
-           `;
+        let dataLoop = new Date(ano, mes, d); let diaSemana = dataLoop.getDay();
+        if (diaSemana !== 0 && diaSemana !== 6) { 
+           let dataISO = `${ano}-${("0"+(mes+1)).slice(-2)}-${("0"+d).slice(-2)}`; let strDia = ("0"+d).slice(-2) + "/" + ("0"+(mes+1)).slice(-2); let nomeSemana = ['Dom', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sáb'][diaSemana];
+           container.innerHTML += `<div class="dia-card bg-white/70 p-3 rounded-2xl shadow-sm border border-white flex flex-col gap-2 transition-all hover:bg-white/95" data-date="${dataISO}"><div class="text-center pb-2 border-b border-gray-200/50"><p class="text-[10px] font-extrabold text-blue-500 uppercase tracking-widest">${nomeSemana}</p><p class="text-[16px] font-bold text-gray-800 leading-tight">${strDia}</p></div><div class="bg-gray-50/50 p-2 rounded-xl border border-gray-100"><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">🌤️ Manhã</span><select class="mA liquid-input text-[11px] py-1.5 px-2 w-full mb-1 border-gray-200/50 bg-white">${ativOptions}</select><select class="mL liquid-input text-[11px] py-1.5 px-2 w-full border-gray-200/50 bg-white">${locaisOptions}</select></div><div class="bg-gray-50/50 p-2 rounded-xl border border-gray-100"><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">🌇 Tarde</span><select class="tA liquid-input text-[11px] py-1.5 px-2 w-full mb-1 border-gray-200/50 bg-white">${ativOptions}</select><select class="tL liquid-input text-[11px] py-1.5 px-2 w-full border-gray-200/50 bg-white">${locaisOptions}</select></div></div>`;
         }
       }
     }
 
     function enviarMinhaAgenda() {
-      const btn = document.getElementById('btnSalvarMinhaAgenda');
-      const msg = document.getElementById('msgAgenda');
-      const cards = document.querySelectorAll('.dia-card');
-      
-      let payloadDias = [];
-      cards.forEach(card => {
-        payloadDias.push({
-          data: card.getAttribute('data-date'),
-          mA: card.querySelector('.mA').value,
-          mL: card.querySelector('.mL').value,
-          tA: card.querySelector('.tA').value,
-          tL: card.querySelector('.tL').value
-        });
-      });
-
-      msg.classList.add('hidden'); btn.disabled = true;
-      btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1">sync</span> Salvando na Planilha...';
-
-      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'salvarMinhaAgenda', pec: nomeUsuarioExibicao, dias: payloadDias }) })
-      .then(res => res.json()).then(res => {
+      const btn = document.getElementById('btnSalvarMinhaAgenda'); const msg = document.getElementById('msgAgenda'); const cards = document.querySelectorAll('.dia-card');
+      let payloadDias = []; cards.forEach(card => { payloadDias.push({ data: card.getAttribute('data-date'), mA: card.querySelector('.mA').value, mL: card.querySelector('.mL').value, tA: card.querySelector('.tA').value, tL: card.querySelector('.tL').value }); });
+      msg.classList.add('hidden'); btn.disabled = true; btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1">sync</span> Salvando...';
+      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'salvarMinhaAgenda', pec: nomeUsuarioExibicao, dias: payloadDias }) }).then(res => res.json()).then(res => {
         btn.disabled = false; btn.innerHTML = 'Salvar Agenda na Planilha';
-        if(res.sucesso) {
-          msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-green-100 text-green-700 border-green-200";
-          msg.innerText = res.mensagem; msg.classList.remove('hidden');
-          carregarAgenda(); 
-          setTimeout(() => { msg.classList.add('hidden'); }, 6000);
-        } else {
-          msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200";
-          msg.innerText = res.mensagem; msg.classList.remove('hidden');
-        }
-      }).catch(err => {
-        btn.disabled = false; btn.innerHTML = 'Salvar Agenda na Planilha';
-        msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200";
-        msg.innerText = "Erro ao conectar com o servidor."; msg.classList.remove('hidden');
-      });
+        if(res.sucesso) { msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-green-100 text-green-700 border-green-200"; msg.innerText = res.mensagem; msg.classList.remove('hidden'); carregarAgenda(); setTimeout(() => { msg.classList.add('hidden'); }, 6000); } 
+        else { msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200"; msg.innerText = res.mensagem; msg.classList.remove('hidden'); }
+      }).catch(err => { btn.disabled = false; btn.innerHTML = 'Salvar Agenda na Planilha'; msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200"; msg.innerText = "Erro ao conectar."; msg.classList.remove('hidden'); });
     }
 
-    // ==========================================
-    // FUNÇÕES RESTANTES (Relatórios, Escolas, Logs)
-    // ==========================================
+    // --- OUTRAS (Relatórios, Escolas, Avisos, AgendaDia, Docs, Logs) ---
     function salvarRelatorioSei() {
       const btn = document.getElementById('btnSalvarRelatorio'); const msg = document.getElementById('msgFormSei');
       const payload = { action: 'salvarRelatorio', pec: nomeUsuarioExibicao, dataVisita: document.getElementById('formSeiData').value.split('-').reverse().join('/'), escola: document.getElementById('formSeiEscola').value, periodo: document.getElementById('formSeiPeriodo').value, processo: document.getElementById('formSeiProcesso').value.trim(), link: document.getElementById('formSeiLink').value.trim(), status: document.getElementById('formSeiStatus').value };
@@ -405,14 +345,13 @@
       msg.classList.add('hidden'); btn.disabled = true; btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1">sync</span> Salvando...';
       fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).then(res => res.json()).then(res => {
         btn.disabled = false; btn.innerHTML = 'Salvar Registro';
-        if(res.sucesso) { msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-green-100 text-green-700 border-green-200"; msg.innerText = "Salvo com sucesso!"; msg.classList.remove('hidden'); document.getElementById('formSeiProcesso').value = ''; document.getElementById('formSeiLink').value = ''; setTimeout(() => { msg.classList.add('hidden'); }, 4000); carregarRelatorios(); } 
+        if(res.sucesso) { msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-green-100 text-green-700 border-green-200"; msg.innerText = "Salvo com sucesso!"; msg.classList.remove('hidden'); document.getElementById('formSeiProcesso').value = ''; document.getElementById('formSeiLink').value = ''; setTimeout(() => { msg.classList.add('hidden'); }, 4000); carregarRelatorios(); carregarCronogramaSemanal(); } 
         else { msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200"; msg.innerText = res.mensagem; msg.classList.remove('hidden'); }
-      }).catch(err => { btn.disabled = false; btn.innerHTML = 'Salvar Registro'; msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200"; msg.innerText = "Erro ao salvar."; msg.classList.remove('hidden'); });
+      });
     }
 
     function carregarRelatorios() {
-      const container = document.getElementById('listaRelatorios');
-      container.innerHTML = '<div class="text-center text-gray-400 py-10 text-sm font-semibold animate-pulse">Atualizando histórico...</div>';
+      const container = document.getElementById('listaRelatorios'); container.innerHTML = '<div class="text-center text-gray-400 py-10 text-sm font-semibold animate-pulse">Atualizando histórico...</div>';
       fetch(`${API_URL}?action=getRelatorios`).then(res => res.json()).then(res => {
         if (!res.sucesso || res.dados.length === 0) { container.innerHTML = '<div class="text-center text-gray-400 py-10 font-semibold">Nenhum relatório lançado.</div>'; dbRelatorios = []; return; }
         dbRelatorios = res.dados; renderizarRelatorios(dbRelatorios);
@@ -424,20 +363,15 @@
       if(lista.length === 0) { container.innerHTML = '<div class="text-center text-gray-400 py-10 font-semibold">Nenhum relatório encontrado.</div>'; return; }
       lista.forEach(rel => {
         let badgeStatus = rel.status === 'Assinado' ? '<span class="apple-badge apple-badge-green text-[9px] px-2 flex-shrink-0"><span class="material-symbols-rounded text-[11px] mr-1">check_circle</span>Assinado</span>' : `<button onclick="marcarComoAssinado(${rel.linha}, '${rel.processo}')" class="apple-badge apple-badge-yellow hover:bg-yellow-200 transition-colors cursor-pointer text-[9px] px-2 flex-shrink-0" title="Clique para marcar como Assinado"><span class="material-symbols-rounded text-[11px] mr-1">pending</span>Pendente</button>`;
-        let btnLink = rel.link ? `<a href="${rel.link}" target="_blank" class="w-8 h-8 rounded-full bg-gray-100 flex flex-shrink-0 items-center justify-center text-gray-600 hover:bg-blue-100 hover:text-blue-600 transition-colors" title="Abrir no SEI"><span class="material-symbols-rounded text-[16px]">link</span></a>` : '';
+        let btnLink = rel.link ? `<a href="${rel.link}" target="_blank" class="w-8 h-8 rounded-full bg-gray-100 flex flex-shrink-0 items-center justify-center text-gray-600 hover:bg-blue-100 hover:text-blue-600 transition-colors"><span class="material-symbols-rounded text-[16px]">link</span></a>` : '';
         container.innerHTML += `<div class="bg-white/60 p-4 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.02)] border border-white hover:bg-white/90 transition-colors flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-blue-50 flex-shrink-0 flex items-center justify-center text-blue-500"><span class="material-symbols-rounded text-xl">description</span></div><div class="flex-1 min-w-0"><div class="flex justify-between items-start mb-0.5 gap-2"><h4 class="font-extrabold text-gray-800 text-[13px] truncate">${rel.escola}</h4>${badgeStatus}</div><p class="text-[11px] font-semibold text-gray-500 flex items-center gap-2"><span class="truncate">${rel.dataVisita} (${rel.periodo})</span> • <span class="text-blue-600">${rel.processo}</span></p><p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">${rel.pec}</p></div>${btnLink}</div>`;
       });
     }
 
-    function filtrarRelatorios() {
-      const t = document.getElementById('buscaRelatorio').value.toLowerCase();
-      renderizarRelatorios(dbRelatorios.filter(r => r.escola.toLowerCase().includes(t) || r.processo.toLowerCase().includes(t) || r.pec.toLowerCase().includes(t)));
-    }
-
+    function filtrarRelatorios() { const t = document.getElementById('buscaRelatorio').value.toLowerCase(); renderizarRelatorios(dbRelatorios.filter(r => r.escola.toLowerCase().includes(t) || r.processo.toLowerCase().includes(t) || r.pec.toLowerCase().includes(t))); }
     function marcarComoAssinado(linha, processo) {
       if(!confirm(`Tem certeza que deseja marcar o processo ${processo} como "Assinado"?`)) return;
-      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'atualizarStatusRelatorio', linha: linha, processo: processo, pec: nomeUsuarioExibicao }) })
-      .then(res => res.json()).then(res => { if(res.sucesso) { carregarRelatorios(); } else { alert("Erro: " + res.mensagem); } });
+      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'atualizarStatusRelatorio', linha: linha, processo: processo, pec: nomeUsuarioExibicao }) }).then(res => res.json()).then(res => { if(res.sucesso) { carregarRelatorios(); carregarCronogramaSemanal(); } else { alert("Erro: " + res.mensagem); } });
     }
 
     function carregarEscolas() {
@@ -445,56 +379,35 @@
         if (!res.sucesso) return; dbEscolas = res.dados; renderizarEscolas(dbEscolas);
         const sel = document.getElementById('formSeiEscola'); sel.innerHTML = '<option value="" disabled selected>Selecione a unidade escolar...</option>';
         dbEscolas.forEach(e => { sel.innerHTML += `<option value="${e.nome}">${e.nome}</option>`; });
-        renderizarCardsAgenda(); // Gera os cards da agenda assim que a escola carrega
+        renderizarCardsAgenda(); 
       });
     }
-
     function renderizarEscolas(lista) {
       const grid = document.getElementById('gridEscolas'); grid.innerHTML = '';
-      lista.forEach((escola) => {
-        const idx = dbEscolas.findIndex(e => e.nome === escola.nome);
-        grid.innerHTML += `<div onclick="abrirModalEscola(${idx})" class="liquid-glass p-4 bg-white/70 hover:bg-white/95 transition-all cursor-pointer flex flex-col gap-3 transform hover:-translate-y-1 shadow-sm border border-white"><h3 class="font-extrabold text-gray-800 text-[14px] leading-snug">${escola.nome}</h3><div class="flex items-center gap-2 mt-auto"><span class="apple-badge apple-badge-blue text-[10px] truncate max-w-[120px]"><span class="material-symbols-rounded text-[13px] mr-1 align-middle">person</span>${escola.pec}</span>${escola.cidade && escola.cidade !== '-' ? `<span class="apple-badge apple-badge-gray text-[10px] px-2 truncate">${escola.cidade}</span>` : ''}</div></div>`;
-      });
+      lista.forEach((escola) => { const idx = dbEscolas.findIndex(e => e.nome === escola.nome); grid.innerHTML += `<div onclick="abrirModalEscola(${idx})" class="liquid-glass p-4 bg-white/70 hover:bg-white/95 transition-all cursor-pointer flex flex-col gap-3 transform hover:-translate-y-1 shadow-sm border border-white"><h3 class="font-extrabold text-gray-800 text-[14px] leading-snug">${escola.nome}</h3><div class="flex items-center gap-2 mt-auto"><span class="apple-badge apple-badge-blue text-[10px] truncate max-w-[120px]"><span class="material-symbols-rounded text-[13px] mr-1 align-middle">person</span>${escola.pec}</span>${escola.cidade && escola.cidade !== '-' ? `<span class="apple-badge apple-badge-gray text-[10px] px-2 truncate">${escola.cidade}</span>` : ''}</div></div>`; });
     }
     function filtrarEscolas() { const t = document.getElementById('buscaEscola').value.toLowerCase(); renderizarEscolas(dbEscolas.filter(e => e.nome.toLowerCase().includes(t) || e.pec.toLowerCase().includes(t) || e.cidade.toLowerCase().includes(t))); }
-
-    function gerarLinkWpp(numero) { if(!numero || numero === '-') return ''; let limpo = numero.toString().replace(/\D/g, ''); if(limpo.length >= 10) { if(!limpo.startsWith('55')) limpo = '55' + limpo; return `https://wa.me/${limpo}`; } return ''; }
-
-    function abrirModalEscola(index) {
-      const escola = dbEscolas[index]; document.getElementById('modalEscolaNome').innerText = escola.nome; document.getElementById('modalEscolaPec').innerText = `PEC Responsável: ${escola.pec}`;
-      const modalBody = document.getElementById('modalEscolaBody'); let htmlBody = '<h4 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mt-2 mb-3">Equipe Gestora & Contatos</h4>'; let temContato = false;
+    function gerarLinkWpp(n) { if(!n || n === '-') return ''; let l = n.toString().replace(/\D/g, ''); if(l.length >= 10) { if(!l.startsWith('55')) l = '55' + l; return `https://wa.me/${l}`; } return ''; }
+    function abrirModalEscola(idx) {
+      const esc = dbEscolas[idx]; document.getElementById('modalEscolaNome').innerText = esc.nome; document.getElementById('modalEscolaPec').innerText = `PEC Responsável: ${esc.pec}`;
+      let h = '<h4 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mt-2 mb-3">Equipe Gestora & Contatos</h4>'; let tc = false;
       const wppSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>`;
-      const addContato = (cargo, nome, fone) => {
-        if (!nome || nome === '-') return ''; temContato = true; let btn = ''; let link = gerarLinkWpp(fone);
-        if (link) { btn = `<a href="${link}" target="_blank" class="w-9 h-9 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center hover:bg-[#25D366]/20 transition-colors shadow-sm flex-shrink-0">${wppSvg}</a>`; }
-        return `<div class="flex justify-between items-center py-2 border-b border-gray-100 last:border-0"><div><p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">${cargo}</p><p class="text-[14px] font-bold text-gray-700 leading-tight">${nome}</p></div>${btn}</div>`;
-      };
-      htmlBody += addContato('Diretor(a)', escola.diretor, escola.contatoDiretor); htmlBody += addContato('Vice-Diretor(a)', escola.vice, escola.contatoVice); htmlBody += addContato('Coordenador(a) / CGP', escola.coordenador, escola.contatoCoordenador);
-      if(!temContato) htmlBody += '<p class="text-sm text-gray-500 py-2">Nenhum membro da gestão cadastrado.</p>';
-      htmlBody += '<h4 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mt-6 mb-3">Informações da Unidade</h4><div class="grid grid-cols-2 gap-3 bg-gray-50/50 p-4 rounded-xl border border-gray-100">';
-      const addInfo = (label, valor) => { if(!valor || valor === '-') return ''; return `<div><span class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">${label}</span><span class="text-sm font-semibold text-gray-700">${valor}</span></div>`; };
-      htmlBody += addInfo('Tipo', escola.tipo); htmlBody += addInfo('Matrículas', escola.matriculas); htmlBody += addInfo('Anos Finais (EFAF)', escola.efaf); htmlBody += addInfo('Ensino Médio (EM)', escola.em); htmlBody += addInfo('Bairro', escola.bairro); htmlBody += addInfo('Cidade', escola.cidade); htmlBody += `</div>`;
-      let linkMaps = escola.maps;
-      if (!linkMaps || !linkMaps.startsWith('http')) { let termoBusca = `${escola.nome}, ${escola.cidade} - SP`; linkMaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(termoBusca)}`; }
-      htmlBody += `<a href="${linkMaps}" target="_blank" rel="noopener noreferrer" class="mt-5 flex items-center justify-center gap-2 w-full py-3 bg-blue-50 text-blue-600 rounded-xl font-bold text-sm hover:bg-blue-100 transition-colors shadow-sm"><span class="material-symbols-rounded text-lg">location_on</span> Ver no Google Maps</a>`;
-      modalBody.innerHTML = htmlBody; document.getElementById('modalEscola').classList.remove('hidden');
+      const aC = (c, n, f) => { if (!n || n === '-') return ''; tc = true; let btn = ''; let l = gerarLinkWpp(f); if (l) { btn = `<a href="${l}" target="_blank" class="w-9 h-9 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center hover:bg-[#25D366]/20 transition-colors shadow-sm flex-shrink-0">${wppSvg}</a>`; } return `<div class="flex justify-between items-center py-2 border-b border-gray-100 last:border-0"><div><p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">${c}</p><p class="text-[14px] font-bold text-gray-700 leading-tight">${n}</p></div>${btn}</div>`; };
+      h += aC('Diretor(a)', esc.diretor, esc.contatoDiretor); h += aC('Vice-Diretor(a)', esc.vice, esc.contatoVice); h += aC('Coordenador(a) / CGP', esc.coordenador, esc.contatoCoordenador);
+      if(!tc) h += '<p class="text-sm text-gray-500 py-2">Nenhum membro cadastrado.</p>';
+      h += '<h4 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mt-6 mb-3">Informações da Unidade</h4><div class="grid grid-cols-2 gap-3 bg-gray-50/50 p-4 rounded-xl border border-gray-100">';
+      const aI = (l, v) => { if(!v || v === '-') return ''; return `<div><span class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">${l}</span><span class="text-sm font-semibold text-gray-700">${v}</span></div>`; };
+      h += aI('Tipo', esc.tipo); h += aI('Matrículas', esc.matriculas); h += aI('Anos Finais', esc.efaf); h += aI('Ensino Médio', esc.em); h += aI('Bairro', esc.bairro); h += aI('Cidade', esc.cidade); h += `</div>`;
+      let lM = esc.maps; if (!lM || !lM.startsWith('http')) lM = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${esc.nome}, ${esc.cidade} - SP`)}`;
+      h += `<a href="${lM}" target="_blank" class="mt-5 flex items-center justify-center gap-2 w-full py-3 bg-blue-50 text-blue-600 rounded-xl font-bold text-sm hover:bg-blue-100 transition-colors shadow-sm"><span class="material-symbols-rounded text-lg">location_on</span> Ver no Google Maps</a>`;
+      document.getElementById('modalEscolaBody').innerHTML = h; document.getElementById('modalEscola').classList.remove('hidden');
     }
     function fecharModalEscola() { document.getElementById('modalEscola').classList.add('hidden'); }
     document.getElementById('modalEscola').addEventListener('click', function(e) { if(e.target === this) fecharModalEscola(); });
 
-    function abrirModalLogs() { document.getElementById('modalLogs').classList.remove('hidden'); carregarLogs(); }
-    function fecharModalLogs() { document.getElementById('modalLogs').classList.add('hidden'); }
-    function carregarLogs() {
-      const tbody = document.getElementById('tabelaLogsBody'); tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-gray-400 font-semibold animate-pulse">Buscando logs...</td></tr>';
-      fetch(`${API_URL}?action=getLogs&usuario=${encodeURIComponent(usuarioLogadoUser)}`).then(res => res.json()).then(res => {
-          tbody.innerHTML = ''; if (!res.sucesso || res.dados.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-gray-400 font-semibold">Nenhum registro.</td></tr>'; return; }
-          res.dados.forEach(log => { tbody.innerHTML += `<tr class="border-b border-gray-100 hover:bg-white/50 transition-colors"><td class="py-3 px-3 text-xs text-gray-500 font-bold">${log.data}</td><td class="py-3 px-3 font-extrabold text-blue-600">${log.usuario}</td><td class="py-3 px-3"><span class="apple-badge apple-badge-blue text-[10px]">${log.acao}</span></td><td class="py-3 px-3 text-xs text-gray-600">${log.detalhes}</td></tr>`; });
-        });
-    }
-
     function carregarAvisos() { fetch(`${API_URL}?action=getAvisos`).then(res => res.json()).then(res => { if (res.sucesso && res.dados.length > 0) { document.getElementById('textoAvisos').innerHTML = res.dados.join(' &nbsp;&bull;&nbsp; '); document.getElementById('bannerAvisos').classList.remove('hidden'); } }); }
     function carregarAgenda() { fetch(`${API_URL}?action=getAgenda`).then(res => res.json()).then(res => { const container = document.getElementById('containerAgenda'); if (!res.sucesso) { document.getElementById('dataAgenda').innerText = "Hoje"; container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10 font-bold">${res.mensagem}</div>`; return; } document.getElementById('dataAgenda').innerText = res.dataAgendada; container.innerHTML = ''; res.dados.forEach(pec => { container.innerHTML += `<div class="bg-white/60 p-4 rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.03)] border border-white hover:bg-white/90 transition-colors flex flex-col gap-3"><h3 class="font-bold text-gray-800 text-[15px] border-b border-gray-200/60 pb-2 flex items-center gap-2"><span class="material-symbols-rounded text-blue-500 text-lg">person</span> ${pec.pec}</h3><div class="grid grid-cols-2 gap-4 flex-1"><div><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Manhã</span><p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.manha.atividade}</p><p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.manha.local}">${pec.manha.local}</p></div><div><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Tarde</span><p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.tarde.atividade}</p><p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.tarde.local}">${pec.tarde.local}</p></div></div></div>`; }); }); }
-    function carregarDocumentos() { const contDocs = document.getElementById('listaDocs'); const contBoletins = document.getElementById('listaBoletins'); fetch(`${API_URL}?action=getDocumentos`).then(res => res.json()).then(res => { contDocs.innerHTML = ''; contBoletins.innerHTML = ''; if (!res.sucesso || res.dados.length === 0) return; res.dados.sort((a, b) => b.nome.localeCompare(a.nome, undefined, { numeric: true, sensitivity: 'base' })); res.dados.forEach(doc => { const nomeSemExtensao = doc.nome.replace(/\.[^/.]+$/, ""); const card = `<div class="bg-white/60 p-3 rounded-xl flex items-center justify-between hover:bg-white/90 transition-colors shadow-sm border border-white"><div class="truncate pr-2"><h3 class="font-bold text-gray-800 text-[13px] truncate" title="${nomeSemExtensao}">${nomeSemExtensao}</h3><p class="text-[10px] font-bold text-gray-400 uppercase mt-0.5">${doc.data}</p></div><a href="${doc.url}" target="_blank" class="flex-shrink-0 bg-blue-50 text-blue-600 p-2 rounded-lg hover:bg-blue-100 transition-colors"><span class="material-symbols-rounded text-lg block">open_in_new</span></a></div>`; if (doc.nome.toLowerCase().includes('boletim')) contBoletins.innerHTML += card; else contDocs.innerHTML += card; }); }); }
+    function carregarDocumentos() { const cD = document.getElementById('listaDocs'); const cB = document.getElementById('listaBoletins'); fetch(`${API_URL}?action=getDocumentos`).then(res => res.json()).then(res => { cD.innerHTML = ''; cB.innerHTML = ''; if (!res.sucesso || res.dados.length === 0) return; res.dados.sort((a, b) => b.nome.localeCompare(a.nome, undefined, { numeric: true, sensitivity: 'base' })); res.dados.forEach(doc => { const nm = doc.nome.replace(/\.[^/.]+$/, ""); const c = `<div class="bg-white/60 p-3 rounded-xl flex items-center justify-between hover:bg-white/90 transition-colors shadow-sm border border-white"><div class="truncate pr-2"><h3 class="font-bold text-gray-800 text-[13px] truncate" title="${nm}">${nm}</h3><p class="text-[10px] font-bold text-gray-400 uppercase mt-0.5">${doc.data}</p></div><a href="${doc.url}" target="_blank" class="flex-shrink-0 bg-blue-50 text-blue-600 p-2 rounded-lg hover:bg-blue-100 transition-colors"><span class="material-symbols-rounded text-lg block">open_in_new</span></a></div>`; if (doc.nome.toLowerCase().includes('boletim')) cB.innerHTML += c; else cD.innerHTML += c; }); }); }
   </script>
 </body>
 </html>
