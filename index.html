@@ -59,9 +59,7 @@
   <!-- TELA DE LOGIN -->
   <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
     <div class="liquid-glass p-8 w-full max-w-sm text-center">
-      <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-md mb-4">
-        <span class="material-symbols-rounded text-4xl">hub</span>
-      </div>
+      <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-md mb-4"><span class="material-symbols-rounded text-4xl">hub</span></div>
       <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 mb-1">Acesso Restrito</h2>
       <p class="text-sm font-semibold text-gray-500 mb-6">Autentique-se para entrar no HUB EEC</p>
       <div id="msgLogin" class="hidden mb-4 p-3 rounded-xl bg-red-100 text-red-700 text-sm font-bold border border-red-200"></div>
@@ -78,21 +76,12 @@
       <!-- CABEÇALHO -->
       <header class="liquid-glass p-5 mb-6 flex justify-between items-center">
         <div class="flex items-center gap-4">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-sm">
-            <span class="material-symbols-rounded text-2xl">hub</span>
-          </div>
-          <div>
-            <h1 class="text-xl font-extrabold tracking-tight text-gray-900 leading-tight">HUB EEC</h1>
-            <p class="text-xs font-semibold text-gray-500">Olá, <span id="nomeUsuarioLayout" class="text-blue-600 uppercase"></span></p>
-          </div>
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center text-white shadow-sm"><span class="material-symbols-rounded text-2xl">hub</span></div>
+          <div><h1 class="text-xl font-extrabold tracking-tight text-gray-900 leading-tight">HUB EEC</h1><p class="text-xs font-semibold text-gray-500">Olá, <span id="nomeUsuarioLayout" class="text-blue-600 uppercase"></span></p></div>
         </div>
         <div class="flex items-center gap-2">
-          <button id="btnMenuLogs" onclick="abrirModalLogs()" class="hidden px-4 py-2 text-sm font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors items-center gap-1">
-            <span class="material-symbols-rounded text-[18px]">history</span> Logs
-          </button>
-          <button onclick="sair()" class="px-4 py-2 text-sm font-bold text-gray-500 hover:text-red-500 transition-colors flex items-center gap-1">
-            Sair <span class="material-symbols-rounded text-[18px]">logout</span>
-          </button>
+          <button id="btnMenuLogs" onclick="abrirModalLogs()" class="hidden px-4 py-2 text-sm font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors items-center gap-1"><span class="material-symbols-rounded text-[18px]">history</span> Logs</button>
+          <button onclick="sair()" class="px-4 py-2 text-sm font-bold text-gray-500 hover:text-red-500 transition-colors flex items-center gap-1">Sair <span class="material-symbols-rounded text-[18px]">logout</span></button>
         </div>
       </header>
 
@@ -102,7 +91,7 @@
         <div id="textoAvisos" class="font-semibold text-gray-800 text-sm flex-1 leading-relaxed"></div>
       </div>
 
-      <!-- MENU PRINCIPAL -->
+      <!-- MENU PRINCIPAL (COMPLETO) -->
       <div class="text-center mb-8 overflow-x-auto pb-2">
         <div class="liquid-segmented whitespace-nowrap">
           <button id="btnAbaInicio" class="nav-active" onclick="mudarAba('inicio')"><span class="material-symbols-rounded fs-6">grid_view</span> Início</button>
@@ -112,6 +101,9 @@
           <button id="btnAbaRelatorios" onclick="mudarAba('relatorios')"><span class="material-symbols-rounded fs-6">edit_document</span> Relatórios SEI</button>
           <button id="btnAbaQa" onclick="mudarAba('qa')"><span class="material-symbols-rounded fs-6">fact_check</span> QA</button>
           <button id="btnAbaDc" onclick="mudarAba('dc')"><span class="material-symbols-rounded fs-6">menu_book</span> DC</button>
+          <button id="btnAbaConviva" onclick="mudarAba('conviva')"><span class="material-symbols-rounded fs-6">diversity_3</span> CONVIVA</button>
+          <button id="btnAbaEdEspecial" onclick="mudarAba('edEspecial')"><span class="material-symbols-rounded fs-6">accessibility_new</span> Educação Especial</button>
+          <button id="btnAbaMultiplica" onclick="mudarAba('multiplica')"><span class="material-symbols-rounded fs-6">school</span> Multiplica</button>
         </div>
       </div>
 
@@ -140,17 +132,20 @@
         </div>
       </div>
 
-      <!-- ABA 2: CRONOGRAMA SEMANAL (AUDITORIA SEI) -->
+      <!-- ABA 2: CRONOGRAMA SEMANAL (NAVEGÁVEL) -->
       <div id="viewCronograma" class="view-section hidden flex flex-col min-h-[600px]">
         <div class="flex justify-between items-center mb-6 gap-4 border-b border-gray-200/50 pb-4">
           <div>
             <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 flex items-center gap-2">
-              <span class="material-symbols-rounded text-blue-500 text-3xl">policy</span> Auditoria SEI
+              <span class="material-symbols-rounded text-blue-500 text-3xl">view_week</span> Cronograma Semanal
             </h2>
-            <p class="text-sm font-semibold text-gray-500 mt-1">Acompanhamento das visitas semanais e preenchimento de relatórios.</p>
+            <p class="text-sm font-semibold text-gray-500 mt-1">Acompanhamento das visitas semanais e relatórios SEI.</p>
           </div>
-          <div class="bg-white/60 p-2 px-4 rounded-xl border border-gray-200 shadow-sm">
-            <span id="tituloSemanaCronograma" class="text-sm font-extrabold text-blue-600">Semana: Carregando...</span>
+          <!-- Controle Automático de Semanas -->
+          <div class="flex items-center gap-3 bg-white/60 p-1.5 rounded-full border border-gray-200 shadow-sm">
+            <button onclick="alterarSemanaCronograma(-1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-600 transition-colors"><span class="material-symbols-rounded">chevron_left</span></button>
+            <span id="tituloSemanaCronograma" class="text-sm font-bold text-gray-800 min-w-[150px] text-center">Carregando...</span>
+            <button onclick="alterarSemanaCronograma(1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-600 transition-colors"><span class="material-symbols-rounded">chevron_right</span></button>
           </div>
         </div>
         <div id="gridCronograma" class="flex flex-col gap-4">
@@ -158,14 +153,11 @@
         </div>
       </div>
 
-      <!-- ABA 3: MINHA AGENDA (PREENCHIMENTO) -->
+      <!-- ABA 3: MINHA AGENDA -->
       <div id="viewAgenda" class="view-section hidden flex flex-col">
         <div class="liquid-glass p-6 flex flex-col min-h-[500px]">
           <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 border-b border-gray-200/50 pb-4">
-            <div>
-              <h2 class="text-xl font-extrabold tracking-tight text-gray-900">Preenchimento Quinzenal</h2>
-              <p class="text-sm font-semibold text-gray-500">Atualize sua agenda visualmente.</p>
-            </div>
+            <div><h2 class="text-xl font-extrabold tracking-tight text-gray-900">Preenchimento Quinzenal</h2><p class="text-sm font-semibold text-gray-500">Atualize sua agenda visualmente.</p></div>
             <div class="flex items-center gap-3 bg-white/60 p-1.5 rounded-full border border-gray-200 shadow-sm">
               <button onclick="alterarQuinzena(-1)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 text-gray-600 transition-colors"><span class="material-symbols-rounded">chevron_left</span></button>
               <span id="tituloQuinzena" class="text-sm font-bold text-gray-800 min-w-[200px] text-center">Carregando...</span>
@@ -215,9 +207,12 @@
         </div>
       </div>
 
-      <!-- OUTRAS ABAS -->
+      <!-- DEMAIS ABAS -->
       <div id="viewQa" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo QA - Em construção</div>
       <div id="viewDc" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo DC - Em construção</div>
+      <div id="viewConviva" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo CONVIVA - Em construção</div>
+      <div id="viewEdEspecial" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Educação Especial - Em construção</div>
+      <div id="viewMultiplica" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Multiplica - Em construção</div>
     </div>
   </div>
 
@@ -228,12 +223,17 @@
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyeKk-8SHfpGwYtyJN61WTHc0G-yVUIquKwJq1KVlJHWVNbzmIAsEoaaQiNokUDJuJMnw/exec";
+    
     let dbEscolas = []; let dbRelatorios = []; let usuarioLogadoUser = ""; let nomeUsuarioExibicao = ""; 
-    let dataReferenciaAgenda = new Date(); const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    
+    // Controle de Datas
+    let dataReferenciaAgenda = new Date(); 
+    let dataReferenciaCronograma = new Date();
+    const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
     document.getElementById("inputPass").addEventListener("keyup", function(event) { if (event.key === "Enter") fazerLogin(); });
 
-    // --- CORE & NAVEGAÇÃO ---
+    // --- CORE ---
     function fazerLogin() {
       const user = document.getElementById('inputUser').value.trim(); const pass = document.getElementById('inputPass').value.trim();
       const btn = document.getElementById('btnLogin'); const msg = document.getElementById('msgLogin');
@@ -259,7 +259,7 @@
     }
 
     function mudarAba(abaDestino) {
-      const abas = ['Inicio', 'Cronograma', 'Agenda', 'Escolas', 'Relatorios', 'Qa', 'Dc'];
+      const abas = ['Inicio', 'Cronograma', 'Agenda', 'Escolas', 'Relatorios', 'Qa', 'Dc', 'Conviva', 'EdEspecial', 'Multiplica'];
       abas.forEach(aba => { document.getElementById(`btnAba${abaCapitalizada(aba)}`).classList.remove('nav-active'); document.getElementById(`view${abaCapitalizada(aba)}`).classList.add('hidden'); });
       const destinoCap = abaCapitalizada(abaDestino);
       document.getElementById(`btnAba${destinoCap}`).classList.add('nav-active'); document.getElementById(`view${destinoCap}`).classList.remove('hidden');
@@ -267,14 +267,22 @@
     }
     function abaCapitalizada(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
 
-    // --- CRONOGRAMA SEMANAL (AUDITORIA SEI) ---
+    // --- CRONOGRAMA SEMANAL (AUDITORIA SEI) NAVEGÁVEL ---
+    function alterarSemanaCronograma(direcao) {
+      dataReferenciaCronograma.setDate(dataReferenciaCronograma.getDate() + (direcao * 7));
+      carregarCronogramaSemanal();
+    }
+
     function carregarCronogramaSemanal() {
       const container = document.getElementById('gridCronograma');
       container.innerHTML = '<div class="col-span-full text-center text-gray-400 py-10 font-semibold animate-pulse">Cruzando dados da Agenda e Relatórios SEI...</div>';
       
-      fetch(`${API_URL}?action=getAgendaSemanal`).then(res => res.json()).then(res => {
+      const refDateIso = dataReferenciaCronograma.toISOString();
+      
+      fetch(`${API_URL}?action=getAgendaSemanal&refDate=${refDateIso}`).then(res => res.json()).then(res => {
         if(!res.sucesso) { container.innerHTML = `<div class="col-span-full text-center text-red-500 py-10 font-bold">${res.mensagem}</div>`; return; }
-        document.getElementById('tituloSemanaCronograma').innerText = `Semana: ${res.semana}`;
+        
+        document.getElementById('tituloSemanaCronograma').innerText = res.semana;
         container.innerHTML = '';
         
         res.dados.forEach(pecData => {
@@ -288,19 +296,17 @@
               if (info.atrasado) { bgClass = "bg-red-50 border-red-300 ring-1 ring-red-200 shadow-sm"; alertHtml = `<div class="mt-1.5 p-1 rounded bg-red-100 text-[9px] text-red-600 font-bold flex items-center justify-center gap-0.5"><span class="material-symbols-rounded text-[11px]">warning</span> Faltando Relatório</div>`; } 
               else if (info.exigeRelatorio && info.temRelatorio) { alertHtml = `<div class="mt-1.5 p-1 rounded bg-green-50 text-[9px] text-green-600 font-bold flex items-center justify-center gap-0.5"><span class="material-symbols-rounded text-[11px]">check_circle</span> SEI Assinado</div>`; } 
               else if (info.exigeRelatorio && !info.temRelatorio && !info.atrasado) { alertHtml = `<div class="mt-1.5 p-1 rounded bg-yellow-50 text-[9px] text-yellow-600 font-bold flex items-center justify-center gap-0.5"><span class="material-symbols-rounded text-[11px]">schedule</span> Visita Hoje/Futura</div>`; }
-              
               return `<div class="mb-1.5 p-1.5 rounded-lg border ${bgClass} transition-colors"><p class="text-[9px] uppercase font-extrabold text-gray-400 mb-0.5">${periodo}</p><p class="text-[10px] font-bold text-gray-800 leading-tight mb-0.5">${info.atividade}</p><p class="text-[9px] text-gray-500 leading-tight truncate" title="${info.local}">${info.local}</p>${alertHtml}</div>`;
             };
 
             diasHtml += `<div class="bg-gray-50/50 p-2 rounded-xl text-center border border-gray-100 flex flex-col min-w-[140px]"><p class="text-[11px] font-extrabold text-blue-600 uppercase tracking-widest mb-1">${dia.diaNome}</p><p class="text-[10px] font-bold text-gray-500 mb-2">${dia.diaStr}</p>${renderBloco('Manhã', dia.manha)}${renderBloco('Tarde', dia.tarde)}</div>`;
           });
-          
           container.innerHTML += `<div class="liquid-glass p-4 mb-4 bg-white/40 flex flex-col"><h3 class="font-extrabold text-gray-900 text-[15px] mb-3 border-b border-gray-200/60 pb-2 flex items-center gap-2"><span class="material-symbols-rounded text-blue-500 text-lg">person</span> ${pecData.pec}</h3><div class="flex overflow-x-auto gap-2 pb-2 scroll-container">${diasHtml}</div></div>`;
         });
       }).catch(e => { container.innerHTML = '<div class="col-span-full text-center text-red-500 py-10 font-bold">Erro ao buscar cronograma.</div>'; });
     }
 
-    // --- MINHA AGENDA (PREENCHIMENTO) ---
+    // --- MINHA AGENDA QUINZENAL ---
     function alterarQuinzena(direcao) {
       let diaAtual = dataReferenciaAgenda.getDate();
       if (direcao === 1) { if (diaAtual <= 15) { dataReferenciaAgenda.setDate(16); } else { dataReferenciaAgenda.setMonth(dataReferenciaAgenda.getMonth() + 1); dataReferenciaAgenda.setDate(1); } } 
@@ -337,7 +343,7 @@
       }).catch(err => { btn.disabled = false; btn.innerHTML = 'Salvar Agenda na Planilha'; msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200"; msg.innerText = "Erro ao conectar."; msg.classList.remove('hidden'); });
     }
 
-    // --- OUTRAS (Relatórios, Escolas, Avisos, AgendaDia, Docs, Logs) ---
+    // --- RELATÓRIOS SEI ---
     function salvarRelatorioSei() {
       const btn = document.getElementById('btnSalvarRelatorio'); const msg = document.getElementById('msgFormSei');
       const payload = { action: 'salvarRelatorio', pec: nomeUsuarioExibicao, dataVisita: document.getElementById('formSeiData').value.split('-').reverse().join('/'), escola: document.getElementById('formSeiEscola').value, periodo: document.getElementById('formSeiPeriodo').value, processo: document.getElementById('formSeiProcesso').value.trim(), link: document.getElementById('formSeiLink').value.trim(), status: document.getElementById('formSeiStatus').value };
@@ -374,6 +380,7 @@
       fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'atualizarStatusRelatorio', linha: linha, processo: processo, pec: nomeUsuarioExibicao }) }).then(res => res.json()).then(res => { if(res.sucesso) { carregarRelatorios(); carregarCronogramaSemanal(); } else { alert("Erro: " + res.mensagem); } });
     }
 
+    // --- ESCOLAS E OUTROS ---
     function carregarEscolas() {
       fetch(`${API_URL}?action=getEscolas`).then(res => res.json()).then(res => {
         if (!res.sucesso) return; dbEscolas = res.dados; renderizarEscolas(dbEscolas);
@@ -388,6 +395,7 @@
     }
     function filtrarEscolas() { const t = document.getElementById('buscaEscola').value.toLowerCase(); renderizarEscolas(dbEscolas.filter(e => e.nome.toLowerCase().includes(t) || e.pec.toLowerCase().includes(t) || e.cidade.toLowerCase().includes(t))); }
     function gerarLinkWpp(n) { if(!n || n === '-') return ''; let l = n.toString().replace(/\D/g, ''); if(l.length >= 10) { if(!l.startsWith('55')) l = '55' + l; return `https://wa.me/${l}`; } return ''; }
+    
     function abrirModalEscola(idx) {
       const esc = dbEscolas[idx]; document.getElementById('modalEscolaNome').innerText = esc.nome; document.getElementById('modalEscolaPec').innerText = `PEC Responsável: ${esc.pec}`;
       let h = '<h4 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mt-2 mb-3">Equipe Gestora & Contatos</h4>'; let tc = false;
@@ -404,6 +412,16 @@
     }
     function fecharModalEscola() { document.getElementById('modalEscola').classList.add('hidden'); }
     document.getElementById('modalEscola').addEventListener('click', function(e) { if(e.target === this) fecharModalEscola(); });
+
+    function abrirModalLogs() { document.getElementById('modalLogs').classList.remove('hidden'); carregarLogs(); }
+    function fecharModalLogs() { document.getElementById('modalLogs').classList.add('hidden'); }
+    function carregarLogs() {
+      const tbody = document.getElementById('tabelaLogsBody'); tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-gray-400 font-semibold animate-pulse">Buscando logs...</td></tr>';
+      fetch(`${API_URL}?action=getLogs&usuario=${encodeURIComponent(usuarioLogadoUser)}`).then(res => res.json()).then(res => {
+          tbody.innerHTML = ''; if (!res.sucesso || res.dados.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-gray-400 font-semibold">Nenhum registro.</td></tr>'; return; }
+          res.dados.forEach(log => { tbody.innerHTML += `<tr class="border-b border-gray-100 hover:bg-white/50 transition-colors"><td class="py-3 px-3 text-xs text-gray-500 font-bold">${log.data}</td><td class="py-3 px-3 font-extrabold text-blue-600">${log.usuario}</td><td class="py-3 px-3"><span class="apple-badge apple-badge-blue text-[10px]">${log.acao}</span></td><td class="py-3 px-3 text-xs text-gray-600">${log.detalhes}</td></tr>`; });
+        });
+    }
 
     function carregarAvisos() { fetch(`${API_URL}?action=getAvisos`).then(res => res.json()).then(res => { if (res.sucesso && res.dados.length > 0) { document.getElementById('textoAvisos').innerHTML = res.dados.join(' &nbsp;&bull;&nbsp; '); document.getElementById('bannerAvisos').classList.remove('hidden'); } }); }
     function carregarAgenda() { fetch(`${API_URL}?action=getAgenda`).then(res => res.json()).then(res => { const container = document.getElementById('containerAgenda'); if (!res.sucesso) { document.getElementById('dataAgenda').innerText = "Hoje"; container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10 font-bold">${res.mensagem}</div>`; return; } document.getElementById('dataAgenda').innerText = res.dataAgendada; container.innerHTML = ''; res.dados.forEach(pec => { container.innerHTML += `<div class="bg-white/60 p-4 rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.03)] border border-white hover:bg-white/90 transition-colors flex flex-col gap-3"><h3 class="font-bold text-gray-800 text-[15px] border-b border-gray-200/60 pb-2 flex items-center gap-2"><span class="material-symbols-rounded text-blue-500 text-lg">person</span> ${pec.pec}</h3><div class="grid grid-cols-2 gap-4 flex-1"><div><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Manhã</span><p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.manha.atividade}</p><p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.manha.local}">${pec.manha.local}</p></div><div><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Tarde</span><p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.tarde.atividade}</p><p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.tarde.local}">${pec.tarde.local}</p></div></div></div>`; }); }); }
