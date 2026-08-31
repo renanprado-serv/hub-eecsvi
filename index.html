@@ -63,19 +63,9 @@
       </div>
       <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 mb-1">Acesso Restrito</h2>
       <p class="text-sm font-semibold text-gray-500 mb-6">Autentique-se para entrar no HUB EEC</p>
-      
       <div id="msgLogin" class="hidden mb-4 p-3 rounded-xl bg-red-100 text-red-700 text-sm font-bold border border-red-200"></div>
-
-      <div class="text-left mb-4">
-        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Usuário</label>
-        <input type="text" id="inputUser" class="liquid-input" placeholder="Seu nome de usuário">
-      </div>
-      
-      <div class="text-left mb-6">
-        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Senha</label>
-        <input type="password" id="inputPass" class="liquid-input" placeholder="Sua senha">
-      </div>
-
+      <div class="text-left mb-4"><label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Usuário</label><input type="text" id="inputUser" class="liquid-input" placeholder="Seu nome de usuário"></div>
+      <div class="text-left mb-6"><label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Senha</label><input type="password" id="inputPass" class="liquid-input" placeholder="Sua senha"></div>
       <button id="btnLogin" class="btn-primary-apple" onclick="fazerLogin()">Entrar</button>
     </div>
   </div>
@@ -94,7 +84,6 @@
             <p class="text-xs font-semibold text-gray-500">Olá, <span id="nomeUsuarioLayout" class="text-blue-600 uppercase"></span></p>
           </div>
         </div>
-        
         <div class="flex items-center gap-2">
           <button id="btnMenuLogs" onclick="abrirModalLogs()" class="hidden px-4 py-2 text-sm font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors items-center gap-1">
             <span class="material-symbols-rounded text-[18px]">history</span> Logs
@@ -115,6 +104,7 @@
       <div class="text-center mb-8 overflow-x-auto pb-2">
         <div class="liquid-segmented whitespace-nowrap">
           <button id="btnAbaInicio" class="nav-active" onclick="mudarAba('inicio')"><span class="material-symbols-rounded fs-6">grid_view</span> Início</button>
+          <button id="btnAbaAgenda" onclick="mudarAba('agenda')"><span class="material-symbols-rounded fs-6">edit_calendar</span> Minha Agenda</button>
           <button id="btnAbaEscolas" onclick="mudarAba('escolas')"><span class="material-symbols-rounded fs-6">domain</span> Escolas</button>
           <button id="btnAbaRelatorios" onclick="mudarAba('relatorios')"><span class="material-symbols-rounded fs-6">edit_document</span> Relatórios SEI</button>
           <button id="btnAbaQa" onclick="mudarAba('qa')"><span class="material-symbols-rounded fs-6">fact_check</span> QA</button>
@@ -129,9 +119,7 @@
       <div id="viewInicio" class="view-section row grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2 liquid-glass p-6 flex flex-col h-[550px]">
           <div class="flex justify-between items-center mb-6 border-b border-gray-200/50 pb-4 flex-shrink-0">
-            <h2 class="text-lg font-bold flex items-center gap-2 text-gray-800">
-              <span class="material-symbols-rounded text-blue-500">calendar_month</span> Agenda Diária 
-            </h2>
+            <h2 class="text-lg font-bold flex items-center gap-2 text-gray-800"><span class="material-symbols-rounded text-blue-500">calendar_month</span> Agenda Diária</h2>
             <span id="dataAgenda" class="text-sm font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Carregando...</span>
           </div>
           <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
@@ -140,232 +128,146 @@
             </div>
           </div>
         </div>
-
         <div class="flex flex-col gap-6">
           <div class="liquid-glass p-6 flex flex-col h-[263px]">
-            <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0">
-              <span class="material-symbols-rounded text-indigo-500">folder</span> Orientadores
-            </h2>
-            <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
-              <div id="listaDocs" class="flex flex-col gap-2">
-                <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Aguardando login...</div>
-              </div>
-            </div>
+            <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0"><span class="material-symbols-rounded text-indigo-500">folder</span> Orientadores</h2>
+            <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2"><div id="listaDocs" class="flex flex-col gap-2"></div></div>
           </div>
-
           <div class="liquid-glass p-6 flex flex-col h-[263px]">
-            <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0">
-              <span class="material-symbols-rounded text-teal-500">article</span> Boletins
-            </h2>
-            <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
-              <div id="listaBoletins" class="flex flex-col gap-2">
-                <div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Aguardando login...</div>
-              </div>
-            </div>
+            <h2 class="text-lg font-bold flex items-center gap-2 mb-4 text-gray-800 border-b border-gray-200/50 pb-2 flex-shrink-0"><span class="material-symbols-rounded text-teal-500">article</span> Boletins</h2>
+            <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2"><div id="listaBoletins" class="flex flex-col gap-2"></div></div>
           </div>
         </div>
       </div>
 
-      <!-- Aba 2: Escolas -->
+      <!-- Aba Nova: Minha Agenda (Preenchimento Quinzenal) -->
+      <div id="viewAgenda" class="view-section hidden flex flex-col">
+        <div class="liquid-glass p-6 flex flex-col min-h-[500px]">
+          <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4 border-b border-gray-200/50 pb-4">
+            <div>
+              <h2 class="text-xl font-extrabold tracking-tight text-gray-900">Preenchimento Quinzenal</h2>
+              <p class="text-sm font-semibold text-gray-500">Atualize sua agenda preenchendo os dados abaixo.</p>
+            </div>
+            <div class="flex gap-2 items-end">
+              <div>
+                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Data Inicial (Segunda-feira)</label>
+                <input type="date" id="dataInicioAgenda" class="liquid-input py-2 text-sm w-44">
+              </div>
+              <button onclick="gerarTabelaAgenda()" class="btn-primary-apple py-2 px-4 whitespace-nowrap">Gerar Quinzena</button>
+            </div>
+          </div>
+
+          <div id="msgAgenda" class="hidden mb-4 p-3 rounded-xl text-sm font-bold border"></div>
+
+          <!-- Tabela de Preenchimento -->
+          <div id="containerTabelaAgenda" class="hidden flex-col flex-1">
+            <div class="overflow-x-auto scroll-container pb-4">
+              <table class="w-full text-left border-collapse min-w-[800px]">
+                <thead>
+                  <tr class="text-[10px] font-bold text-gray-400 uppercase tracking-wider border-b border-gray-200">
+                    <th class="py-2 px-2 w-32">Dia</th>
+                    <th class="py-2 px-1">Atividade (Manhã)</th>
+                    <th class="py-2 px-1">Local (Manhã)</th>
+                    <th class="py-2 px-1">Atividade (Tarde)</th>
+                    <th class="py-2 px-1">Local (Tarde)</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyMinhaAgenda" class="text-gray-700 text-sm">
+                  <!-- Linhas geradas pelo JS -->
+                </tbody>
+              </table>
+            </div>
+            <div class="mt-4 flex justify-end">
+              <button id="btnSalvarMinhaAgenda" onclick="enviarMinhaAgenda()" class="btn-primary-apple w-auto px-8">Salvar Agenda na Planilha</button>
+            </div>
+          </div>
+
+          <div id="placeholderAgenda" class="flex-1 flex flex-col items-center justify-center text-gray-400">
+            <span class="material-symbols-rounded text-5xl mb-2 opacity-50">date_range</span>
+            <p class="font-semibold text-sm">Selecione uma data inicial e clique em "Gerar Quinzena".</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aba Escolas -->
       <div id="viewEscolas" class="view-section hidden flex flex-col min-h-[600px]">
         <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-          <div>
-            <h2 class="text-2xl font-extrabold tracking-tight text-gray-900">Catálogo de Escolas</h2>
-            <p class="text-sm font-semibold text-gray-500">Consulte a equipe gestora e dados da unidade.</p>
-          </div>
-          <div class="relative w-full md:w-96">
-            <span class="material-symbols-rounded absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">search</span>
-            <input type="text" id="buscaEscola" onkeyup="filtrarEscolas()" placeholder="Buscar por escola, cidade ou PEC..." class="liquid-input pl-10 w-full shadow-sm bg-white/60">
-          </div>
+          <div><h2 class="text-2xl font-extrabold tracking-tight text-gray-900">Catálogo de Escolas</h2><p class="text-sm font-semibold text-gray-500">Consulte a equipe gestora e dados da unidade.</p></div>
+          <div class="relative w-full md:w-96"><span class="material-symbols-rounded absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">search</span><input type="text" id="buscaEscola" onkeyup="filtrarEscolas()" placeholder="Buscar por escola, cidade ou PEC..." class="liquid-input pl-10 w-full shadow-sm bg-white/60"></div>
         </div>
-
-        <div id="gridEscolas" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-           <div class="col-span-full text-center text-gray-400 py-20 text-sm font-semibold animate-pulse">Buscando banco de dados de escolas...</div>
-        </div>
+        <div id="gridEscolas" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
       </div>
 
-      <!-- Aba 3: Relatórios SEI -->
+      <!-- Aba Relatórios SEI -->
       <div id="viewRelatorios" class="view-section hidden row grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        <!-- Formulário de Registro -->
         <div class="liquid-glass p-6 flex flex-col h-fit">
           <h2 class="text-xl font-extrabold tracking-tight text-gray-900 mb-2">Novo Acompanhamento</h2>
           <p class="text-sm font-semibold text-gray-500 mb-6">Registre seu relatório SEI.</p>
-          
           <div id="msgFormSei" class="hidden mb-4 p-3 rounded-xl text-sm font-bold border"></div>
-
           <div class="flex flex-col gap-4">
-            <div>
-              <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Data da Visita</label>
-              <input type="date" id="formSeiData" class="liquid-input text-sm py-2">
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Escola</label>
-              <select id="formSeiEscola" class="liquid-input text-sm py-2">
-                <option value="">Carregando escolas...</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Período</label>
-              <select id="formSeiPeriodo" class="liquid-input text-sm py-2">
-                <option value="Manhã">Manhã</option>
-                <option value="Tarde">Tarde</option>
-                <option value="Integral">Integral</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Nº Processo SEI</label>
-              <input type="text" id="formSeiProcesso" class="liquid-input text-sm py-2" placeholder="Ex: 96952527">
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Link Direto (Opcional)</label>
-              <input type="url" id="formSeiLink" class="liquid-input text-sm py-2" placeholder="https://sei.sp.gov.br/...">
-            </div>
-            <div>
-              <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Status da Assinatura</label>
-              <select id="formSeiStatus" class="liquid-input text-sm py-2">
-                <option value="Assinado">Assinado e Concluído</option>
-                <option value="Pendente">Salvo como Rascunho / Pendente</option>
-              </select>
-            </div>
-
+            <div><label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Data da Visita</label><input type="date" id="formSeiData" class="liquid-input text-sm py-2"></div>
+            <div><label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Escola</label><select id="formSeiEscola" class="liquid-input text-sm py-2"><option value="">Carregando escolas...</option></select></div>
+            <div><label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Período</label><select id="formSeiPeriodo" class="liquid-input text-sm py-2"><option value="Manhã">Manhã</option><option value="Tarde">Tarde</option><option value="Integral">Integral</option></select></div>
+            <div><label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Nº Processo SEI</label><input type="text" id="formSeiProcesso" class="liquid-input text-sm py-2" placeholder="Ex: 96952527"></div>
+            <div><label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Link Direto (Opcional)</label><input type="url" id="formSeiLink" class="liquid-input text-sm py-2" placeholder="https://sei.sp.gov.br/..."></div>
+            <div><label class="block text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Status da Assinatura</label><select id="formSeiStatus" class="liquid-input text-sm py-2"><option value="Assinado">Assinado e Concluído</option><option value="Pendente">Salvo como Rascunho / Pendente</option></select></div>
             <button id="btnSalvarRelatorio" class="btn-primary-apple mt-2" onclick="salvarRelatorioSei()">Salvar Registro</button>
           </div>
         </div>
-
-        <!-- Lista de Relatórios -->
         <div class="lg:col-span-2 liquid-glass p-6 flex flex-col h-[650px]">
           <div class="flex flex-col sm:flex-row justify-between items-center mb-4 border-b border-gray-200/50 pb-4 flex-shrink-0 gap-4">
-            <h2 class="text-lg font-bold flex items-center gap-2 text-gray-800">
-              <span class="material-symbols-rounded text-blue-500">format_list_bulleted</span> Últimos Lançamentos
-            </h2>
-            <button onclick="carregarRelatorios()" class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100 transition-colors" title="Atualizar">
-              <span class="material-symbols-rounded text-[18px]">sync</span>
-            </button>
+            <h2 class="text-lg font-bold flex items-center gap-2 text-gray-800"><span class="material-symbols-rounded text-blue-500">format_list_bulleted</span> Últimos Lançamentos</h2>
+            <button onclick="carregarRelatorios()" class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100 transition-colors" title="Atualizar"><span class="material-symbols-rounded text-[18px]">sync</span></button>
           </div>
-          
-          <!-- Barra de Pesquisa de Relatórios -->
-          <div class="relative w-full mb-4 flex-shrink-0">
-            <span class="material-symbols-rounded absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg">search</span>
-            <input type="text" id="buscaRelatorio" onkeyup="filtrarRelatorios()" placeholder="Pesquisar por escola, processo ou PEC..." class="liquid-input pl-10 w-full shadow-sm bg-white/60 py-2 text-sm">
-          </div>
-
-          <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2">
-            <div id="listaRelatorios" class="flex flex-col gap-3">
-              <div class="text-center text-gray-400 py-10 text-sm font-semibold animate-pulse">Carregando histórico...</div>
-            </div>
-          </div>
+          <div class="relative w-full mb-4 flex-shrink-0"><span class="material-symbols-rounded absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-lg">search</span><input type="text" id="buscaRelatorio" onkeyup="filtrarRelatorios()" placeholder="Pesquisar por escola, processo ou PEC..." class="liquid-input pl-10 w-full shadow-sm bg-white/60 py-2 text-sm"></div>
+          <div class="scroll-container overflow-y-auto flex-1 min-h-0 pr-2"><div id="listaRelatorios" class="flex flex-col gap-3"></div></div>
         </div>
       </div>
 
-      <!-- DEMAIS ABAS -->
       <div id="viewQa" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo QA - Em construção</div>
       <div id="viewDc" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo DC - Em construção</div>
       <div id="viewConviva" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo CONVIVA - Em construção</div>
       <div id="viewEdEspecial" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Educação Especial - Em construção</div>
       <div id="viewMultiplica" class="view-section hidden liquid-glass p-12 text-center text-gray-500 font-bold">Módulo Multiplica - Em construção</div>
-
     </div>
   </div>
 
-  <!-- MODAIS (Escola e Logs) -->
-  <div id="modalEscola" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity">
-    <div class="liquid-glass w-full max-w-lg p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]">
-      <div class="flex justify-between items-start mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0">
-        <div class="pr-4">
-          <h2 id="modalEscolaNome" class="text-xl font-extrabold text-gray-900 leading-tight">Nome da Escola</h2>
-          <p id="modalEscolaPec" class="text-sm font-bold text-blue-600 mt-1">PEC Responsável</p>
-        </div>
-        <button onclick="fecharModalEscola()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0">
-          <span class="material-symbols-rounded text-lg">close</span>
-        </button>
-      </div>
-      <div class="overflow-y-auto scroll-container pr-2 flex-1">
-        <div id="modalEscolaBody" class="flex flex-col gap-1 pb-4"></div>
-      </div>
-    </div>
-  </div>
+  <!-- MODAL DE DETALHES DA ESCOLA -->
+  <div id="modalEscola" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity"><div class="liquid-glass w-full max-w-lg p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]"><div class="flex justify-between items-start mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0"><div class="pr-4"><h2 id="modalEscolaNome" class="text-xl font-extrabold text-gray-900 leading-tight">Nome</h2><p id="modalEscolaPec" class="text-sm font-bold text-blue-600 mt-1">PEC</p></div><button onclick="fecharModalEscola()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0"><span class="material-symbols-rounded text-lg">close</span></button></div><div class="overflow-y-auto scroll-container pr-2 flex-1"><div id="modalEscolaBody" class="flex flex-col gap-1 pb-4"></div></div></div></div>
 
-  <div id="modalLogs" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity">
-    <div class="liquid-glass w-full max-w-3xl p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]">
-      <div class="flex justify-between items-center mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0">
-        <div class="flex items-center gap-2">
-          <span class="material-symbols-rounded text-blue-600">history</span>
-          <h2 class="text-xl font-extrabold text-gray-900">Histórico de Auditoria (Logs)</h2>
-        </div>
-        <button onclick="fecharModalLogs()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0">
-          <span class="material-symbols-rounded text-lg">close</span>
-        </button>
-      </div>
-      <div class="overflow-y-auto scroll-container pr-2 flex-1">
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr class="border-b border-gray-200 text-xs font-bold text-gray-400 uppercase">
-              <th class="py-2 px-3">Data / Hora</th>
-              <th class="py-2 px-3">Usuário</th>
-              <th class="py-2 px-3">Ação</th>
-              <th class="py-2 px-3">Detalhes</th>
-            </tr>
-          </thead>
-          <tbody id="tabelaLogsBody" class="text-sm text-gray-700">
-            <tr><td colspan="4" class="text-center py-6 text-gray-400 font-semibold">Carregando logs...</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+  <!-- MODAL DE LOGS -->
+  <div id="modalLogs" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm transition-opacity"><div class="liquid-glass w-full max-w-3xl p-6 flex flex-col transform scale-100 transition-transform bg-white/95 max-h-[90vh]"><div class="flex justify-between items-center mb-4 border-b border-gray-200/60 pb-4 flex-shrink-0"><div class="flex items-center gap-2"><span class="material-symbols-rounded text-blue-600">history</span><h2 class="text-xl font-extrabold text-gray-900">Histórico (Logs)</h2></div><button onclick="fecharModalLogs()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors flex-shrink-0"><span class="material-symbols-rounded text-lg">close</span></button></div><div class="overflow-y-auto scroll-container pr-2 flex-1"><table class="w-full text-left border-collapse"><thead><tr class="border-b border-gray-200 text-xs font-bold text-gray-400 uppercase"><th class="py-2 px-3">Data / Hora</th><th class="py-2 px-3">Usuário</th><th class="py-2 px-3">Ação</th><th class="py-2 px-3">Detalhes</th></tr></thead><tbody id="tabelaLogsBody" class="text-sm text-gray-700"></tbody></table></div></div></div>
 
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyeKk-8SHfpGwYtyJN61WTHc0G-yVUIquKwJq1KVlJHWVNbzmIAsEoaaQiNokUDJuJMnw/exec";
     
     let dbEscolas = [];
-    let dbRelatorios = []; // Variável global para armazenar relatórios e permitir filtro
+    let dbRelatorios = []; 
     let usuarioLogadoUser = "";
     let nomeUsuarioExibicao = ""; 
 
-    document.getElementById("inputPass").addEventListener("keyup", function(event) {
-      if (event.key === "Enter") fazerLogin();
-    });
+    document.getElementById("inputPass").addEventListener("keyup", function(event) { if (event.key === "Enter") fazerLogin(); });
 
     function fazerLogin() {
       const user = document.getElementById('inputUser').value.trim();
       const pass = document.getElementById('inputPass').value.trim();
       const btn = document.getElementById('btnLogin');
       const msg = document.getElementById('msgLogin');
-
       if(!user || !pass) { msg.innerText = "Preencha usuário e senha."; msg.classList.remove('hidden'); return; }
-
-      msg.classList.add('hidden');
-      btn.disabled = true;
+      msg.classList.add('hidden'); btn.disabled = true;
       btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1" style="font-size: 18px;">sync</span> Autenticando...';
-
       fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'login', usuario: user, senha: pass }) })
-      .then(res => res.json())
-      .then(res => {
+      .then(res => res.json()).then(res => {
         btn.disabled = false; btn.innerHTML = 'Entrar';
         if(res.sucesso) {
-          usuarioLogadoUser = user.toLowerCase();
-          nomeUsuarioExibicao = res.nome;
+          usuarioLogadoUser = user.toLowerCase(); nomeUsuarioExibicao = res.nome;
           document.getElementById('nomeUsuarioLayout').innerText = res.nome;
-          
-          if (usuarioLogadoUser === 'cec') {
-            document.getElementById('btnMenuLogs').classList.remove('hidden');
-            document.getElementById('btnMenuLogs').classList.add('flex');
-          } else {
-            document.getElementById('btnMenuLogs').classList.add('hidden');
-            document.getElementById('btnMenuLogs').classList.remove('flex');
-          }
-
-          document.getElementById('loginScreen').classList.add('hidden');
-          document.getElementById('appScreen').classList.remove('hidden');
+          if (usuarioLogadoUser === 'cec') { document.getElementById('btnMenuLogs').classList.remove('hidden'); document.getElementById('btnMenuLogs').classList.add('flex'); } 
+          else { document.getElementById('btnMenuLogs').classList.add('hidden'); document.getElementById('btnMenuLogs').classList.remove('flex'); }
+          document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('appScreen').classList.remove('hidden');
           iniciarApp();
-        } else {
-          msg.innerText = res.mensagem; msg.classList.remove('hidden');
-        }
-      }).catch(err => {
-        btn.disabled = false; btn.innerHTML = 'Entrar';
-        msg.innerText = "Erro de conexão. O servidor não respondeu."; msg.classList.remove('hidden');
-      });
+        } else { msg.innerText = res.mensagem; msg.classList.remove('hidden'); }
+      }).catch(err => { btn.disabled = false; btn.innerHTML = 'Entrar'; msg.innerText = "Erro de conexão. O servidor não respondeu."; msg.classList.remove('hidden'); });
     }
 
     function sair() {
@@ -374,36 +276,16 @@
       document.getElementById('appScreen').classList.add('hidden'); document.getElementById('loginScreen').classList.remove('hidden');
     }
 
-    function abrirModalLogs() { document.getElementById('modalLogs').classList.remove('hidden'); carregarLogs(); }
-    function fecharModalLogs() { document.getElementById('modalLogs').classList.add('hidden'); }
-
-    function carregarLogs() {
-      const tbody = document.getElementById('tabelaLogsBody');
-      tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-gray-400 font-semibold animate-pulse">Buscando logs de auditoria...</td></tr>';
-      fetch(`${API_URL}?action=getLogs&usuario=${encodeURIComponent(usuarioLogadoUser)}`).then(res => res.json()).then(res => {
-          tbody.innerHTML = '';
-          if (!res.sucesso || res.dados.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-gray-400 font-semibold">Nenhum registro.</td></tr>'; return; }
-          res.dados.forEach(log => {
-            tbody.innerHTML += `<tr class="border-b border-gray-100 hover:bg-white/50 transition-colors"><td class="py-3 px-3 text-xs text-gray-500 font-bold">${log.data}</td><td class="py-3 px-3 font-extrabold text-blue-600">${log.usuario}</td><td class="py-3 px-3"><span class="apple-badge apple-badge-blue text-[10px]">${log.acao}</span></td><td class="py-3 px-3 text-xs text-gray-600">${log.detalhes}</td></tr>`;
-          });
-        }).catch(err => { tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-red-500 font-bold">Erro ao carregar os logs.</td></tr>'; });
-    }
-
     function iniciarApp() {
-      document.getElementById('listaDocs').innerHTML = '<div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>';
-      document.getElementById('listaBoletins').innerHTML = '<div class="text-center text-gray-400 py-6 text-sm font-semibold animate-pulse">Buscando...</div>';
-      document.getElementById('gridEscolas').innerHTML = '<div class="col-span-full text-center text-gray-400 py-20 text-sm font-semibold animate-pulse">Buscando banco de dados...</div>';
+      carregarAvisos(); carregarAgenda(); carregarDocumentos(); carregarEscolas(); carregarRelatorios();
+      // Define a próxima segunda-feira como padrão no input da agenda quinzenal
+      let d = new Date(); d.setDate(d.getDate() + (1 + 7 - d.getDay()) % 7);
+      document.getElementById('dataInicioAgenda').valueAsDate = d;
       document.getElementById('formSeiData').valueAsDate = new Date(); 
-      
-      carregarAvisos(); 
-      carregarAgenda(); 
-      carregarDocumentos(); 
-      carregarEscolas();
-      carregarRelatorios();
     }
 
     function mudarAba(abaDestino) {
-      const abas = ['Inicio', 'Escolas', 'Relatorios', 'Qa', 'Dc', 'Conviva', 'EdEspecial', 'Multiplica'];
+      const abas = ['Inicio', 'Agenda', 'Escolas', 'Relatorios', 'Qa', 'Dc', 'Conviva', 'EdEspecial', 'Multiplica'];
       abas.forEach(aba => {
         document.getElementById(`btnAba${abaCapitalizada(aba)}`).classList.remove('nav-active');
         document.getElementById(`view${abaCapitalizada(aba)}`).classList.add('hidden');
@@ -412,226 +294,203 @@
       document.getElementById(`btnAba${destinoCap}`).classList.add('nav-active');
       document.getElementById(`view${destinoCap}`).classList.remove('hidden');
     }
+    function abaCapitalizada(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
 
-    function abaCapitalizada(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
+    // ==========================================
+    // NOVA ABA: MINHA AGENDA QUINZENAL
+    // ==========================================
+    function gerarTabelaAgenda() {
+      const inputData = document.getElementById('dataInicioAgenda').value;
+      if (!inputData) { alert("Selecione uma data inicial."); return; }
+      
+      const tbody = document.getElementById('tbodyMinhaAgenda');
+      tbody.innerHTML = '';
+      
+      // Cria as listas de opções baseadas no padrão da URE SVI
+      const ativOptions = `<option value="-">- Selecione -</option>` +
+        ['Acompanhamento QA', 'Acompanhamento DC', 'Acompanhamento Ed. Especial', 'Acompanhamento Multiplica', 'Formação Presencial', 'Reunião', 'Convocação', 'Escola de Gestão', 'Expediente Interno', 'Feriado']
+        .map(a => `<option value="${a}">${a}</option>`).join('');
+      
+      const locaisOptions = `<option value="-">- Selecione -</option>` +
+        `<optgroup label="Fixos">` + ['URE SVI', 'SEDUC', 'Polo', 'Home Office', 'Feriado'].map(l => `<option value="${l}">${l}</option>`).join('') + `</optgroup>` +
+        `<optgroup label="Escolas">` + dbEscolas.map(e => `<option value="${e.nome}">${e.nome}</option>`).join('') + `</optgroup>`;
+
+      const dateParts = inputData.split('-');
+      let dataCorrente = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+      let diasGerados = 0;
+      let limitadorSeguranca = 0;
+
+      // Gera 10 dias úteis
+      while(diasGerados < 10 && limitadorSeguranca < 20) {
+        let diaDaSemana = dataCorrente.getDay();
+        if (diaDaSemana !== 0 && diaDaSemana !== 6) { // Ignora sábados e domingos no form
+          let strDia = ("0" + dataCorrente.getDate()).slice(-2) + "/" + ("0" + (dataCorrente.getMonth() + 1)).slice(-2);
+          let nomeSemana = ['Dom', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sáb'][diaDaSemana];
+          let dataISO = `${dataCorrente.getFullYear()}-${("0" + (dataCorrente.getMonth() + 1)).slice(-2)}-${("0" + dataCorrente.getDate()).slice(-2)}`;
+
+          tbody.innerHTML += `
+            <tr data-date="${dataISO}" class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+              <td class="py-2 px-2 text-xs font-extrabold text-gray-500 whitespace-nowrap">${nomeSemana}, ${strDia}</td>
+              <td class="py-1 px-1"><select class="mA liquid-input text-[11px] py-1.5 px-2 h-8 w-full min-w-[150px] shadow-sm">${ativOptions}</select></td>
+              <td class="py-1 px-1"><select class="mL liquid-input text-[11px] py-1.5 px-2 h-8 w-full min-w-[150px] shadow-sm">${locaisOptions}</select></td>
+              <td class="py-1 px-1"><select class="tA liquid-input text-[11px] py-1.5 px-2 h-8 w-full min-w-[150px] shadow-sm">${ativOptions}</select></td>
+              <td class="py-1 px-1"><select class="tL liquid-input text-[11px] py-1.5 px-2 h-8 w-full min-w-[150px] shadow-sm">${locaisOptions}</select></td>
+            </tr>
+          `;
+          diasGerados++;
+        }
+        dataCorrente.setDate(dataCorrente.getDate() + 1);
+        limitadorSeguranca++;
+      }
+
+      document.getElementById('placeholderAgenda').classList.add('hidden');
+      document.getElementById('containerTabelaAgenda').classList.remove('hidden');
+      document.getElementById('containerTabelaAgenda').classList.add('flex');
     }
 
-    // --- FUNÇÕES DE RELATÓRIOS SEI ---
-    function salvarRelatorioSei() {
-      const btn = document.getElementById('btnSalvarRelatorio');
-      const msg = document.getElementById('msgFormSei');
+    function enviarMinhaAgenda() {
+      const btn = document.getElementById('btnSalvarMinhaAgenda');
+      const msg = document.getElementById('msgAgenda');
+      const linhas = document.querySelectorAll('#tbodyMinhaAgenda tr');
       
-      const dataVisita = document.getElementById('formSeiData').value;
-      const escola = document.getElementById('formSeiEscola').value;
-      const periodo = document.getElementById('formSeiPeriodo').value;
-      const processo = document.getElementById('formSeiProcesso').value.trim();
-      const link = document.getElementById('formSeiLink').value.trim();
-      const status = document.getElementById('formSeiStatus').value;
-
-      if(!dataVisita || !escola || !processo) {
-        msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200";
-        msg.innerText = "Preencha a Data, a Escola e o Número do Processo.";
-        msg.classList.remove('hidden');
-        return;
-      }
+      let payloadDias = [];
+      linhas.forEach(tr => {
+        payloadDias.push({
+          data: tr.getAttribute('data-date'),
+          mA: tr.querySelector('.mA').value,
+          mL: tr.querySelector('.mL').value,
+          tA: tr.querySelector('.tA').value,
+          tL: tr.querySelector('.tL').value
+        });
+      });
 
       msg.classList.add('hidden');
       btn.disabled = true;
       btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1" style="font-size: 18px;">sync</span> Salvando...';
 
-      const payload = { 
-        action: 'salvarRelatorio', 
-        pec: nomeUsuarioExibicao, 
-        dataVisita: dataVisita.split('-').reverse().join('/'), 
-        escola: escola, 
-        periodo: periodo, 
-        processo: processo, 
-        link: link, 
-        status: status 
-      };
-
-      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
+      fetch(API_URL, { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' }, 
+        body: JSON.stringify({ action: 'salvarMinhaAgenda', pec: nomeUsuarioExibicao, dias: payloadDias }) 
+      })
       .then(res => res.json())
       .then(res => {
-        btn.disabled = false; btn.innerHTML = 'Salvar Registro';
+        btn.disabled = false; btn.innerHTML = 'Salvar Agenda na Planilha';
         if(res.sucesso) {
           msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-green-100 text-green-700 border-green-200";
-          msg.innerText = "Relatório salvo com sucesso!";
-          msg.classList.remove('hidden');
-          document.getElementById('formSeiProcesso').value = '';
-          document.getElementById('formSeiLink').value = '';
-          setTimeout(() => { msg.classList.add('hidden'); }, 4000);
-          carregarRelatorios(); 
+          msg.innerText = res.mensagem; msg.classList.remove('hidden');
+          carregarAgenda(); // Atualiza o grid da página inicial
+          setTimeout(() => { msg.classList.add('hidden'); }, 6000);
         } else {
           msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200";
           msg.innerText = res.mensagem; msg.classList.remove('hidden');
         }
       }).catch(err => {
-        btn.disabled = false; btn.innerHTML = 'Salvar Registro';
+        btn.disabled = false; btn.innerHTML = 'Salvar Agenda na Planilha';
         msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200";
-        msg.innerText = "Erro de conexão ao salvar."; msg.classList.remove('hidden');
+        msg.innerText = "Erro ao conectar com o servidor."; msg.classList.remove('hidden');
       });
+    }
+
+    // ==========================================
+    // FUNÇÕES RESTANTES (Relatórios, Escolas, Logs)
+    // ==========================================
+    function salvarRelatorioSei() {
+      const btn = document.getElementById('btnSalvarRelatorio'); const msg = document.getElementById('msgFormSei');
+      const payload = { action: 'salvarRelatorio', pec: nomeUsuarioExibicao, dataVisita: document.getElementById('formSeiData').value.split('-').reverse().join('/'), escola: document.getElementById('formSeiEscola').value, periodo: document.getElementById('formSeiPeriodo').value, processo: document.getElementById('formSeiProcesso').value.trim(), link: document.getElementById('formSeiLink').value.trim(), status: document.getElementById('formSeiStatus').value };
+      if(!payload.dataVisita || !payload.escola || !payload.processo) { msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200"; msg.innerText = "Preencha a Data, Escola e Processo."; msg.classList.remove('hidden'); return; }
+      msg.classList.add('hidden'); btn.disabled = true; btn.innerHTML = '<span class="material-symbols-rounded animate-spin align-middle mr-1">sync</span> Salvando...';
+      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) }).then(res => res.json()).then(res => {
+        btn.disabled = false; btn.innerHTML = 'Salvar Registro';
+        if(res.sucesso) { msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-green-100 text-green-700 border-green-200"; msg.innerText = "Salvo com sucesso!"; msg.classList.remove('hidden'); document.getElementById('formSeiProcesso').value = ''; document.getElementById('formSeiLink').value = ''; setTimeout(() => { msg.classList.add('hidden'); }, 4000); carregarRelatorios(); } 
+        else { msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200"; msg.innerText = res.mensagem; msg.classList.remove('hidden'); }
+      }).catch(err => { btn.disabled = false; btn.innerHTML = 'Salvar Registro'; msg.className = "mb-4 p-3 rounded-xl text-sm font-bold border bg-red-100 text-red-700 border-red-200"; msg.innerText = "Erro ao salvar."; msg.classList.remove('hidden'); });
     }
 
     function carregarRelatorios() {
       const container = document.getElementById('listaRelatorios');
       container.innerHTML = '<div class="text-center text-gray-400 py-10 text-sm font-semibold animate-pulse">Atualizando histórico...</div>';
-
       fetch(`${API_URL}?action=getRelatorios`).then(res => res.json()).then(res => {
-        if (!res.sucesso || res.dados.length === 0) { 
-          container.innerHTML = '<div class="text-center text-gray-400 py-10 font-semibold">Nenhum relatório lançado ainda.</div>'; 
-          dbRelatorios = [];
-          return; 
-        }
-        
-        dbRelatorios = res.dados;
-        renderizarRelatorios(dbRelatorios);
-      }).catch(err => { 
-        container.innerHTML = '<div class="text-center text-red-500 py-10 font-bold">Erro ao carregar relatórios.</div>'; 
+        if (!res.sucesso || res.dados.length === 0) { container.innerHTML = '<div class="text-center text-gray-400 py-10 font-semibold">Nenhum relatório lançado.</div>'; dbRelatorios = []; return; }
+        dbRelatorios = res.dados; renderizarRelatorios(dbRelatorios);
       });
     }
 
     function renderizarRelatorios(lista) {
-      const container = document.getElementById('listaRelatorios');
-      container.innerHTML = '';
-      
-      if(lista.length === 0) {
-        container.innerHTML = '<div class="text-center text-gray-400 py-10 font-semibold">Nenhum relatório encontrado.</div>';
-        return;
-      }
-
+      const container = document.getElementById('listaRelatorios'); container.innerHTML = '';
+      if(lista.length === 0) { container.innerHTML = '<div class="text-center text-gray-400 py-10 font-semibold">Nenhum relatório encontrado.</div>'; return; }
       lista.forEach(rel => {
-        // Lógica visual do botão 'Pendente' que pode ser clicado para atualizar
-        let badgeStatus = rel.status === 'Assinado' 
-          ? '<span class="apple-badge apple-badge-green text-[9px] px-2 flex-shrink-0"><span class="material-symbols-rounded text-[11px] mr-1">check_circle</span>Assinado</span>' 
-          : `<button onclick="marcarComoAssinado(${rel.linha}, '${rel.processo}')" class="apple-badge apple-badge-yellow hover:bg-yellow-200 transition-colors cursor-pointer text-[9px] px-2 flex-shrink-0" title="Clique para marcar como Assinado"><span class="material-symbols-rounded text-[11px] mr-1">pending</span>Pendente</button>`;
-        
+        let badgeStatus = rel.status === 'Assinado' ? '<span class="apple-badge apple-badge-green text-[9px] px-2 flex-shrink-0"><span class="material-symbols-rounded text-[11px] mr-1">check_circle</span>Assinado</span>' : `<button onclick="marcarComoAssinado(${rel.linha}, '${rel.processo}')" class="apple-badge apple-badge-yellow hover:bg-yellow-200 transition-colors cursor-pointer text-[9px] px-2 flex-shrink-0" title="Clique para marcar como Assinado"><span class="material-symbols-rounded text-[11px] mr-1">pending</span>Pendente</button>`;
         let btnLink = rel.link ? `<a href="${rel.link}" target="_blank" class="w-8 h-8 rounded-full bg-gray-100 flex flex-shrink-0 items-center justify-center text-gray-600 hover:bg-blue-100 hover:text-blue-600 transition-colors" title="Abrir no SEI"><span class="material-symbols-rounded text-[16px]">link</span></a>` : '';
-
-        container.innerHTML += `
-          <div class="bg-white/60 p-4 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.02)] border border-white hover:bg-white/90 transition-colors flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-blue-50 flex-shrink-0 flex items-center justify-center text-blue-500">
-              <span class="material-symbols-rounded text-xl">description</span>
-            </div>
-            <div class="flex-1 min-w-0">
-              <div class="flex justify-between items-start mb-0.5 gap-2">
-                <h4 class="font-extrabold text-gray-800 text-[13px] truncate">${rel.escola}</h4>
-                ${badgeStatus}
-              </div>
-              <p class="text-[11px] font-semibold text-gray-500 flex items-center gap-2">
-                <span class="truncate">${rel.dataVisita} (${rel.periodo})</span> • <span class="text-blue-600">${rel.processo}</span>
-              </p>
-              <p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">${rel.pec}</p>
-            </div>
-            ${btnLink}
-          </div>
-        `;
+        container.innerHTML += `<div class="bg-white/60 p-4 rounded-xl shadow-[0_2px_8px_rgba(0,0,0,0.02)] border border-white hover:bg-white/90 transition-colors flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-blue-50 flex-shrink-0 flex items-center justify-center text-blue-500"><span class="material-symbols-rounded text-xl">description</span></div><div class="flex-1 min-w-0"><div class="flex justify-between items-start mb-0.5 gap-2"><h4 class="font-extrabold text-gray-800 text-[13px] truncate">${rel.escola}</h4>${badgeStatus}</div><p class="text-[11px] font-semibold text-gray-500 flex items-center gap-2"><span class="truncate">${rel.dataVisita} (${rel.periodo})</span> • <span class="text-blue-600">${rel.processo}</span></p><p class="text-[10px] text-gray-400 mt-1 uppercase tracking-wider">${rel.pec}</p></div>${btnLink}</div>`;
       });
     }
 
     function filtrarRelatorios() {
-      const termo = document.getElementById('buscaRelatorio').value.toLowerCase();
-      const filtrados = dbRelatorios.filter(r => 
-        r.escola.toLowerCase().includes(termo) || 
-        r.processo.toLowerCase().includes(termo) || 
-        r.pec.toLowerCase().includes(termo)
-      );
-      renderizarRelatorios(filtrados);
+      const t = document.getElementById('buscaRelatorio').value.toLowerCase();
+      renderizarRelatorios(dbRelatorios.filter(r => r.escola.toLowerCase().includes(t) || r.processo.toLowerCase().includes(t) || r.pec.toLowerCase().includes(t)));
     }
 
     function marcarComoAssinado(linha, processo) {
       if(!confirm(`Tem certeza que deseja marcar o processo ${processo} como "Assinado"?`)) return;
-
-      const payload = { 
-        action: 'atualizarStatusRelatorio', 
-        linha: linha, 
-        processo: processo, 
-        pec: nomeUsuarioExibicao 
-      };
-
-      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
-      .then(res => res.json())
-      .then(res => {
-        if(res.sucesso) {
-          carregarRelatorios(); // Atualiza a lista para mostrar verde
-        } else {
-          alert("Erro: " + res.mensagem);
-        }
-      }).catch(err => {
-        alert("Erro de conexão ao atualizar status.");
-      });
+      fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'atualizarStatusRelatorio', linha: linha, processo: processo, pec: nomeUsuarioExibicao }) })
+      .then(res => res.json()).then(res => { if(res.sucesso) { carregarRelatorios(); } else { alert("Erro: " + res.mensagem); } });
     }
 
-    // --- FUNÇÕES DE ESCOLAS E OUTRAS ---
     function carregarEscolas() {
       fetch(`${API_URL}?action=getEscolas`).then(res => res.json()).then(res => {
-        if (!res.sucesso) { document.getElementById('gridEscolas').innerHTML = `<div class="col-span-full text-center text-red-500 py-10 font-bold">${res.mensagem}</div>`; return; }
-        dbEscolas = res.dados; 
-        renderizarEscolas(dbEscolas);
-        preencherSelectEscolasFormulario(dbEscolas); 
+        if (!res.sucesso) return; dbEscolas = res.dados; renderizarEscolas(dbEscolas);
+        const sel = document.getElementById('formSeiEscola'); sel.innerHTML = '<option value="" disabled selected>Selecione a unidade escolar...</option>';
+        dbEscolas.forEach(e => { sel.innerHTML += `<option value="${e.nome}">${e.nome}</option>`; });
       });
-    }
-
-    function preencherSelectEscolasFormulario(lista) {
-      const select = document.getElementById('formSeiEscola');
-      select.innerHTML = '<option value="" disabled selected>Selecione a unidade escolar...</option>';
-      lista.forEach(escola => { select.innerHTML += `<option value="${escola.nome}">${escola.nome}</option>`; });
     }
 
     function renderizarEscolas(lista) {
       const grid = document.getElementById('gridEscolas'); grid.innerHTML = '';
-      if(lista.length === 0) { grid.innerHTML = '<div class="col-span-full text-center text-gray-400 py-10 font-semibold">Nenhuma escola encontrada.</div>'; return; }
-      lista.forEach((escola, index) => {
-        const originalIndex = dbEscolas.findIndex(e => e.nome === escola.nome);
-        grid.innerHTML += `<div onclick="abrirModalEscola(${originalIndex})" class="liquid-glass p-4 bg-white/70 hover:bg-white/95 transition-all cursor-pointer flex flex-col gap-3 transform hover:-translate-y-1 shadow-sm border border-white"><h3 class="font-extrabold text-gray-800 text-[14px] leading-snug">${escola.nome}</h3><div class="flex items-center gap-2 mt-auto"><span class="apple-badge apple-badge-blue text-[10px] truncate max-w-[120px]" title="PEC Responsável"><span class="material-symbols-rounded text-[13px] mr-1 align-middle">person</span>${escola.pec}</span>${escola.cidade && escola.cidade !== '-' ? `<span class="apple-badge apple-badge-gray text-[10px] px-2 truncate">${escola.cidade}</span>` : ''}</div></div>`;
+      lista.forEach((escola) => {
+        const idx = dbEscolas.findIndex(e => e.nome === escola.nome);
+        grid.innerHTML += `<div onclick="abrirModalEscola(${idx})" class="liquid-glass p-4 bg-white/70 hover:bg-white/95 transition-all cursor-pointer flex flex-col gap-3 transform hover:-translate-y-1 shadow-sm border border-white"><h3 class="font-extrabold text-gray-800 text-[14px] leading-snug">${escola.nome}</h3><div class="flex items-center gap-2 mt-auto"><span class="apple-badge apple-badge-blue text-[10px] truncate max-w-[120px]"><span class="material-symbols-rounded text-[13px] mr-1 align-middle">person</span>${escola.pec}</span>${escola.cidade && escola.cidade !== '-' ? `<span class="apple-badge apple-badge-gray text-[10px] px-2 truncate">${escola.cidade}</span>` : ''}</div></div>`;
       });
     }
+    function filtrarEscolas() { const t = document.getElementById('buscaEscola').value.toLowerCase(); renderizarEscolas(dbEscolas.filter(e => e.nome.toLowerCase().includes(t) || e.pec.toLowerCase().includes(t) || e.cidade.toLowerCase().includes(t))); }
 
-    function filtrarEscolas() {
-      const termo = document.getElementById('buscaEscola').value.toLowerCase();
-      const filtrados = dbEscolas.filter(e => e.nome.toLowerCase().includes(termo) || e.pec.toLowerCase().includes(termo) || e.cidade.toLowerCase().includes(termo));
-      renderizarEscolas(filtrados);
-    }
-
-    function gerarLinkWpp(numero) {
-      if(!numero || numero === '-') return '';
-      let limpo = numero.toString().replace(/\D/g, ''); 
-      if(limpo.length >= 10) { if(!limpo.startsWith('55')) limpo = '55' + limpo; return `https://wa.me/${limpo}`; }
-      return '';
-    }
+    function gerarLinkWpp(numero) { if(!numero || numero === '-') return ''; let limpo = numero.toString().replace(/\D/g, ''); if(limpo.length >= 10) { if(!limpo.startsWith('55')) limpo = '55' + limpo; return `https://wa.me/${limpo}`; } return ''; }
 
     function abrirModalEscola(index) {
-      const escola = dbEscolas[index];
-      document.getElementById('modalEscolaNome').innerText = escola.nome; document.getElementById('modalEscolaPec').innerText = `PEC Responsável: ${escola.pec}`;
-      const modalBody = document.getElementById('modalEscolaBody');
-      let htmlBody = '<h4 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mt-2 mb-3">Equipe Gestora & Contatos</h4>';
-      let temContato = false;
+      const escola = dbEscolas[index]; document.getElementById('modalEscolaNome').innerText = escola.nome; document.getElementById('modalEscolaPec').innerText = `PEC Responsável: ${escola.pec}`;
+      const modalBody = document.getElementById('modalEscolaBody'); let htmlBody = '<h4 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mt-2 mb-3">Equipe Gestora & Contatos</h4>'; let temContato = false;
       const wppSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>`;
       const addContato = (cargo, nome, fone) => {
         if (!nome || nome === '-') return ''; temContato = true; let btn = ''; let link = gerarLinkWpp(fone);
-        if (link) { btn = `<a href="${link}" target="_blank" class="w-9 h-9 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center hover:bg-[#25D366]/20 transition-colors shadow-sm flex-shrink-0" title="Chamar no WhatsApp">${wppSvg}</a>`; }
+        if (link) { btn = `<a href="${link}" target="_blank" class="w-9 h-9 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center hover:bg-[#25D366]/20 transition-colors shadow-sm flex-shrink-0">${wppSvg}</a>`; }
         return `<div class="flex justify-between items-center py-2 border-b border-gray-100 last:border-0"><div><p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">${cargo}</p><p class="text-[14px] font-bold text-gray-700 leading-tight">${nome}</p></div>${btn}</div>`;
       };
       htmlBody += addContato('Diretor(a)', escola.diretor, escola.contatoDiretor); htmlBody += addContato('Vice-Diretor(a)', escola.vice, escola.contatoVice); htmlBody += addContato('Coordenador(a) / CGP', escola.coordenador, escola.contatoCoordenador);
       if(!temContato) htmlBody += '<p class="text-sm text-gray-500 py-2">Nenhum membro da gestão cadastrado.</p>';
-
       htmlBody += '<h4 class="text-xs font-extrabold text-gray-400 uppercase tracking-wider mt-6 mb-3">Informações da Unidade</h4><div class="grid grid-cols-2 gap-3 bg-gray-50/50 p-4 rounded-xl border border-gray-100">';
       const addInfo = (label, valor) => { if(!valor || valor === '-') return ''; return `<div><span class="block text-[9px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">${label}</span><span class="text-sm font-semibold text-gray-700">${valor}</span></div>`; };
       htmlBody += addInfo('Tipo', escola.tipo); htmlBody += addInfo('Matrículas', escola.matriculas); htmlBody += addInfo('Anos Finais (EFAF)', escola.efaf); htmlBody += addInfo('Ensino Médio (EM)', escola.em); htmlBody += addInfo('Bairro', escola.bairro); htmlBody += addInfo('Cidade', escola.cidade); htmlBody += `</div>`;
-      
       let linkMaps = escola.maps;
       if (!linkMaps || !linkMaps.startsWith('http')) { let termoBusca = `${escola.nome}, ${escola.cidade} - SP`; linkMaps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(termoBusca)}`; }
       htmlBody += `<a href="${linkMaps}" target="_blank" rel="noopener noreferrer" class="mt-5 flex items-center justify-center gap-2 w-full py-3 bg-blue-50 text-blue-600 rounded-xl font-bold text-sm hover:bg-blue-100 transition-colors shadow-sm"><span class="material-symbols-rounded text-lg">location_on</span> Ver no Google Maps</a>`;
-      
       modalBody.innerHTML = htmlBody; document.getElementById('modalEscola').classList.remove('hidden');
     }
     function fecharModalEscola() { document.getElementById('modalEscola').classList.add('hidden'); }
     document.getElementById('modalEscola').addEventListener('click', function(e) { if(e.target === this) fecharModalEscola(); });
 
+    function abrirModalLogs() { document.getElementById('modalLogs').classList.remove('hidden'); carregarLogs(); }
+    function fecharModalLogs() { document.getElementById('modalLogs').classList.add('hidden'); }
+    function carregarLogs() {
+      const tbody = document.getElementById('tabelaLogsBody'); tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-gray-400 font-semibold animate-pulse">Buscando logs...</td></tr>';
+      fetch(`${API_URL}?action=getLogs&usuario=${encodeURIComponent(usuarioLogadoUser)}`).then(res => res.json()).then(res => {
+          tbody.innerHTML = ''; if (!res.sucesso || res.dados.length === 0) { tbody.innerHTML = '<tr><td colspan="4" class="text-center py-6 text-gray-400 font-semibold">Nenhum registro.</td></tr>'; return; }
+          res.dados.forEach(log => { tbody.innerHTML += `<tr class="border-b border-gray-100 hover:bg-white/50 transition-colors"><td class="py-3 px-3 text-xs text-gray-500 font-bold">${log.data}</td><td class="py-3 px-3 font-extrabold text-blue-600">${log.usuario}</td><td class="py-3 px-3"><span class="apple-badge apple-badge-blue text-[10px]">${log.acao}</span></td><td class="py-3 px-3 text-xs text-gray-600">${log.detalhes}</td></tr>`; });
+        });
+    }
+
     function carregarAvisos() { fetch(`${API_URL}?action=getAvisos`).then(res => res.json()).then(res => { if (res.sucesso && res.dados.length > 0) { document.getElementById('textoAvisos').innerHTML = res.dados.join(' &nbsp;&bull;&nbsp; '); document.getElementById('bannerAvisos').classList.remove('hidden'); } }); }
-    function carregarAgenda() { fetch(`${API_URL}?action=getAgenda`).then(res => res.json()).then(res => { const container = document.getElementById('containerAgenda'); if (!res.sucesso) { document.getElementById('dataAgenda').innerText = "Hoje"; container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10 font-bold">${res.mensagem}</div>`; return; } document.getElementById('dataAgenda').innerText = res.dataAgendada; container.innerHTML = ''; res.dados.forEach(pec => { container.innerHTML += `<div class="bg-white/60 p-4 rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.03)] border border-white hover:bg-white/90 transition-colors flex flex-col gap-3"><h3 class="font-bold text-gray-800 text-[15px] border-b border-gray-200/60 pb-2 flex items-center gap-2"><span class="material-symbols-rounded text-blue-500 text-lg">person</span> ${pec.pec}</h3><div class="grid grid-cols-2 gap-4 flex-1"><div><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Manhã</span><p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.manha.atividade}</p><p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.manha.local}">${pec.manha.local}</p></div><div><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Tarde</span><p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.tarde.atividade}</p><p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.tarde.local}">${pec.tarde.local}</p></div></div></div>`; }); }).catch(err => { document.getElementById('containerAgenda').innerHTML = '<div class="col-span-full text-center text-red-500 py-10 font-bold">Erro de conexão.</div>'; }); }
-    function carregarDocumentos() { const contDocs = document.getElementById('listaDocs'); const contBoletins = document.getElementById('listaBoletins'); fetch(`${API_URL}?action=getDocumentos`).then(res => res.json()).then(res => { contDocs.innerHTML = ''; contBoletins.innerHTML = ''; if (!res.sucesso || res.dados.length === 0) { contDocs.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum documento.</div>'; contBoletins.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum boletim.</div>'; return; } res.dados.sort((a, b) => b.nome.localeCompare(a.nome, undefined, { numeric: true, sensitivity: 'base' })); res.dados.forEach(doc => { const nomeSemExtensao = doc.nome.replace(/\.[^/.]+$/, ""); const card = `<div class="bg-white/60 p-3 rounded-xl flex items-center justify-between hover:bg-white/90 transition-colors shadow-sm border border-white"><div class="truncate pr-2"><h3 class="font-bold text-gray-800 text-[13px] truncate" title="${nomeSemExtensao}">${nomeSemExtensao}</h3><p class="text-[10px] font-bold text-gray-400 uppercase mt-0.5">${doc.data}</p></div><a href="${doc.url}" target="_blank" class="flex-shrink-0 bg-blue-50 text-blue-600 p-2 rounded-lg hover:bg-blue-100 transition-colors"><span class="material-symbols-rounded text-lg block">open_in_new</span></a></div>`; if (doc.nome.toLowerCase().includes('boletim')) contBoletins.innerHTML += card; else contDocs.innerHTML += card; }); if(contBoletins.innerHTML === '') contBoletins.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum boletim.</div>'; if(contDocs.innerHTML === '') contDocs.innerHTML = '<div class="text-center text-gray-400 py-4 text-sm font-semibold">Nenhum documento.</div>'; }); }
+    function carregarAgenda() { fetch(`${API_URL}?action=getAgenda`).then(res => res.json()).then(res => { const container = document.getElementById('containerAgenda'); if (!res.sucesso) { document.getElementById('dataAgenda').innerText = "Hoje"; container.innerHTML = `<div class="col-span-full text-center text-gray-500 py-10 font-bold">${res.mensagem}</div>`; return; } document.getElementById('dataAgenda').innerText = res.dataAgendada; container.innerHTML = ''; res.dados.forEach(pec => { container.innerHTML += `<div class="bg-white/60 p-4 rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.03)] border border-white hover:bg-white/90 transition-colors flex flex-col gap-3"><h3 class="font-bold text-gray-800 text-[15px] border-b border-gray-200/60 pb-2 flex items-center gap-2"><span class="material-symbols-rounded text-blue-500 text-lg">person</span> ${pec.pec}</h3><div class="grid grid-cols-2 gap-4 flex-1"><div><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Manhã</span><p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.manha.atividade}</p><p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.manha.local}">${pec.manha.local}</p></div><div><span class="text-[9px] font-bold text-gray-400 uppercase tracking-wider block mb-1">Tarde</span><p class="text-[13px] font-bold text-gray-700 leading-tight">${pec.tarde.atividade}</p><p class="text-[11px] text-gray-500 mt-0.5 leading-tight truncate" title="${pec.tarde.local}">${pec.tarde.local}</p></div></div></div>`; }); }); }
+    function carregarDocumentos() { const contDocs = document.getElementById('listaDocs'); const contBoletins = document.getElementById('listaBoletins'); fetch(`${API_URL}?action=getDocumentos`).then(res => res.json()).then(res => { contDocs.innerHTML = ''; contBoletins.innerHTML = ''; if (!res.sucesso || res.dados.length === 0) return; res.dados.sort((a, b) => b.nome.localeCompare(a.nome, undefined, { numeric: true, sensitivity: 'base' })); res.dados.forEach(doc => { const nomeSemExtensao = doc.nome.replace(/\.[^/.]+$/, ""); const card = `<div class="bg-white/60 p-3 rounded-xl flex items-center justify-between hover:bg-white/90 transition-colors shadow-sm border border-white"><div class="truncate pr-2"><h3 class="font-bold text-gray-800 text-[13px] truncate" title="${nomeSemExtensao}">${nomeSemExtensao}</h3><p class="text-[10px] font-bold text-gray-400 uppercase mt-0.5">${doc.data}</p></div><a href="${doc.url}" target="_blank" class="flex-shrink-0 bg-blue-50 text-blue-600 p-2 rounded-lg hover:bg-blue-100 transition-colors"><span class="material-symbols-rounded text-lg block">open_in_new</span></a></div>`; if (doc.nome.toLowerCase().includes('boletim')) contBoletins.innerHTML += card; else contDocs.innerHTML += card; }); }); }
   </script>
 </body>
 </html>
